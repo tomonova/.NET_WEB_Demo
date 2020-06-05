@@ -16,6 +16,7 @@ namespace RWA_Admin.App_Code
         public EmployeeType EmployeeType { get; set; }
         public EmployeePosition EmployeePosition { get; set; }
         public EmployeeStatus EmployeeStatus { get; set; }
+        public string AssignedTeam { get; set; }
     }
 }
 

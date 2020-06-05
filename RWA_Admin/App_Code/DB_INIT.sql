@@ -28,7 +28,7 @@ Create table EMPLOYEES
 	EmployeeType int not null,
 	EmployeePosition int not null,
 	EmployeeStatus int not null,
-	TeamID int,
+	TeamID int not null default 1,
 	constraint PKEmployees primary key(IDEmployee),
 	constraint FKEmployees_Teams foreign key(TeamID) references TEAMS(IDTeam)
 );
@@ -74,6 +74,7 @@ CREATE OR ALTER PROC GetEmployees
 AS
 BEGIN
 	SELECT * FROM EMPLOYEES
+	where EmployeeStatus =1
 END
 GO
 CREATE OR ALTER PROC GetEmployee
@@ -81,6 +82,7 @@ CREATE OR ALTER PROC GetEmployee
 AS
 BEGIN
 	SELECT * FROM EMPLOYEES WHERE IDEmployee=@IDEMployee
+	and EmployeeStatus =1
 END
 GO
 CREATE OR ALTER PROC GetProjects
@@ -122,8 +124,33 @@ as
 		set @checkOutput = '1'
 	else set @checkOutput = '0'
 go
+CREATE OR ALTER PROC GetEmployeeAdmin
+	@employeeID int
+as
+	select e.IDemployee,
+	e.Name,
+	e.Surname,
+	e.EmploymentDate,
+	e.EmployeeType,
+	e.EmployeePosition,
+	e.EmployeeStatus, 
+	t.name as'TeamName' from EMPLOYEES e
+	join TEAMS t on t.idteam=e.teamid
+	where e.idemployee=@employeeID
+	and e.EmployeeStatus=1
+go
+CREATE OR ALTER PROC DeleteEmployee
+	@IDEmployee int
+AS
+BEGIN
+update employees
+set EmployeeStatus=2
+WHERE IDEmployee=@IDEMployee
+END
+GO
 
 --####### INSERT DATA #########
+INSERT TEAMS(Name, TeamStatus, FoundingDate) VALUES('NONE',1,'1970-01-01')
 INSERT TEAMS(Name, TeamStatus, FoundingDate) VALUES('BACKEND',1,'2019-10-10')
 INSERT TEAMS(Name, TeamStatus, FoundingDate) VALUES('FRONTEND',1,'2019-10-10')
 INSERT TEAMS(Name, TeamStatus, FoundingDate) VALUES('API',1,'2019-12-10')

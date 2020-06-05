@@ -10,13 +10,58 @@ namespace RWA_Admin
 {
     public partial class Employees : BasePage
     {
+
         protected void Page_Load(object sender, EventArgs e)
+        {
+            if (!IsPostBack)
+            {
+                DDLFill();
+            }
+        }
+
+        private void DDLFill()
         {
             lbEmployees.Height = 350;
             lbEmployees.DataSource = Repo.GetEmployees();
             lbEmployees.DataTextField = "FullName";
             lbEmployees.DataValueField = "Id";
             lbEmployees.DataBind();
+            int i = 1;
+            foreach (EmployeePosition item in (EmployeePosition[])Enum.GetValues(typeof(EmployeePosition)))
+            {
+                ddlEmpPosition.Items.Add(new ListItem(item.ToString(), i.ToString()));
+                i++;
+            }
+            i = 1;
+            foreach (EmployeeType item in (EmployeeType[])Enum.GetValues(typeof(EmployeeType)))
+            {
+                ddlEmpType.Items.Add(new ListItem(item.ToString(), i.ToString()));
+                i++;
+            }
+        }
+
+
+        private void ShowEmployeeData(int employeeID)
+        {
+            Employee employee = Repo.GetEmployeeAdmin(employeeID);
+            lblID.Text = employee.Id.ToString();
+            txtIme.Text = employee.Name;
+            txtPrezime.Text = employee.Surname;
+            datepicker.Text = employee.EmploymentDate.ToLongDateString();
+            ddlEmpType.SelectedValue = ((int)employee.EmployeeType).ToString();
+            ddlEmpPosition.SelectedValue = ((int)employee.EmployeePosition).ToString();
+            lblTeamAssigned.Text = employee.AssignedTeam.ToString();
+        }
+        protected void EmployeeIndexChange(object sender,EventArgs e)
+        {
+            ShowEmployeeData(int.Parse(lbEmployees.SelectedValue));
+        }
+
+        protected void btnObrisi_Click(object sender, EventArgs e)
+        {
+            int employeeID = int.Parse(lblID.Text);
+            Repo.DeleteEmployee(employeeID);
+            DDLFill();
         }
     }
 }

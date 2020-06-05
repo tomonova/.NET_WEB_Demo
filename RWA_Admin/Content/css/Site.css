@@ -1,0 +1,20 @@
+﻿body {
+    font-family: sans-serif;
+    color: purple;
+}
+
+.lblWelcome {
+
+    font-size:x-large;
+}
+.welcomePicture{
+    background-size:cover;
+    background-position:center;
+}
+.mr-lg-5 {
+    margin-right: 55px;
+}
+
+@media screen and (min-width: 768px) {
+}
+

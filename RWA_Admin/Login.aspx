@@ -28,7 +28,5 @@
             </div>
         </div>
     </form>
-    <script src="Scripts/bootstrap.min.js"></script>
-    <script src="Scripts/jquery-3.5.1.min.js"></script>
 </body>
 </html>

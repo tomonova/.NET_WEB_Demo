@@ -12,12 +12,32 @@ namespace RWA_Admin.App_Code
     public class Repo
     {
         private static string cs = ConfigurationManager.ConnectionStrings["cs"].ConnectionString;
-        public static IEnumerable<Employee> GetEmployees()
+        //public static IEnumerable<Employee> GetEmployees()
+        //{
+        //    DataTable tblEmployees = SqlHelper.ExecuteDataset(cs, "GetEmployees").Tables[0];
+        //    foreach (DataRow row in tblEmployees.Rows)
+        //    {
+        //        yield return new Employee
+        //        {
+        //            Id = (int)row["IDEmployee"],
+        //            Name = row["Name"].ToString(),
+        //            Surname = row["Surname"].ToString(),
+        //            FullName = $"{row["Name"]} {row["Surname"]}",
+        //            EmployeePosition = (EmployeePosition)(int)row["EmployeePosition"],
+        //            EmploymentDate = (DateTime)row["EmploymentDate"],
+        //            EmployeeType = (EmployeeType)((int)row["EmployeeType"]),
+        //            EmployeeStatus = (EmployeeStatus)((int)row["EmployeeStatus"])
+        //        };
+        //    }
+        //}
+
+        public static List<Employee> GetEmployees()
         {
+            List<Employee> employeeList = new List<Employee>();
             DataTable tblEmployees = SqlHelper.ExecuteDataset(cs, "GetEmployees").Tables[0];
             foreach (DataRow row in tblEmployees.Rows)
             {
-                yield return new Employee
+                 Employee employee = new Employee
                 {
                     Id = (int)row["IDEmployee"],
                     Name = row["Name"].ToString(),
@@ -28,7 +48,16 @@ namespace RWA_Admin.App_Code
                     EmployeeType = (EmployeeType)((int)row["EmployeeType"]),
                     EmployeeStatus = (EmployeeStatus)((int)row["EmployeeStatus"])
                 };
+                employeeList.Add(employee);
             }
+            return employeeList.OrderBy(e => e.Surname).ToList();
+        }
+
+        internal static void DeleteEmployee(int employeeID)
+        {
+            SqlParameter param = new SqlParameter("@IDEmployee", SqlDbType.Int);
+            param.Value = employeeID;
+            SqlHelper.ExecuteNonQuery(cs, CommandType.StoredProcedure, "DeleteEmployee", param);
         }
 
         internal static bool CheckCredentialsAdmin(string userName, string userPass)
@@ -45,12 +74,6 @@ namespace RWA_Admin.App_Code
             
             return  response == "1" ? true : false;
         }
-
-        internal static bool CheckCredentials(string userName, string userPass)
-        {
-            throw new NotImplementedException();
-        }
-
         public static Employee GetEmployee(int employeeID)
         {
             DataTable tbl = SqlHelper.ExecuteDataset(cs, "GetEmployee", employeeID).Tables[0];
@@ -68,6 +91,26 @@ namespace RWA_Admin.App_Code
                 EmploymentDate = (DateTime)row["EmploymentDate"],
                 EmployeeType = (EmployeeType)((int)row["EmployeeType"]),
                 EmployeeStatus = (EmployeeStatus)((int)row["EmployeeStatus"])
+            };
+        }
+        public static Employee GetEmployeeAdmin(int employeeID)
+        {
+            DataTable tbl = SqlHelper.ExecuteDataset(cs, "GetEmployeeAdmin", employeeID).Tables[0];
+            if (tbl.Rows.Count == 0) return null;
+
+            DataRow row = tbl.Rows[0];
+
+            return new Employee
+            {
+                Id = (int)row["IDEmployee"],
+                Name = row["Name"].ToString(),
+                Surname = row["Surname"].ToString(),
+                FullName = $"{row["Name"]} {row["Surname"]}",
+                EmployeePosition = (EmployeePosition)(int)row["EmployeePosition"],
+                EmploymentDate = (DateTime)row["EmploymentDate"],
+                EmployeeType = (EmployeeType)((int)row["EmployeeType"]),
+                EmployeeStatus = (EmployeeStatus)((int)row["EmployeeStatus"]),
+                AssignedTeam = row["TeamName"].ToString()
             };
         }
     }
