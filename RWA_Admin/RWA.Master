@@ -1,0 +1,50 @@
+﻿<%@ Master Language="C#" AutoEventWireup="true" CodeBehind="RWA.master.cs" Inherits="RWA_Admin.RWA" %>
+
+<!DOCTYPE html>
+
+<html>
+<head runat="server">
+    <title></title>
+    <asp:ContentPlaceHolder ID="head" runat="server">
+    </asp:ContentPlaceHolder>
+    <link href="Content/bootstrap.css" rel="stylesheet" />
+    <link href="Content/Site.css" rel="stylesheet" />
+</head>
+<body>
+    <form id="form1" runat="server">
+        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+            <a class="navbar-brand" href="Home.aspx">ERV-Admin</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNavDropdown">
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a class="nav-link" href="Employees.aspx" runat="server" id="linkEmployees" meta:resourcekey="linkEmployeeRes">Employees</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="Projects.aspx" runat="server" id="linkProjects" meta:resourcekey="linkProjectsRes">Projects</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="Teams.aspx" runat="server" id="linkTeams" meta:resourcekey="linkTeamsRes">Teams</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="Clients.aspx" runat="server" id="linkClients" meta:resourcekey="linkClientsRes">Clients</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="Settings.aspx" runat="server" id="linkSettings" meta:resourcekey="linkSettingsRes">Settings</a>
+                    </li>
+
+                </ul>
+            </div>
+        </nav>
+        <div id="mainContainer">
+            <asp:ContentPlaceHolder ID="Content" runat="server">
+            </asp:ContentPlaceHolder>
+        </div>
+    </form>
+    <script src="Scripts/jquery-3.5.1.slim.min.js"></script>
+    <script src="Scripts/popper.min.js"></script>
+    <script src="Scripts/bootstrap.min.js"></script>
+</body>
+</html>
