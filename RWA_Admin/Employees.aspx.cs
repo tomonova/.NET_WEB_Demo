@@ -38,6 +38,10 @@ namespace RWA_Admin
                 ddlEmpType.Items.Add(new ListItem(item.ToString(), i.ToString()));
                 i++;
             }
+            ddlTeamsAssigned.DataSource = Repo.GetTeams();
+            ddlTeamsAssigned.DataTextField = "Name";
+            ddlTeamsAssigned.DataValueField = "Id";
+            ddlTeamsAssigned.DataBind();
         }
 
 
@@ -50,7 +54,7 @@ namespace RWA_Admin
             datepicker.Text = employee.EmploymentDate.ToLongDateString();
             ddlEmpType.SelectedValue = ((int)employee.EmployeeType).ToString();
             ddlEmpPosition.SelectedValue = ((int)employee.EmployeePosition).ToString();
-            lblTeamAssigned.Text = employee.AssignedTeam.ToString();
+            ddlTeamsAssigned.SelectedValue = employee.AssignedTeam.ToString(); ;
         }
         protected void EmployeeIndexChange(object sender,EventArgs e)
         {
@@ -62,6 +66,23 @@ namespace RWA_Admin
             int employeeID = int.Parse(lblID.Text);
             Repo.DeleteEmployee(employeeID);
             DDLFill();
+        }
+
+        protected void btnUredi_Click(object sender, EventArgs e)
+        {
+            if (Page.IsValid)
+            {
+                Repo.UpdateEmployee(new Employee
+                {
+                    Id = int.Parse(lblID.Text),
+                    Name = txtIme.Text,
+                    Surname = txtPrezime.Text,
+                    EmploymentDate = DateTime.Parse(datepicker.Text),
+                    EmployeeType = (EmployeeType)Enum.Parse(typeof(EmployeeType), ddlEmpType.Text),
+                    EmployeePosition = (EmployeePosition)Enum.Parse(typeof(EmployeePosition), ddlEmpPosition.Text),
+                    AssignedTeam = int.Parse(ddlTeamsAssigned.Text)
+                }); 
+            }
         }
     }
 }

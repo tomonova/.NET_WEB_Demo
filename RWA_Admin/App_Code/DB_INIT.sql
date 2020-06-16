@@ -134,7 +134,7 @@ as
 	e.EmployeeType,
 	e.EmployeePosition,
 	e.EmployeeStatus, 
-	t.name as'TeamName' from EMPLOYEES e
+	t.IDTeam as'TeamId' from EMPLOYEES e
 	join TEAMS t on t.idteam=e.teamid
 	where e.idemployee=@employeeID
 	and e.EmployeeStatus=1

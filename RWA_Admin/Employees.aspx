@@ -68,7 +68,13 @@
                         <asp:Label Text="Team:" runat="server" />
                     </td>
                     <td>
-                        <asp:Label ID="lblTeamAssigned" runat="server" Text="" /></td>
+                        <asp:DropDownList ID="ddlTeamsAssigned" runat="server"></asp:DropDownList>
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="2">
+                        <asp:Label ID="lblError" runat="server" Text="test" Visible="false" ForeColor="Red" Font-Bold="true" Font-Size="Large"></asp:Label>
+                    </td>
                 </tr>
             </table>
 
@@ -80,7 +86,7 @@
             <asp:Button ID="btnDodaj" CssClass="btn btn-primary  p-2" runat="server" Text="NEW EMPLOYEE" />
         </div>
         <div>
-            <asp:Button ID="btnUredi" CssClass="btn btn-warning mr-5 p-2" runat="server" Text="EDIT EMPLOYEE" />
+            <asp:Button ID="btnUredi" CssClass="btn btn-warning mr-5 p-2" runat="server" Text="EDIT EMPLOYEE" OnClick="btnUredi_Click" />
         </div>
         <div class="mr-lg-5">
             <asp:Button ID="btnObrisi" CssClass="btn btn-danger mr-5 p-2" runat="server" Text="DELETE EMPLOYEE" 
