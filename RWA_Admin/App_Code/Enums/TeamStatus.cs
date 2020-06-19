@@ -2,7 +2,7 @@
 {
     public enum TeamStatus
     {
-        Active=1,
-        Inactive
+        Inactive,
+        Active
     }
 }

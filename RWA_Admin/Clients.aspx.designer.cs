@@ -11,35 +11,35 @@ namespace RWA_Admin
 {
 
 
-    public partial class Employees
+    public partial class Clients
     {
 
         /// <summary>
-        /// lbEmployees control.
+        /// lbClients control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.ListBox lbEmployees;
+        protected global::System.Web.UI.WebControls.ListBox lbClients;
 
         /// <summary>
-        /// txtID control.
+        /// txtOIB control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtID;
+        protected global::System.Web.UI.WebControls.TextBox txtOIB;
 
         /// <summary>
-        /// rqrValidID control.
+        /// rqrValidOIB control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.RequiredFieldValidator rqrValidID;
+        protected global::System.Web.UI.WebControls.RequiredFieldValidator rqrValidOIB;
 
         /// <summary>
         /// txtIme control.
@@ -60,76 +60,31 @@ namespace RWA_Admin
         protected global::System.Web.UI.WebControls.RequiredFieldValidator rqrdValidName;
 
         /// <summary>
-        /// txtPrezime control.
+        /// txtAddress control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtPrezime;
+        protected global::System.Web.UI.WebControls.TextBox txtAddress;
 
         /// <summary>
-        /// rqrdValidSurname control.
+        /// rqrdValidAddress control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.RequiredFieldValidator rqrdValidSurname;
+        protected global::System.Web.UI.WebControls.RequiredFieldValidator rqrdValidAddress;
 
         /// <summary>
-        /// datepicker control.
+        /// ddlClientStatus control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox datepicker;
-
-        /// <summary>
-        /// rqrdValidDate control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.RequiredFieldValidator rqrdValidDate;
-
-        /// <summary>
-        /// regValidDate control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.RegularExpressionValidator regValidDate;
-
-        /// <summary>
-        /// ddlEmpType control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList ddlEmpType;
-
-        /// <summary>
-        /// ddlEmpPosition control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList ddlEmpPosition;
-
-        /// <summary>
-        /// ddlTeamsAssigned control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList ddlTeamsAssigned;
+        protected global::System.Web.UI.WebControls.DropDownList ddlClientStatus;
 
         /// <summary>
         /// ValidationSummary1 control.
@@ -168,12 +123,12 @@ namespace RWA_Admin
         protected global::System.Web.UI.WebControls.Button btnUredi;
 
         /// <summary>
-        /// btnObrisi control.
+        /// btnDeactivate control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnObrisi;
+        protected global::System.Web.UI.WebControls.Button btnDeactivate;
     }
 }

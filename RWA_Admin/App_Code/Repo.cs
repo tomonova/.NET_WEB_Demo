@@ -1,4 +1,5 @@
 ﻿using Microsoft.ApplicationBlocks.Data;
+using RWA_Admin.App_Code.Enums;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
@@ -12,7 +13,21 @@ namespace RWA_Admin.App_Code
     public class Repo
     {
         private static string cs = ConfigurationManager.ConnectionStrings["cs"].ConnectionString;
+        internal static bool CheckCredentialsAdmin(string userName, string userPass)
+        {
+            SqlParameter[] Param = new SqlParameter[3];
+            Param[0] = new SqlParameter("@userName", SqlDbType.NVarChar);
+            Param[0].Value = userName;
+            Param[1] = new SqlParameter("@userPass", SqlDbType.NVarChar);
+            Param[1].Value = userPass;
+            Param[2] = new SqlParameter("@checkOutput", SqlDbType.Int);
+            Param[2].Direction = ParameterDirection.Output;
+            int credentialsCheck = SqlHelper.ExecuteNonQuery(cs, CommandType.StoredProcedure, "CheckCredentialsAdmin", Param);
+            string response = Param[2].Value.ToString();
 
+            return response == "1" ? true : false;
+        }
+        //-------------------EMPLOYEES----------------
         public static List<Employee> GetEmployees()
         {
             List<Employee> employeeList = new List<Employee>();
@@ -35,23 +50,24 @@ namespace RWA_Admin.App_Code
             return employeeList.OrderBy(e => e.Surname).ToList();
         }
 
-        public static List<Team> GetTeams()
+        internal static int InsertEmployee(Employee employee)
         {
-            List<Team> TeamList = new List<Team>();
-            DataTable tblTeams = SqlHelper.ExecuteDataset(cs, "GetTEams").Tables[0];
-            foreach (DataRow row in tblTeams.Rows)
-            {
-                Team team = new Team
-                {
-                    Id = (int)row["IDTeam"],
-                    Name = row["Name"].ToString(),
-                    TeamStatus = (TeamStatus)(int)row["TeamStatus"],
-                    FoundingDate = (DateTime)row["FoundingDate"]
-                };
-                TeamList.Add(team);
-            }
-            return TeamList;
+            SqlParameter[] Param = new SqlParameter[6];
+            Param[0] = new SqlParameter("@Name", SqlDbType.NVarChar);
+            Param[0].Value = employee.Name;
+            Param[1] = new SqlParameter("@Surname", SqlDbType.NVarChar);
+            Param[1].Value = employee.Surname;
+            Param[2] = new SqlParameter("@EmploymentDate", SqlDbType.DateTime);
+            Param[2].Value = employee.EmploymentDate.ToString("yyyy-MM-dd");
+            Param[3] = new SqlParameter("@EmployeeType", SqlDbType.Int);
+            Param[3].Value = employee.EmployeeType;
+            Param[4] = new SqlParameter("@EmployeePosition", SqlDbType.Int);
+            Param[4].Value = employee.EmployeePosition;
+            Param[5] = new SqlParameter("@TeamID", SqlDbType.Int);
+            Param[5].Value = employee.AssignedTeam;
+            return SqlHelper.ExecuteNonQuery(cs, CommandType.StoredProcedure, "InsertEmployee", Param);
         }
+
 
         internal static void DeleteEmployee(int employeeID)
         {
@@ -59,10 +75,11 @@ namespace RWA_Admin.App_Code
             param.Value = employeeID;
             SqlHelper.ExecuteNonQuery(cs, CommandType.StoredProcedure, "DeleteEmployee", param);
         }
-        internal static bool UpdateEmployee(Employee employee)
+
+        internal static int UpdateEmployee(Employee employee)
         {
             SqlParameter[] Param = new SqlParameter[7];
-            Param[0] = new SqlParameter("@IDEmployee", SqlDbType.Int);
+            Param[0] = new SqlParameter("@employeeID", SqlDbType.Int);
             Param[0].Value = employee.Id;
             Param[1] = new SqlParameter("@Name", SqlDbType.NVarChar);
             Param[1].Value = employee.Name;
@@ -76,25 +93,9 @@ namespace RWA_Admin.App_Code
             Param[5].Value = employee.EmployeePosition;
             Param[6] = new SqlParameter("@TeamID", SqlDbType.Int);
             Param[6].Value = employee.AssignedTeam;
-            SqlHelper.ExecuteNonQuery(cs, CommandType.StoredProcedure, "UpdateEmployee", Param);
-            string response = Param[2].Value.ToString();
-            return response == "1" ? true : false;
+           return SqlHelper.ExecuteNonQuery(cs, CommandType.StoredProcedure, "UpdateEmployee", Param);
         }
 
-        internal static bool CheckCredentialsAdmin(string userName, string userPass)
-        {
-            SqlParameter[] Param = new SqlParameter[3];
-            Param[0] = new SqlParameter("@userName", SqlDbType.NVarChar);
-            Param[0].Value = userName;
-            Param[1] = new SqlParameter("@userPass", SqlDbType.NVarChar);
-            Param[1].Value = userPass;
-            Param[2] = new SqlParameter("@checkOutput", SqlDbType.Int);
-            Param[2].Direction = ParameterDirection.Output;
-            int credentialsCheck = SqlHelper.ExecuteNonQuery(cs,CommandType.StoredProcedure, "CheckCredentialsAdmin", Param);
-            string response = Param[2].Value.ToString();
-            
-            return  response == "1" ? true : false;
-        }
         public static Employee GetEmployee(int employeeID)
         {
             DataTable tbl = SqlHelper.ExecuteDataset(cs, "GetEmployee", employeeID).Tables[0];
@@ -133,6 +134,95 @@ namespace RWA_Admin.App_Code
                 EmployeeStatus = (EmployeeStatus)((int)row["EmployeeStatus"]),
                 AssignedTeam = (int)row["TeamId"]
             };
+        }
+
+        //----------------------TEAMS-------------------------
+        public static List<Team> GetTeams()
+        {
+            List<Team> TeamList = new List<Team>();
+            DataTable tblTeams = SqlHelper.ExecuteDataset(cs, "GetTeams").Tables[0];
+            foreach (DataRow row in tblTeams.Rows)
+            {
+                Team team = new Team
+                {
+                    Id = (int)row["IDTeam"],
+                    Name = row["Name"].ToString(),
+                    TeamStatus = (TeamStatus)(int)row["TeamStatus"],
+                    FoundingDate = (DateTime)row["FoundingDate"]
+                };
+                TeamList.Add(team);
+            }
+            return TeamList;
+        }
+
+        //------------------CLIENTS----------------------
+        internal static List<Client> GetClients()
+        {
+            List<Client> clientList = new List<Client>();
+            DataTable tblClients = SqlHelper.ExecuteDataset(cs, "GetClients").Tables[0];
+            foreach (DataRow row in tblClients.Rows)
+            {
+                Client client = new Client
+                {
+                    Id = (int)row["IDClient"],
+                    Name = row["Name"].ToString(),
+                    OIB = row["OIB"].ToString(),
+                    Address = row["Address"].ToString(),
+                    ClientStatus = (ClientStatus)((int)row["ClientStatus"])
+                };
+                clientList.Add(client);
+            }
+            return clientList.OrderBy(e => e.Name).ToList();
+        }
+        public static Client GetClient(int clientID)
+        {
+            DataTable tbl = SqlHelper.ExecuteDataset(cs, "GetClient", clientID).Tables[0];
+            if (tbl.Rows.Count == 0) return null;
+
+            DataRow row = tbl.Rows[0];
+
+            return new Client
+            {
+                Id = (int)row["IDClient"],
+                Name = row["Name"].ToString(),
+                OIB = row["OIB"].ToString(),
+                Address = row["Address"].ToString(),
+                ClientStatus = (ClientStatus)(int)row["ClientStatus"]
+            };
+        }
+        internal static int UpdateClient(Client client)
+        {
+            SqlParameter[] Param = new SqlParameter[5];
+            Param[0] = new SqlParameter("@clientID", SqlDbType.Int);
+            Param[0].Value = client.Id;
+            Param[1] = new SqlParameter("@Name", SqlDbType.NVarChar);
+            Param[1].Value = client.Name;
+            Param[2] = new SqlParameter("@OIB", SqlDbType.NVarChar);
+            Param[2].Value = client.OIB;
+            Param[3] = new SqlParameter("@Address", SqlDbType.NVarChar);
+            Param[3].Value = client.Address;
+            Param[4] = new SqlParameter("@ClientStatus", SqlDbType.Bit);
+            Param[4].Value = client.ClientStatus;
+            return SqlHelper.ExecuteNonQuery(cs, CommandType.StoredProcedure, "UpdateClient", Param);
+        }
+        internal static void DeactivateClient(int clientID)
+        {
+            SqlParameter param = new SqlParameter("@IDClient", SqlDbType.Int);
+            param.Value = clientID;
+            SqlHelper.ExecuteNonQuery(cs, CommandType.StoredProcedure, "DactivateEmployee", param);
+        }
+        internal static int InsertClient(Client client)
+        {
+            SqlParameter[] Param = new SqlParameter[5];
+            Param[0] = new SqlParameter("@Name", SqlDbType.NVarChar);
+            Param[0].Value = client.Name;
+            Param[1] = new SqlParameter("@OIB", SqlDbType.NVarChar);
+            Param[1].Value = client.OIB;
+            Param[2] = new SqlParameter("@Address", SqlDbType.NVarChar);
+            Param[2].Value = client.Address;
+            Param[3] = new SqlParameter("@ClientStatus", SqlDbType.Bit);
+            Param[3].Value = client.ClientStatus;
+            return SqlHelper.ExecuteNonQuery(cs, CommandType.StoredProcedure, "InsertClient", Param);
         }
     }
 }

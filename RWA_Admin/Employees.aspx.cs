@@ -10,12 +10,19 @@ namespace RWA_Admin
 {
     public partial class Employees : BasePage
     {
-
+        public bool UpdateError { get; set; }
         protected void Page_Load(object sender, EventArgs e)
         {
             if (!IsPostBack)
             {
                 DDLFill();
+            }
+            else
+            {
+                if (ViewState["lblError"] != null)
+                {
+                    lblError.Text = ViewState["lblError"].ToString();
+                }
             }
         }
 
@@ -38,7 +45,7 @@ namespace RWA_Admin
                 ddlEmpType.Items.Add(new ListItem(item.ToString(), i.ToString()));
                 i++;
             }
-            ddlTeamsAssigned.DataSource = Repo.GetTeams();
+            ddlTeamsAssigned.DataSource = Repo.GetEmployees();
             ddlTeamsAssigned.DataTextField = "Name";
             ddlTeamsAssigned.DataValueField = "Id";
             ddlTeamsAssigned.DataBind();
@@ -48,10 +55,10 @@ namespace RWA_Admin
         private void ShowEmployeeData(int employeeID)
         {
             Employee employee = Repo.GetEmployeeAdmin(employeeID);
-            lblID.Text = employee.Id.ToString();
+            txtID.Text = employee.Id.ToString();
             txtIme.Text = employee.Name;
             txtPrezime.Text = employee.Surname;
-            datepicker.Text = employee.EmploymentDate.ToLongDateString();
+            datepicker.Text = employee.EmploymentDate.ToString("dd/MM/yyyy");
             ddlEmpType.SelectedValue = ((int)employee.EmployeeType).ToString();
             ddlEmpPosition.SelectedValue = ((int)employee.EmployeePosition).ToString();
             ddlTeamsAssigned.SelectedValue = employee.AssignedTeam.ToString(); ;
@@ -63,7 +70,7 @@ namespace RWA_Admin
 
         protected void btnObrisi_Click(object sender, EventArgs e)
         {
-            int employeeID = int.Parse(lblID.Text);
+            int employeeID = int.Parse(txtID.Text);
             Repo.DeleteEmployee(employeeID);
             DDLFill();
         }
@@ -72,17 +79,35 @@ namespace RWA_Admin
         {
             if (Page.IsValid)
             {
-                Repo.UpdateEmployee(new Employee
+                int success= Repo.UpdateEmployee(new Employee
                 {
-                    Id = int.Parse(lblID.Text),
+                    Id = int.Parse(txtID.Text),
                     Name = txtIme.Text,
                     Surname = txtPrezime.Text,
                     EmploymentDate = DateTime.Parse(datepicker.Text),
                     EmployeeType = (EmployeeType)Enum.Parse(typeof(EmployeeType), ddlEmpType.Text),
                     EmployeePosition = (EmployeePosition)Enum.Parse(typeof(EmployeePosition), ddlEmpPosition.Text),
-                    AssignedTeam = int.Parse(ddlTeamsAssigned.Text)
-                }); 
+                    AssignedTeam = int.Parse(ddlTeamsAssigned.SelectedValue)
+                });
+                if (success!=1)
+                {
+                    ViewState["lblError"] = "Employee not updated";
+                }
+                else
+                {
+                    DDLFill();
+                    ViewState["lblError"] = null;
+                }
             }
+            else
+            {
+                ViewState["lblError"] = "Not all employee data was correct";
+            }
+        }
+
+        protected void btnDodaj_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("~/NewEmployee.aspx");
         }
     }
 }

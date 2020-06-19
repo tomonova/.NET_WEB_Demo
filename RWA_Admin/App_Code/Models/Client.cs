@@ -1,4 +1,5 @@
-﻿using System;
+﻿using RWA_Admin.App_Code.Enums;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -11,5 +12,8 @@ namespace RWA_Admin.App_Code
         public int Id { get; set; }
         public string Name { get; set; }
         public string OIB { get; set; }
+        public string Address { get; set; }
+        public ClientStatus ClientStatus { get; set; }
+        public override string ToString() => $"{Name}";
     }
 }

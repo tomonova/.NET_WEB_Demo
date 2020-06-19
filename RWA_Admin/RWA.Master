@@ -7,13 +7,16 @@
     <title>ERV</title>
     <asp:ContentPlaceHolder ID="head" runat="server">
     </asp:ContentPlaceHolder>
-    <script src="Scripts/jquery-3.5.1.min.js"></script>
-    <link href="Content/css/Site.css" rel="stylesheet" />
-    <script src="Scripts/datepicker.js"></script>
-    <script src="Scripts/popper.min.js"></script>
+
+    <script src="Scripts/jquery-3.5.1.js"></script>
+        <link href="Content/css/datepicker.css" rel="stylesheet" />
+    <script src="Scripts/jquery-ui-1.12.1.js"></script>
+    <script type="module" src="Scripts/datepicker.js"></script>
+    <script type="module" src="Scripts/popper.min.js"></script>
     <script src="Scripts/bootstrap.min.js"></script>
     <link href="Content/bootstrap.css" rel="stylesheet" />
-    <link href="Content/css/datepicker.css" rel="stylesheet" />
+    <link href="Content/css/Site.css" rel="stylesheet" />
+
 </head>
 <body>
     <form id="form1" runat="server">

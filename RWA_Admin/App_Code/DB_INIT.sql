@@ -16,7 +16,9 @@ create table CLIENTS
 (
 	IDClient int not null IDENTITY(1,1),
 	Name nvarchar(max) not null,
-	OIB nvarchar(max),
+	OIB nvarchar(max) not null,
+	Address nvarchar(max),
+	ClientStatus int not null,
 	constraint PKClients primary key(IDClient)
 );
 Create table EMPLOYEES
@@ -111,6 +113,19 @@ BEGIN
 	SELECT * FROM TEAMS WHERE IDTeam=@IDTeam
 END
 GO
+CREATE OR ALTER PROC GetClients
+AS
+BEGIN
+	SELECT * FROM CLIENTS
+END
+GO
+CREATE OR ALTER PROC GetClient
+	@IDClient int
+AS
+BEGIN
+	SELECT * FROM CLIENTS WHERE IDClient=@IDClient
+END
+GO
 create or alter proc CheckCredentialsAdmin
 	@userName nvarchar(50),
 	@userPass nvarchar(50),
@@ -148,6 +163,73 @@ set EmployeeStatus=2
 WHERE IDEmployee=@IDEMployee
 END
 GO
+create or alter proc UpdateEmployee
+	@employeeID int,
+	@Name nvarchar(max),
+	@Surname nvarchar(max),
+	@EmploymentDate datetime,
+	@EmployeeType int,
+	@EmployeePosition int,
+	@TeamID int
+as
+	update EMPLOYEES
+	set Name = @Name,
+		Surname = @Surname,
+		EmploymentDate = @EmploymentDate,
+		EmployeeType = @EmployeeType,
+		EmployeePosition=@EmployeePosition,
+		TeamID = @TeamID
+	where IDEmployee = @employeeID
+
+go
+create or alter proc InsertEmployee
+	@Name nvarchar(max),
+	@Surname nvarchar(max),
+	@EmploymentDate datetime,
+	@EmployeeType int,
+	@EmployeePosition int,
+	@TeamID int
+as
+	INSERT EMPLOYEES
+	(Name, Surname, EmploymentDate, EmployeeType, EmployeePosition, EmployeeStatus, TeamID) 
+	VALUES(@Name,@Surname, @EmploymentDate, @EmployeeType,@EmployeePosition, 1,@TeamID)
+GO
+create or alter proc UpdateClient
+	@IDClient int,
+	@Name nvarchar(max),
+	@OIB nvarchar(max),
+	@Address nvarchar(max),
+	@ClientStatus int
+as
+	update CLIENTS
+	set Name = @Name,
+		OIB = @OIB,
+		Address = @Address,
+		ClientStatus = @ClientStatus
+	where IDClient = @IDClient
+
+go
+create or alter proc InsertClient
+	@Name nvarchar(max),
+	@OIB nvarchar(max),
+	@Address nvarchar(max),
+	@ClientStatus int
+as
+	INSERT CLIENTS
+	(Name, OIB, Address, ClientStatus) 
+	VALUES(@Name,@OIB, @Address, @ClientStatus)
+go
+go
+CREATE OR ALTER PROC DeactivateClient
+	@IDClient int
+AS
+BEGIN
+update CLIENTS
+set ClientStatus=0
+WHERE IDClient=@IDClient
+END
+go
+
 
 --####### INSERT DATA #########
 INSERT TEAMS(Name, TeamStatus, FoundingDate) VALUES('NONE',1,'1970-01-01')
@@ -165,7 +247,7 @@ INSERT TEAMLEAD(EmployeeID, TeamID) VALUES(1,1)
 INSERT TEAMLEAD(EmployeeID, TeamID) VALUES(2,2)
 INSERT TEAMLEAD(EmployeeID, TeamID) VALUES(6,3)
 INSERT USERS (UserName, Password, Admin, EmployeeID) VALUES('admin','1234',1,1)
-INSERT CLIENTS(Name, OIB) VALUES('IBM','123456789')
+INSERT CLIENTS(Name, OIB,Address,ClientStatus) VALUES('IBM','123456789','Miramarska 10',1)
 INSERT PROJECTS(Name, CreationDate, ClientID, ProjectLeadID, ProjectStatus) VALUES('prvi projekt','2020-05-01',1,1,1)
 INSERT EMPLOYEEPROJECT(EmployeeID, ProjectID) values(1,1)
 
