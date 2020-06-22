@@ -169,6 +169,7 @@
     <Content Include="Global.asax" />
     <Content Include="Home.aspx" />
     <Content Include="Login.aspx" />
+    <Content Include="NewClient.aspx" />
     <Content Include="NewEmployee.aspx" />
     <Content Include="Scripts\bootstrap.bundle.js" />
     <Content Include="Scripts\bootstrap.bundle.min.js" />
@@ -342,6 +343,13 @@
     </Compile>
     <Compile Include="Login.aspx.designer.cs">
       <DependentUpon>Login.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="NewClient.aspx.cs">
+      <DependentUpon>NewClient.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="NewClient.aspx.designer.cs">
+      <DependentUpon>NewClient.aspx</DependentUpon>
     </Compile>
     <Compile Include="NewEmployee.aspx.cs">
       <DependentUpon>NewEmployee.aspx</DependentUpon>

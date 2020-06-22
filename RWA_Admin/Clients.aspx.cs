@@ -44,12 +44,31 @@ namespace RWA_Admin
 
         protected void btnUredi_Click(object sender, EventArgs e)
         {
-
+            if (Page.IsValid)
+            {
+                int success = Repo.UpdateClient(new Client
+                {
+                    Id = int.Parse(lbClients.SelectedValue),
+                    Name = txtIme.Text,
+                    Address = txtAddress.Text,
+                    ClientStatus = (ClientStatus)Enum.Parse(typeof(ClientStatus),ddlClientStatus.Text),
+                    OIB=txtOIB.Text
+                });
+                if (success != 1)
+                {
+                    ViewState["lblError"] = "Client not updated";
+                }
+                else
+                {
+                    FillData();
+                    ViewState["lblError"] = null;
+                }
+            }
         }
 
         protected void btnDodaj_Click(object sender, EventArgs e)
         {
-
+            Response.Redirect("~/NewClient.aspx");
         }
 
         protected void lbClients_SelectedIndexChanged(object sender, EventArgs e)

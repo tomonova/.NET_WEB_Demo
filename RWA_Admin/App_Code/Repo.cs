@@ -193,7 +193,7 @@ namespace RWA_Admin.App_Code
         internal static int UpdateClient(Client client)
         {
             SqlParameter[] Param = new SqlParameter[5];
-            Param[0] = new SqlParameter("@clientID", SqlDbType.Int);
+            Param[0] = new SqlParameter("@IDClient", SqlDbType.Int);
             Param[0].Value = client.Id;
             Param[1] = new SqlParameter("@Name", SqlDbType.NVarChar);
             Param[1].Value = client.Name;
@@ -209,7 +209,7 @@ namespace RWA_Admin.App_Code
         {
             SqlParameter param = new SqlParameter("@IDClient", SqlDbType.Int);
             param.Value = clientID;
-            SqlHelper.ExecuteNonQuery(cs, CommandType.StoredProcedure, "DactivateEmployee", param);
+            SqlHelper.ExecuteNonQuery(cs, CommandType.StoredProcedure, "DeactivateEmployee", param);
         }
         internal static int InsertClient(Client client)
         {
