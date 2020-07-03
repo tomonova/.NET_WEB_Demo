@@ -49,7 +49,6 @@ namespace RWA_Admin.App_Code
             }
             return employeeList.OrderBy(e => e.Surname).ToList();
         }
-
         internal static int InsertEmployee(Employee employee)
         {
             SqlParameter[] Param = new SqlParameter[6];
@@ -67,15 +66,12 @@ namespace RWA_Admin.App_Code
             Param[5].Value = employee.AssignedTeam;
             return SqlHelper.ExecuteNonQuery(cs, CommandType.StoredProcedure, "InsertEmployee", Param);
         }
-
-
         internal static void DeleteEmployee(int employeeID)
         {
             SqlParameter param = new SqlParameter("@IDEmployee", SqlDbType.Int);
             param.Value = employeeID;
             SqlHelper.ExecuteNonQuery(cs, CommandType.StoredProcedure, "DeleteEmployee", param);
         }
-
         internal static int UpdateEmployee(Employee employee)
         {
             SqlParameter[] Param = new SqlParameter[7];
@@ -95,7 +91,6 @@ namespace RWA_Admin.App_Code
             Param[6].Value = employee.AssignedTeam;
            return SqlHelper.ExecuteNonQuery(cs, CommandType.StoredProcedure, "UpdateEmployee", Param);
         }
-
         public static Employee GetEmployee(int employeeID)
         {
             DataTable tbl = SqlHelper.ExecuteDataset(cs, "GetEmployee", employeeID).Tables[0];
@@ -135,7 +130,6 @@ namespace RWA_Admin.App_Code
                 AssignedTeam = (int)row["TeamId"]
             };
         }
-
         //----------------------TEAMS-------------------------
         public static List<Team> GetTeams()
         {
@@ -150,9 +144,101 @@ namespace RWA_Admin.App_Code
                     TeamStatus = (TeamStatus)(int)row["TeamStatus"],
                     FoundingDate = (DateTime)row["FoundingDate"]
                 };
-                TeamList.Add(team);
+
+                if (team.TeamStatus == TeamStatus.Active && team.Name!="NONE")
+                {
+                    TeamList.Add(team);
+                }
             }
             return TeamList;
+        }
+        public static List<Team> GetTeamsAdmin()
+        {
+            List<Team> TeamList = new List<Team>();
+            DataTable tblTeams = SqlHelper.ExecuteDataset(cs, "GetTeams").Tables[0];
+            foreach (DataRow row in tblTeams.Rows)
+            {
+                Team team = new Team
+                {
+                    Id = (int)row["IDTeam"],
+                    Name = row["Name"].ToString(),
+                    TeamStatus = (TeamStatus)(int)row["TeamStatus"],
+                    FoundingDate = (DateTime)row["FoundingDate"]
+                };
+                if (team.TeamStatus==TeamStatus.Active)
+                {
+                    TeamList.Add(team);
+                }
+            }
+            return TeamList;
+        }
+        internal static List<Employee> GetTeamLeads()
+        {
+            List<Employee> employeeList = new List<Employee>();
+            DataTable tblEmployees = SqlHelper.ExecuteDataset(cs, "GetTeamLeads").Tables[0];
+            foreach (DataRow row in tblEmployees.Rows)
+            {
+                Employee employee = new Employee
+                {
+                    Id = (int)row["IDEmployee"],
+                    Name = row["Name"].ToString(),
+                    Surname = row["Surname"].ToString(),
+                    FullName = $"{row["Name"]} {row["Surname"]}"
+                };
+                employeeList.Add(employee);
+            }
+            return employeeList.OrderBy(e => e.Surname).ToList();
+        }
+        internal static Team GetTeam(int teamID)
+        {
+            DataTable tbl = SqlHelper.ExecuteDataset(cs, "GetTeam", teamID).Tables[0];
+            if (tbl.Rows.Count == 0) return null;
+
+            DataRow row = tbl.Rows[0];
+            return new Team
+            {
+                Id = (int)row["IDTeam"],
+                Name = row["Name"].ToString(),
+                TeamStatus = (TeamStatus)(int)row["TeamStatus"],
+                FoundingDate = (DateTime)row["FoundingDate"]
+            };
+        }
+        internal static string GetTeamLead(int teamID)
+        {
+            SqlParameter[] Param = new SqlParameter[2];
+            Param[0] = new SqlParameter("@IDTeam", SqlDbType.Int);
+            Param[0].Value = teamID;
+            Param[1] = new SqlParameter("@IDEmpleyee", SqlDbType.Int);
+            Param[1].Direction = ParameterDirection.Output;
+            SqlHelper.ExecuteNonQuery(cs, CommandType.StoredProcedure, "GetTeamLead", Param);
+            return Param[1].Value.ToString();
+        }
+        internal static int UpdateTeam(Team team)
+        {
+            SqlParameter[] Param = new SqlParameter[3];
+            Param[0] = new SqlParameter("@IDTeam", SqlDbType.Int);
+            Param[0].Value = team.Id;
+            Param[1] = new SqlParameter("@Name", SqlDbType.NVarChar);
+            Param[1].Value = team.Name;
+            Param[2] = new SqlParameter("@TeamLead", SqlDbType.Int);
+            Param[2].Value = team.TeamLead;
+            return SqlHelper.ExecuteNonQuery(cs, CommandType.StoredProcedure, "UpdateTeam", Param);
+        }
+        internal static void DeactivateTeam(int iDTeam)
+        {
+            SqlParameter param = new SqlParameter("@IDTeam", SqlDbType.Int);
+            param.Value = iDTeam;
+            SqlHelper.ExecuteNonQuery(cs, CommandType.StoredProcedure, "DeactivateTeam", param);
+        }
+        internal static int InsertTeam(Team team)
+        
+        {
+            SqlParameter[] Param = new SqlParameter[2];
+            Param[0] = new SqlParameter("@Name", SqlDbType.NVarChar);
+            Param[0].Value = team.Name;
+            Param[1] = new SqlParameter("@TeamLead", SqlDbType.Int);
+            Param[1].Value = team.TeamLead;
+            return SqlHelper.ExecuteNonQuery(cs, CommandType.StoredProcedure, "InsertTeam", Param);
         }
 
         //------------------CLIENTS----------------------
@@ -209,7 +295,7 @@ namespace RWA_Admin.App_Code
         {
             SqlParameter param = new SqlParameter("@IDClient", SqlDbType.Int);
             param.Value = clientID;
-            SqlHelper.ExecuteNonQuery(cs, CommandType.StoredProcedure, "DeactivateEmployee", param);
+            SqlHelper.ExecuteNonQuery(cs, CommandType.StoredProcedure, "DeactivateClient", param);
         }
         internal static int InsertClient(Client client)
         {

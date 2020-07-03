@@ -66,7 +66,7 @@ create table EMPLOYEEPROJECT
 create table TEAMLEAD
 (
 	IDTeamLead int not null IDENTITY(1,1),
-	EmployeeID int not null unique constraint FKTeamLead_Employee references EMPLOYEES(IDEmployee),
+	EmployeeID int not null constraint FKTeamLead_Employee references EMPLOYEES(IDEmployee),
 	TeamID int not null unique constraint FKTeamLead_Teams references TEAMS(IDTeam),
 	constraint PKTeamLead primary key(IDTeamLead)
 )
@@ -103,7 +103,7 @@ GO
 CREATE OR ALTER PROC GetTeams
 AS
 BEGIN
-	SELECT * FROM TEAMS
+	SELECT * FROM TEAMS WHERE TeamStatus=1
 END
 GO
 CREATE OR ALTER PROC GetTeam
@@ -113,6 +113,13 @@ BEGIN
 	SELECT * FROM TEAMS WHERE IDTeam=@IDTeam
 END
 GO
+CREATE OR ALTER PROC GetTeamLeads
+as
+begin
+select IDEmployee, Name, Surname from EMPLOYEES
+where EmployeePosition=2
+end
+go
 CREATE OR ALTER PROC GetClients
 AS
 BEGIN
@@ -194,6 +201,22 @@ as
 	(Name, Surname, EmploymentDate, EmployeeType, EmployeePosition, EmployeeStatus, TeamID) 
 	VALUES(@Name,@Surname, @EmploymentDate, @EmployeeType,@EmployeePosition, 1,@TeamID)
 GO
+create or alter proc InsertTeam
+	@Name nvarchar(max),
+	@TeamLead int
+as
+begin
+	declare @IDTeam int
+	INSERT TEAMS
+	(Name,TeamStatus) 
+	VALUES(@Name,1)
+	set @IDTeam=SCOPE_IDENTITY()
+
+	insert TEAMLEAD
+	(EmployeeID, TeamID)
+	VALUES(@TeamLead,@IDTeam)
+end
+GO
 create or alter proc UpdateClient
 	@IDClient int,
 	@Name nvarchar(max),
@@ -208,6 +231,22 @@ as
 		ClientStatus = @ClientStatus
 	where IDClient = @IDClient
 
+go
+go
+create or alter proc UpdateTeam
+	@IDTeam int,
+	@Name nvarchar(max),
+	@TeamLead int
+as
+begin
+	update TEAMS
+	set Name = @Name
+	where IDTeam = @IDTeam
+
+	update TEAMLEAD
+	set EmployeeID = @TeamLead
+	where TeamID=@IDTeam
+end
 go
 create or alter proc InsertClient
 	@Name nvarchar(max),
@@ -229,6 +268,28 @@ set ClientStatus=0
 WHERE IDClient=@IDClient
 END
 go
+CREATE OR ALTER PROC DeactivateTeam
+	@IDTeam int
+AS
+BEGIN
+update TEAMS
+set TeamStatus=0
+WHERE IDTeam=@IDTeam
+
+update EMPLOYEES
+set TeamID=1
+where TeamID=@IDTeam
+END
+go
+create or alter proc GetTeamLead
+	@IDTeam int,
+	@IDEmpleyee int output
+as
+set @IDEmpleyee=(
+select top 1 IDEmployee as name from EMPLOYEES
+join TEAMLEAD on EMPLOYEES.IDEmployee=TEAMLEAD.EmployeeID
+where teamlead.TeamID =@IDTeam)
+go
 
 
 --####### INSERT DATA #########
@@ -237,15 +298,18 @@ INSERT TEAMS(Name, TeamStatus, FoundingDate) VALUES('BACKEND',1,'2019-10-10')
 INSERT TEAMS(Name, TeamStatus, FoundingDate) VALUES('FRONTEND',1,'2019-10-10')
 INSERT TEAMS(Name, TeamStatus, FoundingDate) VALUES('API',1,'2019-12-10')
 INSERT EMPLOYEES(Name, Surname, EmploymentDate, EmployeeType, EmployeePosition, EmployeeStatus) VALUES('Diša','Boss','2020-01-01',1,1,1)
+INSERT EMPLOYEES(Name, Surname, EmploymentDate, EmployeeType, EmployeePosition, EmployeeStatus, TeamID) VALUES('Josip','Josipović','2015-01-01',1,2,1,2)
+INSERT EMPLOYEES(Name, Surname, EmploymentDate, EmployeeType, EmployeePosition, EmployeeStatus, TeamID) VALUES('Ana','Anić','2014-01-01',1,2,1,3)
+INSERT EMPLOYEES(Name, Surname, EmploymentDate, EmployeeType, EmployeePosition, EmployeeStatus, TeamID) VALUES('Milivoj','Milivojić','2015-01-01',1,2,1,4)
 INSERT EMPLOYEES(Name, Surname, EmploymentDate, EmployeeType, EmployeePosition, EmployeeStatus, TeamID) VALUES('Pero','Perić','2020-01-01',1,3,1,1)
 INSERT EMPLOYEES(Name, Surname, EmploymentDate, EmployeeType, EmployeePosition, EmployeeStatus, TeamID) VALUES('Miro','Mirić','2020-01-01',3,3,1,2)
 INSERT EMPLOYEES(Name, Surname, EmploymentDate, EmployeeType, EmployeePosition, EmployeeStatus, TeamID) VALUES('Iva','Ivić','2020-01-01',3,3,1,1)
 INSERT EMPLOYEES(Name, Surname, EmploymentDate, EmployeeType, EmployeePosition, EmployeeStatus, TeamID) VALUES('Marko','Markoić','2020-01-01',1,3,1,2)
 INSERT EMPLOYEES(Name, Surname, EmploymentDate, EmployeeType, EmployeePosition, EmployeeStatus, TeamID) VALUES('Hrvoje','Horvat','2020-01-01',1,3,1,1)
 INSERT EMPLOYEES(Name, Surname, EmploymentDate, EmployeeType, EmployeePosition, EmployeeStatus, TeamID) VALUES('Maja','Majić','2020-01-01',1,3,1,3)
-INSERT TEAMLEAD(EmployeeID, TeamID) VALUES(1,1)
 INSERT TEAMLEAD(EmployeeID, TeamID) VALUES(2,2)
-INSERT TEAMLEAD(EmployeeID, TeamID) VALUES(6,3)
+INSERT TEAMLEAD(EmployeeID, TeamID) VALUES(3,3)
+INSERT TEAMLEAD(EmployeeID, TeamID) VALUES(4,4)
 INSERT USERS (UserName, Password, Admin, EmployeeID) VALUES('admin','1234',1,1)
 INSERT CLIENTS(Name, OIB,Address,ClientStatus) VALUES('IBM','123456789','Miramarska 10',1)
 INSERT PROJECTS(Name, CreationDate, ClientID, ProjectLeadID, ProjectStatus) VALUES('prvi projekt','2020-05-01',1,1,1)

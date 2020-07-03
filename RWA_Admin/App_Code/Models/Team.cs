@@ -12,6 +12,6 @@ namespace RWA_Admin.App_Code
         public string Name { get; set; }
         public TeamStatus TeamStatus { get; set; }
         public DateTime FoundingDate { get; set; }
-        public Employee TeamLead { get; set; }
+        public int TeamLead { get; set; }
     }
 }

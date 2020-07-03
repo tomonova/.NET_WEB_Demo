@@ -11,26 +11,17 @@ namespace RWA_Admin
 {
 
 
-    public partial class Teams
+    public partial class NewTeam
     {
 
         /// <summary>
-        /// lbTeams control.
+        /// txtIme control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.ListBox lbTeams;
-
-        /// <summary>
-        /// txtTeamName control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtTeamName;
+        protected global::System.Web.UI.WebControls.TextBox txtIme;
 
         /// <summary>
         /// rqrValidName control.
@@ -51,13 +42,13 @@ namespace RWA_Admin
         protected global::System.Web.UI.WebControls.DropDownList ddlTeamLead;
 
         /// <summary>
-        /// txtDate control.
+        /// rqrdTeamLead control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtDate;
+        protected global::System.Web.UI.WebControls.RequiredFieldValidator rqrdTeamLead;
 
         /// <summary>
         /// ValidationSummary1 control.
@@ -85,23 +76,5 @@ namespace RWA_Admin
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Button btnDodaj;
-
-        /// <summary>
-        /// btnUredi control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnUredi;
-
-        /// <summary>
-        /// btnDeactivate control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnDeactivate;
     }
 }

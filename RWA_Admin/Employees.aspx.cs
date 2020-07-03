@@ -45,7 +45,7 @@ namespace RWA_Admin
                 ddlEmpType.Items.Add(new ListItem(item.ToString(), i.ToString()));
                 i++;
             }
-            ddlTeamsAssigned.DataSource = Repo.GetEmployees();
+            ddlTeamsAssigned.DataSource = Repo.GetTeamsAdmin();
             ddlTeamsAssigned.DataTextField = "Name";
             ddlTeamsAssigned.DataValueField = "Id";
             ddlTeamsAssigned.DataBind();

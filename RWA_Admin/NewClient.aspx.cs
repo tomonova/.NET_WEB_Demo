@@ -9,7 +9,10 @@ namespace RWA_Admin
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            FillData();
+            if (!IsPostBack)
+            {
+                FillData(); 
+            }
         }
 
         private void FillData()

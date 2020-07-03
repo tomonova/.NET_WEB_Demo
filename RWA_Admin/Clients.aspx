@@ -48,7 +48,7 @@
                         <asp:Label Text="Status:" runat="server" />
                     </td>
                     <td>
-                        <asp:DropDownList ID="ddlClientStatus" runat="server" />
+                        <asp:Label ID="lblClientStatus" runat="server" Text=""></asp:Label>
                     </td>
                 </tr>
                 <tr>

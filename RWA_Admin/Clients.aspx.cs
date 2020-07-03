@@ -27,19 +27,15 @@ namespace RWA_Admin
             lbClients.DataTextField = "Name";
             lbClients.DataValueField = "Id";
             lbClients.DataBind();
-            int i = 0;
-            foreach (ClientStatus item in (ClientStatus[])Enum.GetValues(typeof(ClientStatus)))
-            {
-                ddlClientStatus.Items.Add(new ListItem(item.ToString(), i.ToString()));
-                i++;
-            }
+            lblClientStatus.Text = "";
         }
 
         protected void btnDeactivate_Click(object sender, EventArgs e)
         {
             int clientID = int.Parse(lbClients.SelectedValue);
-            Repo.DeactivateClient(clientID);
-            FillData();
+            Repo.DeactivateTeam(clientID);
+            Response.Redirect(Request.RawUrl);
+            //FillData();
         }
 
         protected void btnUredi_Click(object sender, EventArgs e)
@@ -51,7 +47,6 @@ namespace RWA_Admin
                     Id = int.Parse(lbClients.SelectedValue),
                     Name = txtIme.Text,
                     Address = txtAddress.Text,
-                    ClientStatus = (ClientStatus)Enum.Parse(typeof(ClientStatus),ddlClientStatus.Text),
                     OIB=txtOIB.Text
                 });
                 if (success != 1)
@@ -81,7 +76,7 @@ namespace RWA_Admin
             txtOIB.Text = client.OIB.ToString();
             txtIme.Text = client.Name;
             txtAddress.Text = client.Address;
-            ddlClientStatus.SelectedValue = ((int)client.ClientStatus).ToString();
+            lblClientStatus.Text = client.ClientStatus.ToString();
         }
     }
 }
