@@ -27,6 +27,7 @@ namespace RWA_Admin.App_Code
 
             return response == "1" ? true : false;
         }
+
         //-------------------EMPLOYEES----------------
         public static List<Employee> GetEmployees()
         {
@@ -310,5 +311,55 @@ namespace RWA_Admin.App_Code
             Param[3].Value = client.ClientStatus;
             return SqlHelper.ExecuteNonQuery(cs, CommandType.StoredProcedure, "InsertClient", Param);
         }
+
+        //-----------------PROJECTS------------------------------
+
+        internal static List<Project> GetProjects()
+        {
+            List<Project> projectList = new List<Project>();
+            DataTable tblClients = SqlHelper.ExecuteDataset(cs, "GetProjects").Tables[0];
+            foreach (DataRow row in tblClients.Rows)
+            {
+                Project project = new Project
+                {
+                    Id = (int)row["IDProject"],
+                    Name = row["Name"].ToString()
+                };
+                projectList.Add(project);
+            }
+            return projectList.OrderBy(e => e.Name).ToList();
+        }
+        internal static Project GetProject(int projectID)
+        {
+            DataTable tbl = SqlHelper.ExecuteDataset(cs, "GetProjectDetails", projectID).Tables[0];
+            if (tbl.Rows.Count == 0) return null;
+
+            DataRow row = tbl.Rows[0];
+
+            return new Project
+            {
+                Name = row["ProjectName"].ToString(),
+                Client = new Client { Name = row["ClientName"].ToString() },
+                ProjectLead = new Employee { FullName = row["ProjectLead"].ToString() },
+                CreationDate = (DateTime)row["CreationDate"],
+                ProjectStatus = (ProjectStatus)((int)row["ProjectStatus"])
+            };
+        }
+        internal static List<Employee> GetProjectEmployees(int projectID)
+        {
+            List<Employee> employeeList = new List<Employee>();
+            DataTable tblClients = SqlHelper.ExecuteDataset(cs, "GetProjectEmployees",projectID).Tables[0];
+            foreach (DataRow row in tblClients.Rows)
+            {
+                Employee employee = new Employee
+                {
+                    Id = (int)row["IDEmployee"],
+                    FullName = row["FullName"].ToString()
+                };
+                employeeList.Add(employee);
+            }
+            return employeeList.OrderBy(e => e.FullName).ToList();
+        }
     }
+
 }

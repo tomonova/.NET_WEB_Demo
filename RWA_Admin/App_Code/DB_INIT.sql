@@ -90,7 +90,7 @@ GO
 CREATE OR ALTER PROC GetProjects
 AS
 BEGIN
-	SELECT * FROM PROJECTS
+	select IDProject,Name from PROJECTS
 END
 GO
 CREATE OR ALTER PROC GetProject
@@ -290,7 +290,25 @@ select top 1 IDEmployee as name from EMPLOYEES
 join TEAMLEAD on EMPLOYEES.IDEmployee=TEAMLEAD.EmployeeID
 where teamlead.TeamID =@IDTeam)
 go
-
+create or alter view ProjectDetails
+as
+select p.IDProject, p.Name as ProjectName,c.Name as ClientName ,e.Name+' '+e.surname as ProjectLead, p.CreationDate,p.ProjectStatus from projects as p
+join clients as c on p.ClientID=c.IDClient
+join EMPLOYEES as e on p.ProjectLeadID=e.IDEmployee
+go
+create or alter proc GetProjectDetails
+	@IDProject int
+as
+select * from ProjectDetails where IDProject = @IDProject
+go
+create or alter proc GetProjectEmployees
+	@IDProject int
+as
+select e.IDEmployee, e.Surname+' '+e.Name as FullName from EMPLOYEEPROJECT as ep
+join EMPLOYEES as e on e.IDEmployee=ep.EmployeeID
+join PROJECTS as p on p.IDProject = ep.ProjectID
+where ProjectID=@IDProject
+go
 
 --####### INSERT DATA #########
 INSERT TEAMS(Name, TeamStatus, FoundingDate) VALUES('NONE',1,'1970-01-01')

@@ -172,6 +172,7 @@
     <Content Include="NewClient.aspx" />
     <Content Include="NewEmployee.aspx" />
     <Content Include="NewTeam.aspx" />
+    <Content Include="Projects.aspx" />
     <Content Include="Scripts\bootstrap.bundle.js" />
     <Content Include="Scripts\bootstrap.bundle.min.js" />
     <Content Include="Scripts\bootstrap.js" />
@@ -365,6 +366,13 @@
     </Compile>
     <Compile Include="NewTeam.aspx.designer.cs">
       <DependentUpon>NewTeam.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Projects.aspx.cs">
+      <DependentUpon>Projects.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Projects.aspx.designer.cs">
+      <DependentUpon>Projects.aspx</DependentUpon>
     </Compile>
     <Compile Include="RWA.Master.cs">
       <DependentUpon>RWA.Master</DependentUpon>

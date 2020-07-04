@@ -9,7 +9,7 @@
     </asp:ContentPlaceHolder>
 
     <script src="Scripts/jquery-3.5.1.js"></script>
-        <link href="Content/css/datepicker.css" rel="stylesheet" />
+    <link href="Content/css/datepicker.css" rel="stylesheet" />
     <script src="Scripts/jquery-ui-1.12.1.js"></script>
     <script type="module" src="Scripts/datepicker.js"></script>
     <script type="module" src="Scripts/popper.min.js"></script>
@@ -38,6 +38,9 @@
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="Clients.aspx" runat="server" id="linkClients" meta:resourcekey="linkClientsRes">Clients</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="Reports.aspx" runat="server" id="linkReports" meta:resourcekey="linkProjectsRes">Reports</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="Settings.aspx" runat="server" id="linkSettings" meta:resourcekey="linkSettingsRes">Settings</a>
