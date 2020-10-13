@@ -51,6 +51,42 @@ namespace RWA_Admin
         protected global::System.Web.UI.WebControls.RequiredFieldValidator rqrdValidSurname;
 
         /// <summary>
+        /// lblEmail control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblEmail;
+
+        /// <summary>
+        /// txtEmail control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txtEmail;
+
+        /// <summary>
+        /// rqrdValidEmail control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.RequiredFieldValidator rqrdValidEmail;
+
+        /// <summary>
+        /// rqrdValidEmailFormat control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.RegularExpressionValidator rqrdValidEmailFormat;
+
+        /// <summary>
         /// datepicker control.
         /// </summary>
         /// <remarks>
@@ -87,15 +123,6 @@ namespace RWA_Admin
         protected global::System.Web.UI.WebControls.DropDownList ddlEmpType;
 
         /// <summary>
-        /// ddlEmpPosition control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList ddlEmpPosition;
-
-        /// <summary>
         /// ddlTeamsAssigned control.
         /// </summary>
         /// <remarks>
@@ -121,6 +148,15 @@ namespace RWA_Admin
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lblError;
+
+        /// <summary>
+        /// lblInfo control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblInfo;
 
         /// <summary>
         /// btnDodaj control.

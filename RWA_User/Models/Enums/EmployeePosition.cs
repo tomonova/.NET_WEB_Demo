@@ -1,9 +1,11 @@
-﻿namespace RWA_Admin.App_Code
+﻿namespace RWA_User.Models
 { 
     public enum EmployeePosition
     {
         Director=1,
         TeamLead,
-        Regular
+        Regular,
+        PartTime,
+        Student
     }
 }

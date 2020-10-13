@@ -12,9 +12,9 @@ namespace RWA_Admin.App_Code
         public string Name { get; set; }
         public string Surname { get; set; }
         public string FullName { get; set; }
+        public string Email { get; set; }
         public DateTime EmploymentDate { get; set; }
         public EmployeeType EmployeeType { get; set; }
-        public EmployeePosition EmployeePosition { get; set; }
         public EmployeeStatus EmployeeStatus { get; set; }
         public int AssignedTeam { get; set; }
     }

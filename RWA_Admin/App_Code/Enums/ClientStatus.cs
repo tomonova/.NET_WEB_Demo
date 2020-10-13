@@ -1,4 +1,4 @@
-﻿namespace RWA_Admin.App_Code.Enums
+﻿namespace RWA_Admin.App_Code
 {
     public enum ClientStatus
     {

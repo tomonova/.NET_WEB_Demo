@@ -1,0 +1,50 @@
+﻿@model RWA_User.Models.User
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>ERV Login</title>
+    <link href="~/Content/Login.css" rel="stylesheet" />
+    <link href="~/Content/bootstrap.css" rel="stylesheet" />
+    <link href="~/Content/font-awesome.css" rel="stylesheet" />
+    <script src="~/Scripts/jquery-3.5.1.min.js"></script>
+    <script src="~/Scripts/jquery.validate.min.js"></script>
+    <script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
+</head>
+<body>
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+
+        <div class="loginContainer" onclick="onclick">
+            <div class="loginTop"></div>
+            <div class="loginBottom"></div>
+            <div class="loginCenter">
+                <h1 id="loginPage">ERV</h1>
+                <div class="form-group">
+                    @Html.TextBoxFor(u => u.UserName, new { @placeholder = "Username", @class = "form-control" })
+                    @Html.ValidationMessageFor(u => u.UserName, "")
+                </div>
+                <div class="form-group">
+                    @Html.TextBoxFor(u => u.Password, new { @placeholder = "Password", @type = "password", @class = "form-control" })
+                    @Html.ValidationMessageFor(u => u.Password,"")
+                </div>
+                <div>
+                    @Html.ValidationSummary(true, "")
+                </div>
+                <div class="btn-group">
+                    <button type="submit" id="loginBtn" class="btn btn-outline-info">
+                        <span class="fa fa-sign-in" aria-hidden="true"></span> LOGIN
+                    </button>
+                </div>
+            </div>
+        </div>
+    }
+</body>
+</html>

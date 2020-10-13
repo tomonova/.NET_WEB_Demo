@@ -20,31 +20,45 @@ namespace RWA_Admin
 
         private void FillData()
         {
-            lbTeams.Height = 350;
-            lbTeams.DataSource = Repo.GetTeams();
-            lbTeams.DataTextField = "Name";
-            lbTeams.DataValueField = "Id";
-            lbTeams.DataBind();
+            try
+            {
+                lbTeams.Height = 350;
+                lbTeams.DataSource = Repo.GetTeams();
+                lbTeams.DataTextField = "Name";
+                lbTeams.DataValueField = "Id";
+                lbTeams.DataBind();
+            }
+            catch (Exception ex)
+            {
+                lblError.Text = ex.Message;
+            }
 
         }
 
         protected void lbTeams_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (lbTeams.SelectedItem.Text=="NONE")
+            if (lbTeams.SelectedItem.Text == "NONE")
                 return;
             ShowTeamData(int.Parse(lbTeams.SelectedValue));
         }
 
         private void ShowTeamData(int teamID)
         {
-            Team team = Repo.GetTeam(teamID);
-            txtTeamName.Text = team.Name;
-            txtDate.Text = team.FoundingDate.ToLongDateString();
-            ddlTeamLead.DataSource = Repo.GetTeamLeads();
-            ddlTeamLead.DataTextField = "FullName";
-            ddlTeamLead.DataValueField = "Id";
-            ddlTeamLead.DataBind();
-            ddlTeamLead.SelectedValue = Repo.GetTeamLead(teamID);
+            try
+            {
+                Team team = Repo.GetTeam(teamID);
+                txtTeamName.Text = team.Name;
+                txtDate.Text = team.FoundingDate.ToLongDateString();
+                ddlTeamLead.DataSource = Repo.GetTeamLeads();
+                ddlTeamLead.DataTextField = "FullName";
+                ddlTeamLead.DataValueField = "Id";
+                ddlTeamLead.DataBind();
+                ddlTeamLead.SelectedValue = Repo.GetTeamLead(teamID);
+            }
+            catch (Exception ex)
+            {
+                lblError.Text = ex.Message;
+            }
         }
 
         protected void btnDodaj_Click(object sender, EventArgs e)
@@ -56,29 +70,40 @@ namespace RWA_Admin
         {
             if (Page.IsValid)
             {
-                int success = Repo.UpdateTeam(new Team
+                try
                 {
-                    Id = int.Parse(lbTeams.SelectedValue),
-                    Name = txtTeamName.Text,
-                    TeamLead = int.Parse(ddlTeamLead.SelectedValue),
-                });
-                if (success != 1)
-                {
-                    ViewState["lblError"] = "Client not updated";
-                }
-                else
-                {
+                    Repo.UpdateTeam(new Team
+                    {
+                        Id = int.Parse(lbTeams.SelectedValue),
+                        Name = txtTeamName.Text,
+                        TeamLead = int.Parse(ddlTeamLead.SelectedValue),
+                    });
                     FillData();
-                    ViewState["lblError"] = null;
+                }
+                catch (Exception ex)
+                {
+
+                    lblError.Text=ex.Message;
                 }
             }
         }
 
         protected void btnDeactivate_Click(object sender, EventArgs e)
         {
-            int IDTeam = int.Parse(lbTeams.SelectedValue);
-            Repo.DeactivateTeam(IDTeam);
-            Response.Redirect(Request.RawUrl);
+            try
+            {
+                int IDTeam = int.Parse(lbTeams.SelectedValue);
+                Repo.DeactivateTeam(IDTeam);
+                Response.Redirect(Request.RawUrl);
+            }
+            catch (Exception ex)
+            {
+                lblError.Text = ex.Message;
+            }
+        }
+        protected void Page_Error(object sender, EventArgs e)
+        {
+            Response.Redirect("~/Errors.aspx");
         }
     }
 }

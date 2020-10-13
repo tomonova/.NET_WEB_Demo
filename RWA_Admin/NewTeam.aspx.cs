@@ -20,34 +20,44 @@ namespace RWA_Admin
 
         private void LoadTeamLeads()
         {
-            ddlTeamLead.DataSource = Repo.GetTeamLeads();
-            ddlTeamLead.DataTextField = "FullName";
-            ddlTeamLead.DataValueField = "Id";
-            ddlTeamLead.DataBind();
+            try
+            {
+                ddlTeamLead.DataSource = Repo.GetTeamLeads();
+                ddlTeamLead.DataTextField = "FullName";
+                ddlTeamLead.DataValueField = "Id";
+                ddlTeamLead.DataBind();
+            }
+            catch (Exception ex)
+            {
+
+                lblError.Text = ex.Message;
+            }
         }
 
         protected void btnDodaj_Click(object sender, EventArgs e)
         {
             if (Page.IsValid)
             {
-                int success = Repo.InsertTeam(new Team
+                try
                 {
-                    Name = txtIme.Text,
-                    TeamLead = int.Parse(ddlTeamLead.SelectedValue)
-                });
-                if (success != 2)
-                {
-                    ViewState["lblError"] = "Team not created";
-                }
-                else
-                {
+                    Repo.InsertTeam(new Team
+                    {
+                        Name = txtIme.Text,
+                        TeamLead = int.Parse(ddlTeamLead.SelectedValue)
+                    });
                     Response.Redirect("~/Teams.aspx");
                 }
+                catch (Exception ex)
+                {
+
+                    lblError.Text = ex.Message;
+                }
+
             }
-            else
-            {
-                ViewState["lblError"] = "Not all team data was correct";
-            }
+        }
+        protected void Page_Error(object sender, EventArgs e)
+        {
+            Response.Redirect("~/Errors.aspx");
         }
     }
 }

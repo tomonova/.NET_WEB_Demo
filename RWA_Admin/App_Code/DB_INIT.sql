@@ -1,7 +1,7 @@
 ﻿
-CREATE DATABASE RWA_ERV
-GO
-USE RWA_ERV
+--CREATE DATABASE RWA-ERV
+--GO
+--USE RWA-ERV
 GO
 --####### CREATE TABLES #######
 create table TEAMS
@@ -12,63 +12,154 @@ create table TEAMS
 	FoundingDate date not null default (GETDATE()),
 	constraint PKTeams primary key(IDTeam),
 );
+
+bulk insert TEAMS
+from 'C:\Users\TomoNova\Desktop\tim.csv'
+with
+(
+CODEPAGE = '65001', 
+DATAFILETYPE = 'Char',
+ROWTERMINATOR='\n',
+FIELDTERMINATOR=';'
+)
+
 create table CLIENTS
 (
 	IDClient int not null IDENTITY(1,1),
 	Name nvarchar(max) not null,
-	OIB nvarchar(max) not null,
+	OIB nvarchar(max),
 	Address nvarchar(max),
+	Telephone nvarchar(max),
+	Email nvarchar(max),
 	ClientStatus int not null,
 	constraint PKClients primary key(IDClient)
 );
+bulk insert CLIENTS
+from 'C:\Users\TomoNova\Desktop\client.csv'
+with
+(
+CODEPAGE = '65001', 
+DATAFILETYPE = 'Char',
+ROWTERMINATOR='\n',
+FIELDTERMINATOR=';'
+)
+go
+
 Create table EMPLOYEES
 (
 	IDEmployee INT not null IDENTITY(1,1),
 	Name nvarchar(max) not null,
 	Surname nvarchar(max) not null,
+	Email nvarchar(150) unique not null constraint EmployeeMailConstraint check(EMail LIKE '%__@__%.__%') ,
 	EmploymentDate DATE not null default (GETDATE()),
 	EmployeeType int not null,
-	EmployeePosition int not null,
+	TeamID int,
 	EmployeeStatus int not null,
-	TeamID int not null default 1,
-	constraint PKEmployees primary key(IDEmployee),
-	constraint FKEmployees_Teams foreign key(TeamID) references TEAMS(IDTeam)
+	constraint PKEmployees_tst primary key(IDEmployee),
+	constraint FKEmployees_Teams_tst foreign key(TeamID) references TEAMS(IDTeam)
 );
+
+bulk insert EMPLOYEES
+from 'C:\Users\TomoNova\Desktop\djelatnik_bezzpass.csv'
+with
+(
+CODEPAGE = '65001', 
+DATAFILETYPE = 'Char',
+ROWTERMINATOR='\n',
+FIELDTERMINATOR=';'
+)
+
 create table PROJECTS
 (
 	IDProject int not null IDENTITY(1,1),
 	Name nvarchar(max),
-	CreationDate date not null default(GETDATE()),
 	ClientID int,
-	ProjectLeadID int,
+	CreationDate date not null default(GETDATE()),
+	ProjectLeadID int not null,
 	ProjectStatus int not null,
 	constraint PKProjects primary key(IDProject),
 	constraint FKProjects_Clients foreign key(ClientID) references CLIENTS(IDClient),
 	constraint FKProjectLead_Employee foreign key(ProjectLeadID) references EMPLOYEES(IDEMployee)
 );
+bulk insert PROJECTS
+from 'C:\Users\TomoNova\Desktop\projekti.csv'
+with
+(
+CODEPAGE = '65001', 
+DATAFILETYPE = 'Char',
+ROWTERMINATOR='\n',
+FIELDTERMINATOR=';'
+)
+
 create table USERS
 (
 	IDUser int not null identity(1,1),
-	UserName nvarchar(max) not null,
-	Password nvarchar(max) not null,
+	Username nvarchar(150) not null constraint FKUsersEmployees foreign key(Username) references EMPLOYEES(Email),
+	Password varchar(50) not null,
 	Admin int not null default(0),
-	EmployeeID int not null unique constraint FKUsersEmployee references EMPLOYEES(IDEmployee),
 	constraint PKUsers primary key(IDUser)
 );
+
+bulk insert USERS
+from 'C:\Users\TomoNova\Desktop\users.csv'
+with
+(
+CODEPAGE = '65001', 
+DATAFILETYPE = 'Char',
+ROWTERMINATOR='\n',
+FIELDTERMINATOR=';'
+)
+update users
+set Password=upper(SUBSTRING(master.dbo.fn_varbintohexstr(HashBytes('SHA1', Password)), 3, 50))
+
 create table EMPLOYEEPROJECT
 (
-	EmployeeID int not null,
-	ProjectID int not null,
-	constraint PKEmployeeProject primary key(EmployeeID, ProjectID),
+	IDEmployeeProject int not null identity(1,1),
+	EmployeeID int,
+	ProjectID int,
+	MemberFrom date not null default(GETDATE()),
+	MemberTo date,
 	constraint FKEmployeeProject_Employees foreign key (EmployeeID) references EMPLOYEES(IDEmployee),
 	constraint FKEmployeeProject_Projects foreign key (ProjectID) references PROJECTS (IDProject)
 );
+
+bulk insert EMPLOYEEPROJECT
+from 'C:\Users\TomoNova\Desktop\projekt_djelatnik.csv'
+with
+(
+CODEPAGE = '65001', 
+DATAFILETYPE = 'Char',
+ROWTERMINATOR='\n',
+FIELDTERMINATOR=';'
+)
+
 create table TEAMLEAD
 (
 	IDTeamLead int not null IDENTITY(1,1),
 	EmployeeID int not null constraint FKTeamLead_Employee references EMPLOYEES(IDEmployee),
 	TeamID int not null unique constraint FKTeamLead_Teams references TEAMS(IDTeam),
 	constraint PKTeamLead primary key(IDTeamLead)
+)
+
+bulk insert TEAMLEAD
+from 'C:\Users\TomoNova\Desktop\TeamLead.csv'
+with
+(
+CODEPAGE = '65001', 
+DATAFILETYPE = 'Char',
+ROWTERMINATOR='\n',
+FIELDTERMINATOR=';'
+)
+
+create table TIMESHEET
+(
+	IDTimeSheet int not null IDENTITY(1,1),
+	EmployeeID int not null constraint FKTimeSheet_Employee references EMPLOYEES(IDEmployee),
+	ProjectID int not null constraint FKTimeSheet_Projects references PROJECTS (IDProject),
+	TimeSheeetDate date not null,
+	WorkHours int,
+	OverTimeHours int,
+	constraint PKTimeSheet primary key (IDTimeSheet)
 )
 --###### PROCEDURES #######
 GO
@@ -145,13 +236,26 @@ as
 		and Admin = 1)
 		set @checkOutput = '1'
 	else set @checkOutput = '0'
-go
+GO
+create or alter proc CheckCredentials
+	@userName nvarchar(50),
+	@userPass nvarchar(50),
+	@checkOutput int output
+as
+	if exists(
+		select * from USERS
+		where UserName = @userName
+		and Password = @userPass)
+		set @checkOutput = '1'
+	else set @checkOutput = '0'
+GO
 CREATE OR ALTER PROC GetEmployeeAdmin
 	@employeeID int
 as
 	select e.IDemployee,
 	e.Name,
 	e.Surname,
+	e.Email,
 	e.EmploymentDate,
 	e.EmployeeType,
 	e.EmployeePosition,
@@ -174,17 +278,17 @@ create or alter proc UpdateEmployee
 	@employeeID int,
 	@Name nvarchar(max),
 	@Surname nvarchar(max),
+	@Email nvarchar(max),
 	@EmploymentDate datetime,
 	@EmployeeType int,
-	@EmployeePosition int,
 	@TeamID int
 as
 	update EMPLOYEES
 	set Name = @Name,
 		Surname = @Surname,
+		Email = @Email,
 		EmploymentDate = @EmploymentDate,
 		EmployeeType = @EmployeeType,
-		EmployeePosition=@EmployeePosition,
 		TeamID = @TeamID
 	where IDEmployee = @employeeID
 
@@ -192,14 +296,14 @@ go
 create or alter proc InsertEmployee
 	@Name nvarchar(max),
 	@Surname nvarchar(max),
+	@Email nvarchar(max),
 	@EmploymentDate datetime,
 	@EmployeeType int,
-	@EmployeePosition int,
 	@TeamID int
 as
 	INSERT EMPLOYEES
-	(Name, Surname, EmploymentDate, EmployeeType, EmployeePosition, EmployeeStatus, TeamID) 
-	VALUES(@Name,@Surname, @EmploymentDate, @EmployeeType,@EmployeePosition, 1,@TeamID)
+	(Name, Surname, EMail, EmploymentDate, EmployeeType, EmployeeStatus, TeamID) 
+	VALUES(@Name,@Surname, @Email,@EmploymentDate, @EmployeeType, 1,@TeamID)
 GO
 create or alter proc InsertTeam
 	@Name nvarchar(max),
@@ -293,7 +397,7 @@ go
 create or alter view ProjectDetails
 as
 select p.IDProject, p.Name as ProjectName,c.Name as ClientName ,e.Name+' '+e.surname as ProjectLead, p.CreationDate,p.ProjectStatus from projects as p
-join clients as c on p.ClientID=c.IDClient
+left outer join clients as c on p.ClientID=c.IDClient
 join EMPLOYEES as e on p.ProjectLeadID=e.IDEmployee
 go
 create or alter proc GetProjectDetails
@@ -307,29 +411,104 @@ as
 select e.IDEmployee, e.Surname+' '+e.Name as FullName from EMPLOYEEPROJECT as ep
 join EMPLOYEES as e on e.IDEmployee=ep.EmployeeID
 join PROJECTS as p on p.IDProject = ep.ProjectID
-where ProjectID=@IDProject
+where ProjectID=@IDProject and MemberTo is null
+go
+go
+create or alter proc ProjectStatusChange
+	@IDProject int,
+	@Status nvarchar(5)
+as
+if @Status like 'D'
+	update Projects
+	set ProjectStatus = 3
+	where IDProject=@IDProject
+else if @Status like 'C'
+	update Projects
+	set ProjectStatus = 2
+	where IDProject=@IDProject
+go
+create or alter proc InsertProject
+	@Name nvarchar(250),
+	@ClientID int,
+	@UserName nvarchar(25)
+as
+	declare @ProjectLeadID int
+
+	select @ProjectLeadID=EMPLOYEES.IDEmployee from users
+	join EMPLOYEES on users.Username=EMPLOYEES.Email
+	where users.UserName=@UserName
+
+	insert into projects (Name, ClientID, ProjectLeadID, ProjectStatus)
+	values (@Name,@ClientID,@ProjectLeadID,1)
+go
+create or alter proc InsertInternalProject
+	@Name nvarchar(250),
+	@UserName nvarchar(25)
+as
+	declare @ProjectLeadID int
+
+	select @ProjectLeadID=EMPLOYEES.IDEmployee from users
+	join EMPLOYEES on users.Username=EMPLOYEES.Email
+	where users.UserName=@UserName
+
+	insert into projects (Name, ProjectLeadID, ProjectStatus)
+	values (@Name,@ProjectLeadID,1)
+go
+create or alter proc GetProjectContributors
+	@PorjectID int
+as
+select e.IDEmployee,e.Name,e.Surname from EMPLOYEEPROJECT ep
+inner join EMPLOYEES e on ep.EmployeeID = e.IDEmployee
+inner join PROJECTS p on ep.ProjectID = p.IDProject
+where ProjectID=@PorjectID and MemberTo is null
+go
+create or alter proc GetAvailableContributors
+	@ProjectID int
+as
+select distinct( e.IDEmployee),e.Name,e.Surname from EMPLOYEES e
+left outer join EMPLOYEEPROJECT ep on e.IDEmployee = ep.EmployeeID
+where ep.ProjectID <> @ProjectID or ep.ProjectID IS NULL
+go
+create type dbo.EmployeeIDList
+as table
+(
+	ID INT
+);
+go
+create or alter procedure ManageContributors
+	@EmployeeIDList as EmployeeIDList readonly,
+	@ProjectID int
+as
+begin 
+
+insert into EMPLOYEEPROJECT (EmployeeID)
+select ID from @EmployeeIDList
+
+update EMPLOYEEPROJECT
+set ProjectID = @ProjectID
+where ProjectID is null
+end
 go
 
---####### INSERT DATA #########
-INSERT TEAMS(Name, TeamStatus, FoundingDate) VALUES('NONE',1,'1970-01-01')
-INSERT TEAMS(Name, TeamStatus, FoundingDate) VALUES('BACKEND',1,'2019-10-10')
-INSERT TEAMS(Name, TeamStatus, FoundingDate) VALUES('FRONTEND',1,'2019-10-10')
-INSERT TEAMS(Name, TeamStatus, FoundingDate) VALUES('API',1,'2019-12-10')
-INSERT EMPLOYEES(Name, Surname, EmploymentDate, EmployeeType, EmployeePosition, EmployeeStatus) VALUES('Diša','Boss','2020-01-01',1,1,1)
-INSERT EMPLOYEES(Name, Surname, EmploymentDate, EmployeeType, EmployeePosition, EmployeeStatus, TeamID) VALUES('Josip','Josipović','2015-01-01',1,2,1,2)
-INSERT EMPLOYEES(Name, Surname, EmploymentDate, EmployeeType, EmployeePosition, EmployeeStatus, TeamID) VALUES('Ana','Anić','2014-01-01',1,2,1,3)
-INSERT EMPLOYEES(Name, Surname, EmploymentDate, EmployeeType, EmployeePosition, EmployeeStatus, TeamID) VALUES('Milivoj','Milivojić','2015-01-01',1,2,1,4)
-INSERT EMPLOYEES(Name, Surname, EmploymentDate, EmployeeType, EmployeePosition, EmployeeStatus, TeamID) VALUES('Pero','Perić','2020-01-01',1,3,1,1)
-INSERT EMPLOYEES(Name, Surname, EmploymentDate, EmployeeType, EmployeePosition, EmployeeStatus, TeamID) VALUES('Miro','Mirić','2020-01-01',3,3,1,2)
-INSERT EMPLOYEES(Name, Surname, EmploymentDate, EmployeeType, EmployeePosition, EmployeeStatus, TeamID) VALUES('Iva','Ivić','2020-01-01',3,3,1,1)
-INSERT EMPLOYEES(Name, Surname, EmploymentDate, EmployeeType, EmployeePosition, EmployeeStatus, TeamID) VALUES('Marko','Markoić','2020-01-01',1,3,1,2)
-INSERT EMPLOYEES(Name, Surname, EmploymentDate, EmployeeType, EmployeePosition, EmployeeStatus, TeamID) VALUES('Hrvoje','Horvat','2020-01-01',1,3,1,1)
-INSERT EMPLOYEES(Name, Surname, EmploymentDate, EmployeeType, EmployeePosition, EmployeeStatus, TeamID) VALUES('Maja','Majić','2020-01-01',1,3,1,3)
-INSERT TEAMLEAD(EmployeeID, TeamID) VALUES(2,2)
-INSERT TEAMLEAD(EmployeeID, TeamID) VALUES(3,3)
-INSERT TEAMLEAD(EmployeeID, TeamID) VALUES(4,4)
-INSERT USERS (UserName, Password, Admin, EmployeeID) VALUES('admin','1234',1,1)
-INSERT CLIENTS(Name, OIB,Address,ClientStatus) VALUES('IBM','123456789','Miramarska 10',1)
-INSERT PROJECTS(Name, CreationDate, ClientID, ProjectLeadID, ProjectStatus) VALUES('prvi projekt','2020-05-01',1,1,1)
-INSERT EMPLOYEEPROJECT(EmployeeID, ProjectID) values(1,1)
-
+go
+create or alter procedure RemoveContributors
+	@EmployeeIDList as EmployeeIDList readonly,
+	@ProjectID int
+as
+begin 
+update EMPLOYEEPROJECT
+set MemberTo = GETDATE()
+where ProjectID = @ProjectID 
+and EmployeeID in (select ID from @EmployeeIDList)
+end
+go
+create or alter proc CheckEmail
+	@Email nvarchar(50),
+	@checkOutput int output
+as
+	if exists(
+		select Email from EMPLOYEES
+		where Email=@Email)
+		set @checkOutput = '1'
+	else set @checkOutput = '0'
+GO

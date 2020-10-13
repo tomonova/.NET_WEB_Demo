@@ -25,7 +25,18 @@
 #lbEmployess #btnAddEmployee{
     margin:auto;
 }
+.lblInfo {
+    vertical-align: middle;
+    text-align: center;
+}
 
+.navbar-light .navbar-brand{
+    color: purple;
+}
+
+.navbar-light .navbar-brand:hover, .navbar-light .navbar-brand:focus{
+    color:mediumpurple;
+}
 
 @media screen and (min-width: 768px) {
 }

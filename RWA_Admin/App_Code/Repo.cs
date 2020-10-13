@@ -1,5 +1,5 @@
 ﻿using Microsoft.ApplicationBlocks.Data;
-using RWA_Admin.App_Code.Enums;
+using RWA_Admin.App_Code;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
@@ -28,6 +28,8 @@ namespace RWA_Admin.App_Code
             return response == "1" ? true : false;
         }
 
+
+
         //-------------------EMPLOYEES----------------
         public static List<Employee> GetEmployees()
         {
@@ -35,13 +37,12 @@ namespace RWA_Admin.App_Code
             DataTable tblEmployees = SqlHelper.ExecuteDataset(cs, "GetEmployees").Tables[0];
             foreach (DataRow row in tblEmployees.Rows)
             {
-                 Employee employee = new Employee
+                Employee employee = new Employee
                 {
                     Id = (int)row["IDEmployee"],
                     Name = row["Name"].ToString(),
                     Surname = row["Surname"].ToString(),
-                    FullName = $"{row["Name"]} {row["Surname"]}",
-                    EmployeePosition = (EmployeePosition)(int)row["EmployeePosition"],
+                    FullName = $"{row["Surname"]} {row["Name"]}",
                     EmploymentDate = (DateTime)row["EmploymentDate"],
                     EmployeeType = (EmployeeType)((int)row["EmployeeType"]),
                     EmployeeStatus = (EmployeeStatus)((int)row["EmployeeStatus"])
@@ -61,12 +62,13 @@ namespace RWA_Admin.App_Code
             Param[2].Value = employee.EmploymentDate.ToString("yyyy-MM-dd");
             Param[3] = new SqlParameter("@EmployeeType", SqlDbType.Int);
             Param[3].Value = employee.EmployeeType;
-            Param[4] = new SqlParameter("@EmployeePosition", SqlDbType.Int);
-            Param[4].Value = employee.EmployeePosition;
+            Param[4] = new SqlParameter("@Email", SqlDbType.NVarChar);
+            Param[4].Value = employee.Email;
             Param[5] = new SqlParameter("@TeamID", SqlDbType.Int);
             Param[5].Value = employee.AssignedTeam;
             return SqlHelper.ExecuteNonQuery(cs, CommandType.StoredProcedure, "InsertEmployee", Param);
         }
+
         internal static void DeleteEmployee(int employeeID)
         {
             SqlParameter param = new SqlParameter("@IDEmployee", SqlDbType.Int);
@@ -86,11 +88,11 @@ namespace RWA_Admin.App_Code
             Param[3].Value = employee.EmploymentDate.ToString("yyyy-MM-dd");
             Param[4] = new SqlParameter("@EmployeeType", SqlDbType.Int);
             Param[4].Value = employee.EmployeeType;
-            Param[5] = new SqlParameter("@EmployeePosition", SqlDbType.Int);
-            Param[5].Value = employee.EmployeePosition;
+            Param[5] = new SqlParameter("@Email", SqlDbType.NVarChar);
+            Param[5].Value = employee.Email;
             Param[6] = new SqlParameter("@TeamID", SqlDbType.Int);
             Param[6].Value = employee.AssignedTeam;
-           return SqlHelper.ExecuteNonQuery(cs, CommandType.StoredProcedure, "UpdateEmployee", Param);
+            return SqlHelper.ExecuteNonQuery(cs, CommandType.StoredProcedure, "UpdateEmployee", Param);
         }
         public static Employee GetEmployee(int employeeID)
         {
@@ -104,8 +106,8 @@ namespace RWA_Admin.App_Code
                 Id = (int)row["IDEmployee"],
                 Name = row["Name"].ToString(),
                 Surname = row["Surname"].ToString(),
-                FullName = $"{row["Name"]} {row["Surname"]}",
-                EmployeePosition = (EmployeePosition)(int)row["EmployeePosition"],
+                Email = row["Email"].ToString(),
+                FullName = $"{row["Surname"]} {row["Name"]}",
                 EmploymentDate = (DateTime)row["EmploymentDate"],
                 EmployeeType = (EmployeeType)((int)row["EmployeeType"]),
                 EmployeeStatus = (EmployeeStatus)((int)row["EmployeeStatus"])
@@ -123,13 +125,41 @@ namespace RWA_Admin.App_Code
                 Id = (int)row["IDEmployee"],
                 Name = row["Name"].ToString(),
                 Surname = row["Surname"].ToString(),
-                FullName = $"{row["Name"]} {row["Surname"]}",
-                EmployeePosition = (EmployeePosition)(int)row["EmployeePosition"],
+                FullName = $"{row["Surname"]} {row["Name"]}",
+                Email= row["Email"].ToString(),
                 EmploymentDate = (DateTime)row["EmploymentDate"],
                 EmployeeType = (EmployeeType)((int)row["EmployeeType"]),
                 EmployeeStatus = (EmployeeStatus)((int)row["EmployeeStatus"]),
                 AssignedTeam = (int)row["TeamId"]
             };
+        }
+
+        internal static bool CheckMail(string email)
+        {
+            SqlParameter[] Param = new SqlParameter[2];
+            Param[0] = new SqlParameter("@Email", SqlDbType.NVarChar);
+            Param[0].Value = email;
+            Param[1] = new SqlParameter("@checkOutput", SqlDbType.Int);
+            Param[1].Direction = ParameterDirection.Output;
+            SqlHelper.ExecuteNonQuery(cs, CommandType.StoredProcedure, "CheckEmail", Param);
+            string response = Param[1].Value.ToString();
+
+            return response == "1" ? true : false;
+        }
+
+        internal static int CheckMail(string email, int selectedIndex)
+        {
+            SqlParameter[] Param = new SqlParameter[2]; 
+            Param[0] = new SqlParameter("@Email", SqlDbType.NVarChar);
+            Param[0].Value = email;
+            Param[1] = new SqlParameter("@IDEmployee", SqlDbType.Int);
+            Param[1].Value = selectedIndex;
+            Param[2] = new SqlParameter("@checkOutput", SqlDbType.Int);
+            Param[2].Direction = ParameterDirection.Output;
+            SqlHelper.ExecuteNonQuery(cs, CommandType.StoredProcedure, "CheckEmailForEmployee", Param);
+            string response = Param[1].Value.ToString();
+
+            return int.Parse(response);
         }
         //----------------------TEAMS-------------------------
         public static List<Team> GetTeams()
@@ -146,7 +176,7 @@ namespace RWA_Admin.App_Code
                     FoundingDate = (DateTime)row["FoundingDate"]
                 };
 
-                if (team.TeamStatus == TeamStatus.Active && team.Name!="NONE")
+                if (team.TeamStatus == TeamStatus.Active && team.Name != "NONE")
                 {
                     TeamList.Add(team);
                 }
@@ -166,7 +196,7 @@ namespace RWA_Admin.App_Code
                     TeamStatus = (TeamStatus)(int)row["TeamStatus"],
                     FoundingDate = (DateTime)row["FoundingDate"]
                 };
-                if (team.TeamStatus==TeamStatus.Active)
+                if (team.TeamStatus == TeamStatus.Active)
                 {
                     TeamList.Add(team);
                 }
@@ -232,7 +262,7 @@ namespace RWA_Admin.App_Code
             SqlHelper.ExecuteNonQuery(cs, CommandType.StoredProcedure, "DeactivateTeam", param);
         }
         internal static int InsertTeam(Team team)
-        
+
         {
             SqlParameter[] Param = new SqlParameter[2];
             Param[0] = new SqlParameter("@Name", SqlDbType.NVarChar);
@@ -331,15 +361,24 @@ namespace RWA_Admin.App_Code
         }
         internal static Project GetProject(int projectID)
         {
+            Client clnt = new Client();
             DataTable tbl = SqlHelper.ExecuteDataset(cs, "GetProjectDetails", projectID).Tables[0];
             if (tbl.Rows.Count == 0) return null;
 
             DataRow row = tbl.Rows[0];
+            if (String.IsNullOrEmpty(row["ClientName"].ToString()))
+            {
+                clnt.Name = "INTERNO";
+            }
+            else
+            {
+                clnt.Name = row["ClientName"].ToString();
+            }
 
             return new Project
             {
                 Name = row["ProjectName"].ToString(),
-                Client = new Client { Name = row["ClientName"].ToString() },
+                Client = clnt,
                 ProjectLead = new Employee { FullName = row["ProjectLead"].ToString() },
                 CreationDate = (DateTime)row["CreationDate"],
                 ProjectStatus = (ProjectStatus)((int)row["ProjectStatus"])
@@ -348,7 +387,7 @@ namespace RWA_Admin.App_Code
         internal static List<Employee> GetProjectEmployees(int projectID)
         {
             List<Employee> employeeList = new List<Employee>();
-            DataTable tblClients = SqlHelper.ExecuteDataset(cs, "GetProjectEmployees",projectID).Tables[0];
+            DataTable tblClients = SqlHelper.ExecuteDataset(cs, "GetProjectEmployees", projectID).Tables[0];
             foreach (DataRow row in tblClients.Rows)
             {
                 Employee employee = new Employee
@@ -360,6 +399,100 @@ namespace RWA_Admin.App_Code
             }
             return employeeList.OrderBy(e => e.FullName).ToList();
         }
+        internal static int ProjectStatusChange(int projectID, string status)
+        {
+            SqlParameter[] Param = new SqlParameter[2];
+            Param[0] = new SqlParameter("@IDProject", SqlDbType.Int);
+            Param[0].Value = projectID;
+            Param[1] = new SqlParameter("@Status", SqlDbType.NVarChar);
+            Param[1].Value = status;
+            return SqlHelper.ExecuteNonQuery(cs, CommandType.StoredProcedure, "ProjectStatusChange", Param);
+        }
+        internal static int InsertProject(Project project, string userName)
+        {
+            SqlParameter[] Param = new SqlParameter[5];
+            Param[0] = new SqlParameter("@Name", SqlDbType.NVarChar);
+            Param[0].Value = project.Name;
+            Param[1] = new SqlParameter("@ClientID", SqlDbType.Int);
+            Param[1].Value = project.Client.Id;
+            Param[2] = new SqlParameter("@UserName", SqlDbType.NVarChar);
+            Param[2].Value = userName;
+            return SqlHelper.ExecuteNonQuery(cs, CommandType.StoredProcedure, "InsertProject", Param);
+        }
+        internal static int InsertInternalProject(Project project, string userName)
+        {
+            SqlParameter[] Param = new SqlParameter[5];
+            Param[0] = new SqlParameter("@Name", SqlDbType.NVarChar);
+            Param[0].Value = project.Name;
+            Param[2] = new SqlParameter("@UserName", SqlDbType.NVarChar);
+            Param[2].Value = userName;
+            return SqlHelper.ExecuteNonQuery(cs, CommandType.StoredProcedure, "InsertInternalProject", Param);
+        }
+        internal static List<Employee> GetAvailableContributors(int projectID)
+        {
+            List<Employee> employeeList = new List<Employee>();
+            DataTable tblEmployees = SqlHelper.ExecuteDataset(cs, "GetAvailableContributors", projectID).Tables[0];
+            foreach (DataRow row in tblEmployees.Rows)
+            {
+                Employee employee = new Employee
+                {
+                    Id = (int)row["IDEmployee"],
+                    Name = row["Name"].ToString(),
+                    Surname = row["Surname"].ToString(),
+                    FullName = $"{row["Surname"]} {row["Name"]}"
+                };
+                employeeList.Add(employee);
+            }
+            return employeeList.OrderBy(e => e.Surname).ToList();
+        }
+        internal static List<Employee> GetProjectContributors(int projectID)
+        {
+            List<Employee> employeeList = new List<Employee>();
+            DataTable tblEmployees = SqlHelper.ExecuteDataset(cs, "GetProjectContributors", projectID).Tables[0];
+            foreach (DataRow row in tblEmployees.Rows)
+            {
+                Employee employee = new Employee
+                {
+                    Id = (int)row["IDEmployee"],
+                    Name = row["Name"].ToString(),
+                    Surname = row["Surname"].ToString(),
+                    FullName = $"{row["Surname"]} {row["Name"]}"
+                };
+                employeeList.Add(employee);
+            }
+            return employeeList.OrderBy(e => e.Surname).ToList();
+        }
+        internal static void ManageContributors(List<int> selectedEmployees, int projectID)
+        {
+            DataTable tvp = new DataTable();
+            tvp.Columns.Add(new DataColumn("ID", typeof(int)));
+            foreach (int id in selectedEmployees)
+            {
+                tvp.Rows.Add(id);
+            }
+            SqlParameter[] Param = new SqlParameter[2];
+            Param[0] = new SqlParameter("@EmployeeIDList", SqlDbType.Structured);
+            Param[0].Value = tvp;
+            Param[0].TypeName = "EmployeeIDList";
+            Param[1] = new SqlParameter("@ProjectID", SqlDbType.Int);
+            Param[1].Value = projectID;
+            SqlHelper.ExecuteNonQuery(cs, CommandType.StoredProcedure, "ManageContributors", Param);
+        }
+        internal static void RemoveFromProject(List<int> removedEmployees, int projectID)
+        {
+            DataTable tvp = new DataTable();
+            tvp.Columns.Add(new DataColumn("ID", typeof(int)));
+            foreach (int id in removedEmployees)
+            {
+                tvp.Rows.Add(id);
+            }
+            SqlParameter[] Param = new SqlParameter[2];
+            Param[0] = new SqlParameter("@EmployeeIDList", SqlDbType.Structured);
+            Param[0].Value = tvp;
+            Param[0].TypeName = "EmployeeIDList";
+            Param[1] = new SqlParameter("@ProjectID", SqlDbType.Int);
+            Param[1].Value = projectID;
+            SqlHelper.ExecuteNonQuery(cs, CommandType.StoredProcedure, "RemoveContributors", Param);
+        }
     }
-
 }

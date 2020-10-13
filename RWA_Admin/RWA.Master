@@ -16,7 +16,15 @@
     <script src="Scripts/bootstrap.min.js"></script>
     <link href="Content/bootstrap.css" rel="stylesheet" />
     <link href="Content/css/Site.css" rel="stylesheet" />
+    <style>
+        .navbar-light .navbar-brand {
+            color: mediumpurple;
+        }
 
+        .navbar-light .navbar-brand:hover, .navbar-light .navbar-brand:focus {
+            color: purple;
+        }
+    </style>
 </head>
 <body>
     <form id="form1" runat="server">

@@ -8,18 +8,20 @@ namespace RWA_Admin
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            DDLFill();
+            try
+            {
+                DDLFill();
+            }
+            catch (Exception ex)
+            {
+
+                lblError.Text = ex.Message;
+            }
         }
 
         private void DDLFill()
         {
             int i = 1;
-            foreach (EmployeePosition item in (EmployeePosition[])Enum.GetValues(typeof(EmployeePosition)))
-            {
-                ddlEmpPosition.Items.Add(new ListItem(item.ToString(), i.ToString()));
-                i++;
-            }
-            i = 1;
             foreach (EmployeeType item in (EmployeeType[])Enum.GetValues(typeof(EmployeeType)))
             {
                 ddlEmpType.Items.Add(new ListItem(item.ToString(), i.ToString()));
@@ -35,28 +37,51 @@ namespace RWA_Admin
         {
             if (Page.IsValid)
             {
-                int success = Repo.InsertEmployee(new Employee
+                try
                 {
-                    Name = txtIme.Text,
-                    Surname = txtPrezime.Text,
-                    EmploymentDate = DateTime.Parse(datepicker.Text),
-                    EmployeeType = (EmployeeType)Enum.Parse(typeof(EmployeeType), ddlEmpType.Text),
-                    EmployeePosition = (EmployeePosition)Enum.Parse(typeof(EmployeePosition), ddlEmpPosition.Text),
-                    AssignedTeam = int.Parse(ddlTeamsAssigned.SelectedValue)
-                });
-                if (success != 1)
-                {
-                    ViewState["lblError"] = "Employee not updated";
+                    if (Repo.CheckMail(txtEmail.Text.Trim()))
+                    {
+                        lblError.Text = $"{txtEmail.Text.Trim()} već postoji, unesite novi EMail";
+                    }
+
+                    else
+                    {
+                        Repo.InsertEmployee(new Employee
+                        {
+                            Name = txtIme.Text.Trim(),
+                            Surname = txtPrezime.Text.Trim(),
+                            Email = txtEmail.Text.Trim(),
+                            EmploymentDate = DateTime.Parse(datepicker.Text),
+                            EmployeeType = (EmployeeType)Enum.Parse(typeof(EmployeeType), ddlEmpType.Text),
+                            AssignedTeam = int.Parse(ddlTeamsAssigned.SelectedValue)
+                        });
+                        lblError.Text = String.Empty;
+                        lblInfo.Text = $"Zaposlenik {txtIme.Text.Trim()} {txtPrezime.Text.Trim()} unesen";
+                        ClearPage();
+                    }
                 }
-                else
+                catch (Exception ex)
                 {
-                    Response.Redirect("~/Employees.aspx");
+                    lblError.Text = ex.Message;
                 }
+
             }
             else
             {
                 ViewState["lblError"] = "Not all employee data was correct";
             }
+        }
+
+        private void ClearPage()
+        {
+            txtIme.Text = string.Empty;
+            txtPrezime.Text = string.Empty;
+            txtEmail.Text = string.Empty;
+            datepicker.Text = string.Empty;
+        }
+        protected void Page_Error(object sender, EventArgs e)
+        {
+            Response.Redirect("~/Errors.aspx");
         }
     }
 }

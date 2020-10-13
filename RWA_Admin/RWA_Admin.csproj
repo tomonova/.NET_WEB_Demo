@@ -119,6 +119,8 @@
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\css\datepicker.css" />
+    <Content Include="Content\css\Errors.css" />
+    <Content Include="Scripts\Errors.js" />
     <Content Include="Content\css\login.css" />
     <Content Include="Content\Images\erv.jpg" />
     <Content Include="Content\Images\erv.png" />
@@ -165,12 +167,15 @@
     <Content Include="Content\themes\base\theme.css" />
     <Content Include="Content\themes\base\tooltip.css" />
     <Content Include="Employees.aspx" />
+    <Content Include="Errors.aspx" />
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
     <Content Include="Home.aspx" />
     <Content Include="Login.aspx" />
+    <Content Include="ManageProjectContirbutors.aspx" />
     <Content Include="NewClient.aspx" />
     <Content Include="NewEmployee.aspx" />
+    <Content Include="NewProject.aspx" />
     <Content Include="NewTeam.aspx" />
     <Content Include="Projects.aspx" />
     <Content Include="Scripts\bootstrap.bundle.js" />
@@ -198,6 +203,13 @@
     <Content Include="Scripts\esm\popper-utils.min.js.map" />
     <Content Include="Scripts\esm\popper-utils.js.map" />
     <Content Include="RWA.Master" />
+    <Content Include="App_Code\DBDataLoad\client.csv" />
+    <Content Include="App_Code\DBDataLoad\djelatnik_bezzpass.csv" />
+    <Content Include="App_Code\DBDataLoad\projekti.csv" />
+    <Content Include="App_Code\DBDataLoad\projekt_djelatnik.csv" />
+    <Content Include="App_Code\DBDataLoad\TeamLead.csv" />
+    <Content Include="App_Code\DBDataLoad\tim.csv" />
+    <Content Include="App_Code\DBDataLoad\users.csv" />
     <None Include="Scripts\jquery-3.5.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.5.1.js" />
     <Content Include="Scripts\jquery-3.5.1.min.js" />
@@ -332,6 +344,13 @@
     <Compile Include="Employees.aspx.designer.cs">
       <DependentUpon>Employees.aspx</DependentUpon>
     </Compile>
+    <Compile Include="Errors.aspx.cs">
+      <DependentUpon>Errors.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Errors.aspx.designer.cs">
+      <DependentUpon>Errors.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Home.aspx.cs">
       <DependentUpon>Home.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -346,6 +365,13 @@
     <Compile Include="Login.aspx.designer.cs">
       <DependentUpon>Login.aspx</DependentUpon>
     </Compile>
+    <Compile Include="ManageProjectContirbutors.aspx.cs">
+      <DependentUpon>ManageProjectContirbutors.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ManageProjectContirbutors.aspx.designer.cs">
+      <DependentUpon>ManageProjectContirbutors.aspx</DependentUpon>
+    </Compile>
     <Compile Include="NewClient.aspx.cs">
       <DependentUpon>NewClient.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -359,6 +385,13 @@
     </Compile>
     <Compile Include="NewEmployee.aspx.designer.cs">
       <DependentUpon>NewEmployee.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="NewProject.aspx.cs">
+      <DependentUpon>NewProject.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="NewProject.aspx.designer.cs">
+      <DependentUpon>NewProject.aspx</DependentUpon>
     </Compile>
     <Compile Include="NewTeam.aspx.cs">
       <DependentUpon>NewTeam.aspx</DependentUpon>
@@ -381,7 +414,6 @@
     <Compile Include="RWA.Master.designer.cs">
       <DependentUpon>RWA.Master</DependentUpon>
     </Compile>
-    <Compile Include="App_Code\Enums\EmployeePosition.cs" />
     <Compile Include="App_Code\Enums\EmployeeStatus.cs" />
     <Compile Include="App_Code\Enums\EmployeeType.cs" />
     <Compile Include="App_Code\Enums\ProjectStatus.cs" />

@@ -13,5 +13,9 @@ namespace RWA_Admin
         {
 
         }
+        protected void Page_Error(object sender, EventArgs e)
+        {
+            Response.Redirect("~/Errors.aspx");
+        }
     }
 }

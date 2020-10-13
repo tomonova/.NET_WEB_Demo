@@ -1,5 +1,4 @@
 ﻿using RWA_Admin.App_Code;
-using RWA_Admin.App_Code.Enums;
 using System;
 using System.Web.UI.WebControls;
 
@@ -29,26 +28,30 @@ namespace RWA_Admin
         {
             if (Page.IsValid)
             {
-                int success = Repo.InsertClient(new Client
+                try
                 {
-                    Name = txtIme.Text,
-                    OIB = txtOIB.Text,
-                    Address = txtAddress.Text,
-                    ClientStatus = (ClientStatus)Enum.Parse(typeof(ClientStatus), ddlClientStatus.Text)
-                });
-                if (success != 1)
-                {
-                    ViewState["lblError"] = "Client not created";
-                }
-                else
-                {
+                    Repo.InsertClient(new Client
+                    {
+                        Name = txtIme.Text.Trim(),
+                        OIB = txtOIB.Text.Trim(),
+                        Address = txtAddress.Text.Trim(),
+                        ClientStatus = (ClientStatus)Enum.Parse(typeof(ClientStatus), ddlClientStatus.Text)
+                    });
                     Response.Redirect("~/Clients.aspx");
+                }
+                catch (Exception ex)
+                {
+                    lblError.Text = ex.Message;
                 }
             }
             else
             {
                 ViewState["lblError"] = "Not all client data was correct";
             }
+        }
+        protected void Page_Error(object sender, EventArgs e)
+        {
+            Response.Redirect("~/Errors.aspx");
         }
     }
 }

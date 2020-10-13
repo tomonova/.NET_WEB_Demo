@@ -75,7 +75,7 @@
                 <tr>
                     <td colspan="2">
                         <asp:ValidationSummary ID="ValidationSummary1" runat="server" DisplayMode="BulletList" Font-Bold="True" />
-                        <asp:Label ID="lblError" runat="server" Text="test" Visible="false" ForeColor="Red" Font-Bold="true" Font-Size="Large" CssClass="error"></asp:Label>
+                        <asp:Label ID="lblError" runat="server" Text="" Visible="True" ForeColor="Red" Font-Bold="true" Font-Size="Large" CssClass="error"></asp:Label>
                     </td>
                 </tr>
             </table>
@@ -88,7 +88,7 @@
             <asp:Button ID="btnDodaj" CssClass="btn btn-primary p-2" runat="server" Text="NEW PROJECT" OnClick="btnDodaj_Click" CausesValidation="False" />
         </div>
         <div>
-            <asp:Button ID="btnDeactivate" CssClass="btn btn-warning  mr-5 p-2" runat="server" Text="DEACTIVATE PROJECT" OnClick="btnDeactivate_Click1"
+            <asp:Button ID="btnDeactivate" CssClass="btn btn-warning  mr-5 p-2" runat="server" Text="DEACTIVATE PROJECT" OnClick="btnDeactivate_Click"
                 AutoPostBack="true"
                 OnClientClick="return confirm ('Are you sure you want to deactivate the project')" />
         </div>
