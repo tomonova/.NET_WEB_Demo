@@ -41,7 +41,7 @@ namespace RWA_Admin
                 {
                     if (Repo.CheckMail(txtEmail.Text.Trim()))
                     {
-                        lblError.Text = $"{txtEmail.Text.Trim()} već postoji, unesite novi EMail";
+                        lblError.Text = $"{txtEmail.Text.Trim()} već postoji, unesite novi Email";
                     }
 
                     else

@@ -149,7 +149,7 @@ namespace RWA_Admin.App_Code
 
         internal static int CheckMail(string email, int selectedIndex)
         {
-            SqlParameter[] Param = new SqlParameter[2]; 
+            SqlParameter[] Param = new SqlParameter[3]; 
             Param[0] = new SqlParameter("@Email", SqlDbType.NVarChar);
             Param[0].Value = email;
             Param[1] = new SqlParameter("@IDEmployee", SqlDbType.Int);
@@ -157,7 +157,7 @@ namespace RWA_Admin.App_Code
             Param[2] = new SqlParameter("@checkOutput", SqlDbType.Int);
             Param[2].Direction = ParameterDirection.Output;
             SqlHelper.ExecuteNonQuery(cs, CommandType.StoredProcedure, "CheckEmailForEmployee", Param);
-            string response = Param[1].Value.ToString();
+            string response = Param[2].Value.ToString();
 
             return int.Parse(response);
         }

@@ -11,8 +11,8 @@ namespace RWA_Admin
     public partial class Employees : BasePage
     {
         private const int EMPTY_VALUE = 0;
-        private const string CHOOSE_TEAM = "";
-        private const string CHOOSE_TYPE = "";
+        private const string CHOOSE_TEAM = "--TEAM--";
+        private const string CHOOSE_TYPE = "--TYPE--";
         protected void Page_Load(object sender, EventArgs e)
         {
             if (!IsPostBack)
@@ -105,31 +105,29 @@ namespace RWA_Admin
             {
                 try
                 {
-                    int mailStatus = Repo.CheckMail(txtEmail.Text.Trim(), lbEmployees.SelectedIndex);
-
-                        
-                    if (mailStatus==1)
+                    lblInfo.Text = string.Empty;
+                    int mailStatus = Repo.CheckMail(txtEmail.Text.Trim(), int.Parse(lbEmployees.SelectedValue));                      
+                    if (mailStatus==0 || mailStatus==1)
                     {
-
+                        if (ddlTeamsAssigned.Text != EMPTY_VALUE.ToString() && ddlEmpType.Text != EMPTY_VALUE.ToString())
+                        {
+                            Repo.UpdateEmployee(new Employee
+                            {
+                                Id = int.Parse(txtID.Text),
+                                Name = txtIme.Text.Trim(),
+                                Surname = txtPrezime.Text.Trim(),
+                                Email = txtEmail.Text.Trim(),
+                                EmploymentDate = DateTime.Parse(datepicker.Text),
+                                EmployeeType = (EmployeeType)Enum.Parse(typeof(EmployeeType), ddlEmpType.Text),
+                                AssignedTeam = int.Parse(ddlTeamsAssigned.SelectedValue)
+                            }) ;
+                            lblError.Text = String.Empty;
+                            lblInfo.Text = $"Zaposlenik {txtIme.Text.Trim()} {txtPrezime.Text.Trim()} promijenjen";
+                        }
                     }
                     else if (mailStatus==2)
                     {
-                        lblError.Text = $"{txtEmail.Text.Trim()} već postoji, unesite novi EMail";
-                    }
-
-                    if(ddlTeamsAssigned.Text != EMPTY_VALUE.ToString() && ddlEmpType.Text != EMPTY_VALUE.ToString())
-                    {
-                        Repo.InsertEmployee(new Employee
-                        {
-                            Name = txtIme.Text.Trim(),
-                            Surname = txtPrezime.Text.Trim(),
-                            Email = txtEmail.Text.Trim(),
-                            EmploymentDate = DateTime.Parse(datepicker.Text),
-                            EmployeeType = (EmployeeType)Enum.Parse(typeof(EmployeeType), ddlEmpType.Text),
-                            AssignedTeam = int.Parse(ddlTeamsAssigned.SelectedValue)
-                        });
-                        lblError.Text = String.Empty;
-                        lblInfo.Text = $"Zaposlenik {txtIme.Text.Trim()} {txtPrezime.Text.Trim()} promijenjen";
+                        lblError.Text = $"{txtEmail.Text.Trim()} već postoji, unesite novi Email";
                     }
                 }
                 catch (Exception ex)

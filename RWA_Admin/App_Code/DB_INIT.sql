@@ -94,7 +94,7 @@ FIELDTERMINATOR=';'
 create table USERS
 (
 	IDUser int not null identity(1,1),
-	Username nvarchar(150) not null constraint FKUsersEmployees foreign key(Username) references EMPLOYEES(Email),
+	Username nvarchar(150) not null constraint FKUsersEmployees foreign key(Username) references EMPLOYEES(Email) ON DELETE CASCADE ON UPDATE CASCADE,
 	Password varchar(50) not null,
 	Admin int not null default(0),
 	constraint PKUsers primary key(IDUser)
@@ -511,4 +511,20 @@ as
 		where Email=@Email)
 		set @checkOutput = '1'
 	else set @checkOutput = '0'
+go
+create or alter proc CheckEmailForEmployee
+	@Email nvarchar(50),
+	@IDEmployee int,
+	@checkOutput int output
+as
+	if exists(
+		select Email from EMPLOYEES
+		where Email=@Email and IDEmployee=@IDEmployee)
+		set @checkOutput = '1'
+	else if exists (
+		select Email from EMPLOYEES
+		where Email=@Email)
+	set @checkOutput = '2'
+	else 
+	set @checkOutput = '0'
 GO
