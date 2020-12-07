@@ -1,8 +1,18 @@
 ﻿
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Home";
     Layout = "~/Views/Shared/_ERVLayout.cshtml";
 }
 
-<h2> Bok @ViewBag.UserName</h2>
+<h2 class="ml-4 mt-2"> Bok @ViewBag.UserName</h2>
+<div class="container">
+    <img src="~/Content/Images/time_mngmt.jpg" alt="Ovdje dođe kul slika inače" class="img-fluid" />
+    @if (TempData["PasswordChangeStatus"] != null)
+    {
+        <div class="alert alert-warning mt-5" role="alert">
+            @TempData["PasswordChangeStatus"].ToString()
+        </div>
+
+    }
+</div>
 

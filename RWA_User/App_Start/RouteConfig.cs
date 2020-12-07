@@ -18,6 +18,7 @@ namespace RWA_User
                 url: "{controller}/{action}/{id}",
                 defaults: new { controller = "Home", action = "Index", id = UrlParameter.Optional }
             );
+            routes.MapRoute("AllInvalidRoutes", "{*.}", new { controller = "Base", action = "Error" });
         }
     }
 }

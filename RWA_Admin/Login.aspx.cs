@@ -36,9 +36,9 @@ namespace RWA_Admin
         }
         string GetSHA1Hash(string input)
         {
-            System.Security.Cryptography.SHA1CryptoServiceProvider x = new System.Security.Cryptography.SHA1CryptoServiceProvider();
+            System.Security.Cryptography.SHA1CryptoServiceProvider hash = new System.Security.Cryptography.SHA1CryptoServiceProvider();
             byte[] bs = System.Text.Encoding.UTF8.GetBytes(input);
-            bs = x.ComputeHash(bs);
+            bs = hash.ComputeHash(bs);
             System.Text.StringBuilder s = new System.Text.StringBuilder();
             foreach (byte b in bs)
             {

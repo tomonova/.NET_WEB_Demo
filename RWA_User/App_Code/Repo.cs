@@ -13,6 +13,42 @@ namespace RWA_User.App_Code
     public class Repo
     {
         private static string cs = ConfigurationManager.ConnectionStrings["cs"].ConnectionString;
+
+        internal static string GetEmployeeName(string name)
+        {
+            SqlParameter[] Param = new SqlParameter[2];
+            Param[0] = new SqlParameter("@EmployeeName", SqlDbType.NVarChar);
+            Param[0].Value = name;
+            Param[1] = new SqlParameter("@EmployeeNameOut", SqlDbType.NVarChar,100);
+            Param[1].Direction = ParameterDirection.Output;
+            SqlHelper.ExecuteNonQuery(cs, CommandType.StoredProcedure, "GetEmployeeName", Param);
+            string response = Param[1].Value.ToString();
+            return response == null ? "Ne znam tko si" : response;
+        }
+
+        internal static string GetIDEmployee(string userName)
+        {
+            SqlParameter[] Param = new SqlParameter[2];
+            Param[0] = new SqlParameter("@EmployeeName", SqlDbType.NVarChar);
+            Param[0].Value = userName;
+            Param[1] = new SqlParameter("@IDEmployee", SqlDbType.Int);
+            Param[1].Direction = ParameterDirection.Output;
+            SqlHelper.ExecuteNonQuery(cs, CommandType.StoredProcedure, "GetIDEmployee", Param);
+            return Param[1].Value.ToString();
+        }
+
+        internal static bool ChangePassword(string email, string password)
+        {
+            SqlParameter[] Param = new SqlParameter[3];
+            Param[0] = new SqlParameter("@Email", SqlDbType.NVarChar);
+            Param[0].Value = email;
+            Param[1] = new SqlParameter("@userPass", SqlDbType.NVarChar);
+            Param[1].Value = password.ToUpper();
+            int response = SqlHelper.ExecuteNonQuery(cs, CommandType.StoredProcedure, "ChangePassword", Param);
+            return response == 1 ? true : false;
+
+        }
+
         internal static bool CheckCredentials(string userName, string userPass)
         {
             SqlParameter[] Param = new SqlParameter[3];
@@ -44,7 +80,8 @@ namespace RWA_User.App_Code
                     EmployeePosition = (EmployeePosition)(int)row["EmployeePosition"],
                     EmploymentDate = (DateTime)row["EmploymentDate"],
                     EmployeeType = (EmployeeType)((int)row["EmployeeType"]),
-                    EmployeeStatus = (EmployeeStatus)((int)row["EmployeeStatus"])
+                    EmployeeStatus = (EmployeeStatus)((int)row["EmployeeStatus"]),
+                    AssignedTeam=(int)row["TeamID"]
                 };
                 employeeList.Add(employee);
             }
@@ -106,10 +143,11 @@ namespace RWA_User.App_Code
                 Name = row["Name"].ToString(),
                 Surname = row["Surname"].ToString(),
                 FullName = $"{row["Name"]} {row["Surname"]}",
-                EmployeePosition = (EmployeePosition)(int)row["EmployeePosition"],
                 EmploymentDate = (DateTime)row["EmploymentDate"],
                 EmployeeType = (EmployeeType)((int)row["EmployeeType"]),
-                EmployeeStatus = (EmployeeStatus)((int)row["EmployeeStatus"])
+                EmployeeStatus = (EmployeeStatus)((int)row["EmployeeStatus"]),
+                AssignedTeam= (int)row["TeamID"],
+                Email= row["Email"].ToString()
             };
         }
         public static Employee GetEmployeeAdmin(int employeeID)
@@ -125,7 +163,6 @@ namespace RWA_User.App_Code
                 Name = row["Name"].ToString(),
                 Surname = row["Surname"].ToString(),
                 FullName = $"{row["Name"]} {row["Surname"]}",
-                EmployeePosition = (EmployeePosition)(int)row["EmployeePosition"],
                 EmploymentDate = (DateTime)row["EmploymentDate"],
                 EmployeeType = (EmployeeType)((int)row["EmployeeType"]),
                 EmployeeStatus = (EmployeeStatus)((int)row["EmployeeStatus"]),

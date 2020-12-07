@@ -1,0 +1,86 @@
+﻿@model RWA_User.Models.Profil
+
+@{
+    ViewBag.Title = "Profil";
+    Layout = "~/Views/Shared/_ERVLayout.cshtml";
+}
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+<div class="container">
+    <hr />
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+    @Html.HiddenFor(model => model.Employee.Id)
+
+    <div class="form-group">
+        @Html.Label("Name:")
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.Employee.Name, new { htmlAttributes = new { @class = "form-control", disabled = "disabled" } })
+            @Html.ValidationMessageFor(model => model.Employee.Name, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.Label("Surname:")
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.Employee.Surname, new { htmlAttributes = new { @class = "form-control", disabled = "disabled" } })
+            @Html.ValidationMessageFor(model => model.Employee.Surname, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.Label("Employment Date:")
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.ReturnEmploymentDateForView, new { htmlAttributes = new { @class = "form-control", disabled = "disabled" } })
+            @Html.ValidationMessageFor(model => model.ReturnEmploymentDateForView, "", new { @class = "text-danger" })
+        </div>
+    </div>
+    <div class="form-group">
+        @Html.Label("Employee TYpe:")
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.Employee.EmployeeType, new { htmlAttributes = new { @class = "form-control", disabled = "disabled" } })
+            @Html.ValidationMessageFor(model => model.Employee.EmployeeType, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.Label("Assigned to team:")
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.Team.Name, new { htmlAttributes = new { @class = "form-control", disabled = "disabled" } })
+            @Html.ValidationMessageFor(model => model.Team.Name, "", new { @class = "text-danger" })
+        </div>
+    </div>
+    <div class="form-group">
+        @Html.Label("Employee Email:")
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.Employee.Email, new { htmlAttributes = new { @class = "form-control", disabled = "disabled" } })
+            @Html.ValidationMessageFor(model => model.Employee.Email, "", new { @class = "text-danger" })
+        </div>
+    </div>
+    <div class="form-group">
+        @Html.Label("New Password:")
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.Password, new { htmlAttributes = new { @class = "form-control", placeholder = "Password", type = "password" } })
+            @Html.ValidationMessageFor(model => model.Password, "", new { @class = "text-danger" })
+        </div>
+    </div>
+    <div class="form-group">
+        @Html.Label("Confirm Password:")
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.ConfirmPassword, new { htmlAttributes = new { @class = "form-control", placeholder = "Confirm password", type = "password" } })
+            @Html.ValidationMessageFor(model => model.ConfirmPassword, "", new { @class = "text-danger" })
+        </div>
+    </div>
+    <div>
+        @Html.ValidationSummary(true, "")
+    </div>
+
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-10">
+            <input type="submit" value="Update Password" class="btn btn-primary" />
+        </div>
+    </div>
+</div>
+}

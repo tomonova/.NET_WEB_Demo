@@ -528,3 +528,26 @@ as
 	else 
 	set @checkOutput = '0'
 GO
+create or alter proc GetEmployeeName
+	@EmployeeName nvarchar(100),
+	@EmployeeNameOut nvarchar(100) out
+as
+select @EmployeeNameOut =  Name+' '+Surname  from EMPLOYEES
+join users on users.Username = employees.Email 
+where users.Username = @EmployeeName
+go
+create or alter proc GetIDEmployee
+	@EmployeeName nvarchar(100),
+	@IDEmployee int out
+as
+select @IDEmployee =  IDEmployee  from EMPLOYEES
+join users on users.Username = employees.Email 
+where users.Username = @EmployeeName
+go
+create or alter proc ChangePassword
+	@Email nvarchar(50),
+	@userPass nvarchar(50)
+as
+	update users
+	set Password=@userPass
+	where Username = @Email

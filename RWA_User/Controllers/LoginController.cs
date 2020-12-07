@@ -28,6 +28,7 @@ namespace RWA_User.Controllers
             if (Repo.CheckCredentials(user.UserName,user.Password) && ModelState.IsValid)
             {
                 FormsAuthentication.SetAuthCookie(user.UserName, false);
+                Session["IDEmployee"] = Repo.GetIDEmployee(user.UserName);
                 return Redirect("/Home/Index");
             }
             else
