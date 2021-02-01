@@ -43,7 +43,7 @@
                 <tr>
                     <td colspan="2">
                         <asp:ValidationSummary ID="ValidationSummary1" runat="server" DisplayMode="BulletList" Font-Bold="True" />
-                        <asp:Label ID="lblError" runat="server" Text="test" Visible="false" ForeColor="Red" Font-Bold="true" Font-Size="Large" CssClass="error"></asp:Label>
+                        <asp:Label ID="lblError" runat="server" Text="" Visible="true" ForeColor="Red" Font-Bold="true" Font-Size="Large" CssClass="error"></asp:Label>
                     </td>
                 </tr>
             </table>

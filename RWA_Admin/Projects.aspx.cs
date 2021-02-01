@@ -81,32 +81,48 @@ namespace RWA_Admin
 
         protected void btnDeactivate_Click(object sender, EventArgs e)
         {
-            try
+            if (lbProjects.SelectedIndex == -1)
             {
-                ChangeProjectStatus("D");
+                lblError.Text = $"Project not selected";
+                return;
             }
-            catch (Exception ex)
+            else
             {
-                lblError.Text = $"{ex.Message}";
-                Response.Redirect(Request.RawUrl);
+                try
+                {
+                    ChangeProjectStatus("D");
+                }
+                catch (Exception ex)
+                {
+                    lblError.Text = $"{ex.Message}";
+                    Response.Redirect(Request.RawUrl);
+                } 
             }
         }
 
         private void ChangeProjectStatus(string status)
         {
-            try
+            if (lbProjects.SelectedIndex==-1)
             {
-                int projectID = int.Parse(lbProjects.SelectedValue);
-                Repo.ProjectStatusChange(projectID, status);
-                Response.Redirect(Request.RawUrl);
+                lblError.Text = $"Project not selected";
+                return;
             }
-            catch (Exception ex)
+            else
             {
+                try
+                {
+                    int projectID = int.Parse(lbProjects.SelectedValue);
+                    Repo.ProjectStatusChange(projectID, status);
+                    Response.Redirect(Request.RawUrl);
+                }
+                catch (Exception ex)
+                {
 
-                lblError.Text = ex.Message;
+                    lblError.Text = ex.Message;
+                }
             }
         }
-
+        
         protected void btnClose_Click(object sender, EventArgs e)
         {
             try

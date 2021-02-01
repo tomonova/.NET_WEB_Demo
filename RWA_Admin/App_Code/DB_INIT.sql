@@ -27,7 +27,7 @@ create table CLIENTS
 (
 	IDClient int not null IDENTITY(1,1),
 	Name nvarchar(max) not null,
-	OIB nvarchar(max),
+	OIB nvarchar(12) unique,
 	Address nvarchar(max),
 	Telephone nvarchar(max),
 	Email nvarchar(max),
@@ -150,16 +150,24 @@ DATAFILETYPE = 'Char',
 ROWTERMINATOR='\n',
 FIELDTERMINATOR=';'
 )
-
 create table TIMESHEET
 (
-	IDTimeSheet int not null IDENTITY(1,1),
+	IDTimeSheet int not null IDENTITY(1,1) constraint PKTimeSheet primary key (IDTimeSheet),
 	EmployeeID int not null constraint FKTimeSheet_Employee references EMPLOYEES(IDEmployee),
-	ProjectID int not null constraint FKTimeSheet_Projects references PROJECTS (IDProject),
 	TimeSheeetDate date not null,
 	WorkHours int,
 	OverTimeHours int,
-	constraint PKTimeSheet primary key (IDTimeSheet)
+	TimeSheetStatus int not null default 1
+	constraint UQ_TIMESHEET_EMPLOYEE_DATE UNIQUE (EmployeeID,TimeSheeetDate)
+)
+Create table TIMESHEET_ROW
+(
+	IDTimeSheetRow int not null IDENTITY(1,1) constraint PKTimeSheetRow primary key (IDTimeSheetRow),
+	TimeSheetID int not null constraint FKTimeSheet_Row references TIMESHEET(IDTimeSheet),
+	ProjectID int not null constraint FKTimeSheet_Row_Projects references PROJECTS (IDProject),
+	WorkHours int,
+	OverTimeHours int,
+	constraint UQ_TIMESHEETROW_TSID_PROJID UNIQUE (TimeSheetID,ProjectID)
 )
 --###### PROCEDURES #######
 GO
@@ -216,6 +224,23 @@ AS
 BEGIN
 	SELECT * FROM CLIENTS
 END
+GO
+create or ALTER   proc InsertEmployee
+	@Name nvarchar(max),
+	@Surname nvarchar(max),
+	@Email nvarchar(max),
+	@EmploymentDate datetime,
+	@EmployeeType int,
+	@TeamID int
+as
+	INSERT EMPLOYEES
+	(Name, Surname, EMail, EmploymentDate, EmployeeType, EmployeeStatus, TeamID) 
+	VALUES(@Name,@Surname, @Email,@EmploymentDate, @EmployeeType, 1,@TeamID)
+	insert USERS(Username, Password, Admin)
+	values(@Email,'Password1',0)
+	update users
+	set Password=upper(SUBSTRING(master.dbo.fn_varbintohexstr(HashBytes('SHA1', Password)), 3, 50))
+	where Username=@Email
 GO
 CREATE OR ALTER PROC GetClient
 	@IDClient int
@@ -551,3 +576,70 @@ as
 	update users
 	set Password=@userPass
 	where Username = @Email
+go
+create or alter proc GetTimeSheetProjects
+	@EmployeeID int,
+	@TimeSheedDate datetime
+as
+select ProjectID from EMPLOYEEPROJECT ep
+join PROJECTS p on ep.ProjectID=p.IDProject
+join EMPLOYEES e on ep.EmployeeID=e.IDEmployee
+where EmployeeID=@EmployeeID
+and((ep.MemberFrom <= @TimeSheedDate and ep.MemberTo > @TimeSheedDate)
+or (ep.MemberFrom <=@TimeSheedDate and ep.MemberTo is null))
+go
+create or alter proc CheckTimeSheet
+	@TimeSheedDate datetime,
+	@EmployeeID int,
+	@checkOutput int output
+as
+	if exists(
+		select ProjectID from EMPLOYEEPROJECT ep
+		join PROJECTS p on ep.ProjectID=p.IDProject
+		join EMPLOYEES e on ep.EmployeeID=e.IDEmployee
+		where EmployeeID=@EmployeeID
+		and((ep.MemberFrom <= @TimeSheedDate and ep.MemberTo > @TimeSheedDate)
+		or (ep.MemberFrom <=@TimeSheedDate and ep.MemberTo is null))
+			)
+		set @checkOutput = '1'
+	else set @checkOutput = '0'
+go
+create or alter proc CreateTSRow
+	@TimeSheetID int,
+	@ProjectID int
+as
+insert into TIMESHEET_ROW(TimeSheetID, ProjectID, WorkHours, OverTimeHours)
+values(@TimeSheetID,@ProjectID,0,0)
+go
+create or alter proc GetTimeSheetID
+	@TimeSheetDate datetime,
+	@EmployeeID int,
+	@TimeSheetID int output
+as
+select @TimeSheetID= IDTimeSheet from TIMESHEET
+where EmployeeID = @EmployeeID and TimeSheeetDate = @TimeSheetDate
+go
+create or alter proc CreateTimeSheet
+	@TimeSheetDate datetime,
+	@EmployeeID int,
+	@TimeSheetID int output
+as
+insert into TIMESHEET(EmployeeID, TimeSheeetDate, WorkHours, OverTimeHours, TimeSheetSTatus)
+values(@EmployeeID,@TimeSheetDate,0,0,1)
+select @TimeSheetID = IDTimeSheet from TIMESHEET
+go
+create or alter proc GetTSRows
+	@TimeSheetID int
+as
+select * from TIMESHEET_ROW
+where TimeSheetID = @TimeSheetID
+go
+create or ALTER   proc CheckOIB
+	@OIB nvarchar(12),
+	@checkOutput int output
+as
+	if exists(
+		select OIB from CLIENTS
+		where OIB=@OIB)
+		set @checkOutput = '1'
+	else set @checkOutput = '0'

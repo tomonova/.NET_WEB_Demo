@@ -1,0 +1,13 @@
+﻿@model RWA_User.Models.TimeSheet
+    @Html.HiddenFor(m => m.ID)
+        <tr>
+            <td>
+                @Html.EditorFor(m=>m, new { htmlAttributes = new { disabled = "disabled" } })
+            </td>
+            <td>
+                @Html.EditorFor(m=>m.WorkHours)
+            </td>
+            <td>
+                @Html.EditorFor(m=>m.OverTimeHours)
+            </td>
+        </tr>

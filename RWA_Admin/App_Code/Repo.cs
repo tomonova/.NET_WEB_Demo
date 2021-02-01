@@ -28,6 +28,18 @@ namespace RWA_Admin.App_Code
             return response == "1" ? true : false;
         }
 
+        internal static bool CheckOIB(string oib)
+        {
+            SqlParameter[] Param = new SqlParameter[2];
+            Param[0] = new SqlParameter("@OIB", SqlDbType.NVarChar);
+            Param[0].Value = oib;
+            Param[1] = new SqlParameter("@checkOutput", SqlDbType.Int);
+            Param[1].Direction = ParameterDirection.Output;
+            SqlHelper.ExecuteNonQuery(cs, CommandType.StoredProcedure, "CheckOIB", Param);
+            string response = Param[1].Value.ToString();
+            return response == "1" ? true : false;
+        }
+
 
 
         //-------------------EMPLOYEES----------------

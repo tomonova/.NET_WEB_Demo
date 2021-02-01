@@ -10,7 +10,7 @@ namespace RWA_Admin
         {
             if (!IsPostBack)
             {
-                FillData(); 
+                FillData();
             }
         }
 
@@ -30,18 +30,25 @@ namespace RWA_Admin
             {
                 try
                 {
-                    Repo.InsertClient(new Client
+                    if (!Repo.CheckOIB(txtOIB.Text.Trim()))
                     {
-                        Name = txtIme.Text.Trim(),
-                        OIB = txtOIB.Text.Trim(),
-                        Address = txtAddress.Text.Trim(),
-                        ClientStatus = (ClientStatus)Enum.Parse(typeof(ClientStatus), ddlClientStatus.Text)
-                    });
-                    Response.Redirect("~/Clients.aspx");
+                        Repo.InsertClient(new Client
+                        {
+                            Name = txtIme.Text.Trim(),
+                            OIB = txtOIB.Text.Trim(),
+                            Address = txtAddress.Text.Trim(),
+                            ClientStatus = (ClientStatus)Enum.Parse(typeof(ClientStatus), ddlClientStatus.Text)
+                        });
+                        Response.Redirect("~/Clients.aspx"); 
+                    }
+                    else
+                    {
+                        lblError.Text = $"Client with that OIB already exists!";
+                    }
                 }
                 catch (Exception ex)
                 {
-                    lblError.Text = ex.Message;
+                        lblError.Text = ex.Message;
                 }
             }
             else

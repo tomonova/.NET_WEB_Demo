@@ -1,0 +1,44 @@
+﻿@model RWA_User.Models.TimeSheet
+
+@{
+    ViewBag.Title = "TimeSheet";
+    Layout = "~/Views/Shared/_ERVLayout.cshtml";
+    Model.EmployeeID = int.Parse(Session["IDEmployee"].ToString());
+}
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    <div class="container">
+        <div class="row">
+            <div class="form-group">
+                @Html.EditorFor(m => m.TimeSheetDate, new { htmlAttributes = new { @readonly = "true", @class = "datepicker mt-5 form-control", placeholder = "choose date" } })
+            </div>
+            <div class="form-group">
+                @Html.HiddenFor(m => m.EmployeeID)
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Search" class="btn btn-primary mt-5 ml-5" />
+            </div>
+        </div>
+        @if (TempData["CheckTimeSheet"] != null)
+        {
+            <b>Vrijednost : @TempData["CheckTimeSheet"].ToString()</b>
+        }
+    </div>
+
+}
+
+
+@section scripts{
+    <script>
+        $(function () {
+            $(".datepicker").datepicker({
+                dateFormat: "yy-mm-dd",
+                changeMonth: true,
+                changeYear: true,
+                yearRange: "-1:+1"
+            });
+        });
+    </script>
+}
