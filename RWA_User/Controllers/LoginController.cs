@@ -29,6 +29,7 @@ namespace RWA_User.Controllers
             {
                 FormsAuthentication.SetAuthCookie(user.UserName, false);
                 Session["IDEmployee"] = Repo.GetIDEmployee(user.UserName);
+                Session["EmployeeType"] = Repo.GetEmployeeType(user.UserName);
                 return Redirect("/Home/Index");
             }
             else

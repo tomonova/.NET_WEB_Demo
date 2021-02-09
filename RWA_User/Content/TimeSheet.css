@@ -1,0 +1,23 @@
+﻿body {
+}
+.txtBoxWH, .txtBoxOH {
+    border-radius: 25px;
+    border: 2px solid #0062cc;
+    padding: 20px;
+    width: 200px;
+    height: 15px;
+    text-align:center;
+}
+.tsRowFont{
+    color: white;
+}
+html body div form div.container table.table.mt-5 tbody tr td {
+    vertical-align: middle;
+}
+.btn-outline-secondary {
+    color: #fff;
+    border-color: #0062cc;
+}
+html body div form div.container table.table.mt-5 thead.thead-dark tr th{
+    text-align:center;
+}

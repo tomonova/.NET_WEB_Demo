@@ -1,37 +1,60 @@
-﻿@model RWA_User.Models.TimeSheet
+﻿@model List<RWA_User.Models.TimeSheetRowViewModel>
+@section styles{
 
+    <link href="@Url.Content("~/Content/TimeSheet.css")" rel="stylesheet" type="text/css" />
+}
 @{
     ViewBag.Title = "Edit";
     Layout = "~/Views/Shared/_ERVLayout.cshtml";
 }
-@using (Html.BeginForm("Edit","TimeSheet",FormMethod.Post))
+@using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
-<div class="container">
-    <table class="table">
-        <thead class="thead-dark">
-            <tr>
-                <th scope="col">Project</th>
-                <th scope="col">Work hours</th>
-                <th scope="col">Overtime hours</th>
-            </tr>
-        </thead>
-        <tbody>
-            @for (var i = 0; i < Model.TSRows.Count; i++)
+    <form method="post">
+        <div class="container">
+            <table class="table mt-5">
+                <thead class="thead-dark">
+                    <tr>
+                        <th scope="col">Project</th>
+                        <th scope="col">Work hours</th>
+                        <th scope="col">Overtime hours</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @for (var i = 0; i < Model.Count; i++)
+                    {
+                        @Html.HiddenFor(m => Model[i].ID)
+                        @Html.HiddenFor(m => Model[i].ProjectID)
+                        <tr>
+                            <td><label class="tsRowFont">@Model[i].ProjectName</label></td>
+                            <td>@Html.TextBoxFor(m => Model[i].WorkHours, new { @class = "txtBoxWH", @onchange = "valueChangedEvent()", @type = "number", @min = "0", @max = "12" })</td>
+                            <td>@Html.TextBoxFor(m => Model[i].OverTimeHours, new { @class = "txtBoxOH", @onchange = "valueChangedEvent()", @type = "number", @min = "0", @max = "12" })</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+            @if (TempData["HoursCheck"] != null)
             {
-                @Html.HiddenFor(m => Model.TSRows[i].ID)
-                @Html.HiddenFor(m => Model.TSRows[i].ProjectID)
-                <tr>
-                    <td> @Html.LabelFor(m => Model.TSRows[i].Project)</td>
-                    <td>@Html.TextAreaFor(m => Model.TSRows[i].WorkHours)</td>
-                    <td>@Html.TextAreaFor(m => Model.TSRows[i].OverTimeHours)</td>
-                </tr>
+                <div class="alert alert-warning mt-5" role="alert">
+                    @TempData["HoursCheck"].ToString()
+                </div>
+
             }
-        </tbody>
-    </table>
-    <div class="form-group">
-        <input type="submit" value="Edit" class="btn btn-primary" />
-    </div>
-</div>
+            <div class="form-group">
+                <input type="submit" formaction="@Url.Action("UpdateTimeSheet","TimeSheetUpdate")" value="Update" class="btn btn-primary" />
+            </div>
+        </div>
+    </form>
+}
+@section scripts{
+    <script src="~/Scripts/TimeSheet.js"></script>
+    <script src="~/Scripts/bootstrap-input-spinner.js"></script>
+    <script src="~/Scripts/luxon.min.js"></script>
+    <script>
+        var DateTime = luxon.DateTime;
+        var employeeType = @Session["EmployeeType"];
+        var tsDate = DateTime.fromISO("@Session["TSDate"].ToString()");
+        $("input[type='number']").inputSpinner();
+    </script>
 }
 

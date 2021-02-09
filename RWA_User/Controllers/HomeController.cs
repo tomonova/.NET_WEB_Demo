@@ -13,7 +13,7 @@ namespace RWA_User.Controllers
         [Authorize]
         public ActionResult Index()
         {
-            ViewBag.UserName = Repo.GetEmployeeName(User.Identity.Name);
+            ViewBag.UserName = Repo.GetEmployeeName(int.Parse(Session["IDEmployee"].ToString()));
             return View();
         }
     }

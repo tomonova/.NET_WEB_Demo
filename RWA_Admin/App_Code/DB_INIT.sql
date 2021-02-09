@@ -154,11 +154,11 @@ create table TIMESHEET
 (
 	IDTimeSheet int not null IDENTITY(1,1) constraint PKTimeSheet primary key (IDTimeSheet),
 	EmployeeID int not null constraint FKTimeSheet_Employee references EMPLOYEES(IDEmployee),
-	TimeSheeetDate date not null,
+	TimeSheetDate date not null,
 	WorkHours int,
 	OverTimeHours int,
 	TimeSheetStatus int not null default 1
-	constraint UQ_TIMESHEET_EMPLOYEE_DATE UNIQUE (EmployeeID,TimeSheeetDate)
+	constraint UQ_TIMESHEET_EMPLOYEE_DATE UNIQUE (EmployeeID,TimeSheetDate)
 )
 Create table TIMESHEET_ROW
 (
@@ -552,14 +552,14 @@ as
 	set @checkOutput = '2'
 	else 
 	set @checkOutput = '0'
-GO
-create or alter proc GetEmployeeName
-	@EmployeeName nvarchar(100),
+go
+create or ALTER   proc GetEmployeeName
+	@EmployeeID int,
 	@EmployeeNameOut nvarchar(100) out
 as
 select @EmployeeNameOut =  Name+' '+Surname  from EMPLOYEES
 join users on users.Username = employees.Email 
-where users.Username = @EmployeeName
+where EMPLOYEES.IDEmployee = @EmployeeID
 go
 create or alter proc GetIDEmployee
 	@EmployeeName nvarchar(100),
@@ -617,16 +617,16 @@ create or alter proc GetTimeSheetID
 	@TimeSheetID int output
 as
 select @TimeSheetID= IDTimeSheet from TIMESHEET
-where EmployeeID = @EmployeeID and TimeSheeetDate = @TimeSheetDate
+where EmployeeID = @EmployeeID and TimeSheetDate = @TimeSheetDate
 go
-create or alter proc CreateTimeSheet
+create or ALTER   proc CreateTimeSheet
 	@TimeSheetDate datetime,
 	@EmployeeID int,
 	@TimeSheetID int output
 as
-insert into TIMESHEET(EmployeeID, TimeSheeetDate, WorkHours, OverTimeHours, TimeSheetSTatus)
+insert into TIMESHEET(EmployeeID, TimeSheetDate, WorkHours, OverTimeHours, TimeSheetSTatus)
 values(@EmployeeID,@TimeSheetDate,0,0,1)
-select @TimeSheetID = IDTimeSheet from TIMESHEET
+select @TimeSheetID = SCOPE_IDENTITY();
 go
 create or alter proc GetTSRows
 	@TimeSheetID int
@@ -643,3 +643,54 @@ as
 		where OIB=@OIB)
 		set @checkOutput = '1'
 	else set @checkOutput = '0'
+go
+create or alter proc GetTimeSheet
+	@idTimeSheet int
+as
+	select * from TIMESHEET
+	where IDTimeSheet=@idTimeSheet
+go
+create or alter proc GetTimesheetRows
+	@idTimeSheet int
+as
+select IDTimeSheetRow,ProjectID,p.Name as ProjectName,WorkHours,OverTimeHours from TIMESHEET_ROW tr
+join PROJECTS p on tr.ProjectID = p.IDProject 
+where TimeSheetID=@idTimeSheet
+go
+create or alter proc GetEmployeeType
+	@EmployeeName nvarchar(100),
+	@EmployeeTypeOut nvarchar(100) out
+as
+select @EmployeeTypeOut =  EmployeeType  from EMPLOYEES
+join users on users.Username = employees.Email 
+where users.Username = @EmployeeName
+go
+create type dbo.TimeSheetRowList
+as table
+(
+	IDTimeSheetRow int,
+	ProjectID int,
+	WorkHours int,
+	OverTimeHours int
+);
+go
+create or alter proc UpdateTimeSheetRow
+	@TimeSheetRowList as TimeSheetRowList readonly
+as
+declare @IdTimeSheetRow int
+declare @WorkHours int
+declare @OverTimeHours int
+declare TimeSheetRowCursor CURSOR FOR
+select IDTimeSheetRow,WorkHours,OverTimeHours from @TimeSheetRowList
+open TimeSheetRowCursor
+fetch next from TimeSheetRowCursor into @IdTimeSheetRow,@WorkHours,@OverTimeHours
+while(@@FETCH_STATUS =0)
+BEGIN
+	update TIMESHEET_ROW
+	set WorkHours=@WorkHours,
+	OverTimeHours=@OverTimeHours
+	where IDTimeSheetRow=@IdTimeSheetRow;
+	fetch next from TimeSheetRowCursor into @IdTimeSheetRow,@WorkHours,@OverTimeHours
+END
+close TimeSheetRowCursor
+deallocate TimeSheetRowCursor

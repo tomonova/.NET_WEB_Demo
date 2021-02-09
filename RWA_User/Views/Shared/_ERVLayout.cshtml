@@ -13,6 +13,7 @@
     <script src="~/Scripts/jquery-3.5.1.min.js"></script>
     <script src="~/Scripts/jquery-ui-1.12.1.min.js"></script>
     <script src="~/Scripts/bootstrap.min.js"></script>
+    @RenderSection("styles", required: false)
 
 </head>
 <body>
@@ -38,18 +39,18 @@
             </div>
         </nav>
         @RenderBody()
-    <footer>
-        <div class="copyright">
-            <p>@DateTime.Now.Year - Tomislav Novaković</p>
-        </div>
-        <div class="social">
-            <a href="#" class="support">Contact Us</a>
-            <a href="#" class="face">f</a>
-            <a href="#" class="tweet">t</a>
-            <a href="#" class="linked">in</a>
-        </div>
-    </footer>
+        <footer>
+            <div class="copyright">
+                <p>@DateTime.Now.Year - Tomislav Novaković</p>
+            </div>
+            <div class="social">
+                <a href="#" class="support">Contact Us</a>
+                <a href="#" class="face">f</a>
+                <a href="#" class="tweet">t</a>
+                <a href="#" class="linked">in</a>
+            </div>
+        </footer>
     </div>
-    @RenderSection("scripts",required: false)
+    @RenderSection("scripts", required: false)
 </body>
 </html>

@@ -6,7 +6,7 @@ using System.Web;
 
 namespace RWA_User.Models
 {
-    public class TimeSheetRow
+    public class TimeSheetRowViewModel
     {
         [Required]
         public int ID { get; set; }
@@ -15,10 +15,10 @@ namespace RWA_User.Models
         [Required]
         public string ProjectName { get; set; }
         [Required]
-        [Range(0,8)]
+        [Range(0, 8)]
         public int WorkHours { get; set; }
         [Required]
-        [Range(0,4)]
+        [Range(0, 4)]
         public int OverTimeHours { get; set; }
     }
 }

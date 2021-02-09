@@ -26,5 +26,6 @@ namespace RWA_User.Models
         [Required]
         public TimesheetStatus TimesheetStatus { get; set; }
         public List<TimeSheetRow> TSRows { get; set; }
+        public string Comment { get; set; }
     }
 }

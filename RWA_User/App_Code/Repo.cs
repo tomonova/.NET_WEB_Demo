@@ -14,16 +14,51 @@ namespace RWA_User.App_Code
     {
         private static string cs = ConfigurationManager.ConnectionStrings["cs"].ConnectionString;
 
-        internal static string GetEmployeeName(string name)
+        internal static void UpdateTimeSheetRows(List<TimeSheetRowViewModel> model)
+        {
+            DataTable tvp = new DataTable();
+            tvp.Columns.Add(new DataColumn("IDTimeSheetRow", typeof(int)));
+            tvp.Columns.Add(new DataColumn("ProjectID", typeof(int)));
+            tvp.Columns.Add(new DataColumn("WorkHours", typeof(int)));
+            tvp.Columns.Add(new DataColumn("OverTimeHours", typeof(int)));
+            foreach (var item in model)
+            {
+                DataRow dr = tvp.NewRow();
+                dr["IDTimeSheetRow"] = item.ID;
+                dr["ProjectID"] = item.ProjectID;
+                dr["WorkHours"] = item.WorkHours;
+                dr["OverTimeHours"] = item.OverTimeHours;
+                tvp.Rows.Add(dr);
+            }
+            SqlParameter[] Param = new SqlParameter[2];
+            Param[0] = new SqlParameter("@TimeSheetRowList", SqlDbType.Structured);
+            Param[0].Value = tvp;
+            Param[0].TypeName = "TimeSheetRowList";
+            SqlHelper.ExecuteNonQuery(cs, CommandType.StoredProcedure, "UpdateTimeSheetRow", Param);
+        }
+
+        internal static string GetEmployeeName(int employeeID)
         {
             SqlParameter[] Param = new SqlParameter[2];
-            Param[0] = new SqlParameter("@EmployeeName", SqlDbType.NVarChar);
-            Param[0].Value = name;
+            Param[0] = new SqlParameter("@EmployeeID", SqlDbType.Int);
+            Param[0].Value = employeeID;
             Param[1] = new SqlParameter("@EmployeeNameOut", SqlDbType.NVarChar, 100);
             Param[1].Direction = ParameterDirection.Output;
             SqlHelper.ExecuteNonQuery(cs, CommandType.StoredProcedure, "GetEmployeeName", Param);
             string response = Param[1].Value.ToString();
             return response == null ? "Ne znam tko si" : response;
+        }
+
+        internal static string GetEmployeeType(string name)
+        {
+            SqlParameter[] Param = new SqlParameter[2];
+            Param[0] = new SqlParameter("@EmployeeName", SqlDbType.NVarChar);
+            Param[0].Value = name;
+            Param[1] = new SqlParameter("@EmployeeTypeOut", SqlDbType.NVarChar, 100);
+            Param[1].Direction = ParameterDirection.Output;
+            SqlHelper.ExecuteNonQuery(cs, CommandType.StoredProcedure, "GetEmployeeType", Param);
+            string response = Param[1].Value.ToString();
+            return response;
         }
 
         internal static int GetTimeSheetID(TimeSheet ts)
@@ -57,6 +92,7 @@ namespace RWA_User.App_Code
             SqlHelper.ExecuteNonQuery(cs, CommandType.StoredProcedure, "CreateTimeSheet", Param);
             ts.ID = int.Parse(Param[2].Value.ToString());
             CreateTimeSheetRows(ts);
+
             return ts;
         }
 
@@ -84,30 +120,8 @@ namespace RWA_User.App_Code
                 TSRowParam[1].Value = projectID;
                 SqlHelper.ExecuteNonQuery(cs, CommandType.StoredProcedure, "CreateTSRow", TSRowParam);
             }
+            ts.TSRows = GetTimeSheetRows(ts.ID);
         }
-
-        //internal static List<TimeSheetRow> GetTimeSheetRows(TimeSheet ts)
-        //{
-
-        //    DataTable tblTimeSheetRow = SqlHelper.ExecuteDataset(cs, "GetTimeSheetRows").Tables[0];
-        //    foreach (DataRow row in tblEmployees.Rows)
-        //    {
-        //        Employee employee = new Employee
-        //        {
-        //            Id = (int)row["IDEmployee"],
-        //            Name = row["Name"].ToString(),
-        //            Surname = row["Surname"].ToString(),
-        //            FullName = $"{row["Name"]} {row["Surname"]}",
-        //            EmployeePosition = (EmployeePosition)(int)row["EmployeePosition"],
-        //            EmploymentDate = (DateTime)row["EmploymentDate"],
-        //            EmployeeType = (EmployeeType)((int)row["EmployeeType"]),
-        //            EmployeeStatus = (EmployeeStatus)((int)row["EmployeeStatus"]),
-        //            AssignedTeam = (int)row["TeamID"]
-        //        };
-        //        employeeList.Add(employee);
-        //    }
-        //    return ts;
-        //}
 
         internal static bool CheckTimeSheet(TimeSheet ts)
         {
@@ -138,9 +152,28 @@ namespace RWA_User.App_Code
                 WorkHoursSum = (int)row["WorkHours"],
                 OverTimeHoursSum = (int)row["OverTimeHours"],
                 TimesheetStatus = (TimesheetStatus)((int)row["TimeSheetStatus"]),
-                //TSRows = Repo.GetTimeSheetRows(tsID)
+                TSRows = Repo.GetTimeSheetRows(tsID)
             };
+        }
 
+        private static List<TimeSheetRow> GetTimeSheetRows(int tsID)
+        {
+            List<TimeSheetRow> TSRows = new List<TimeSheetRow>();
+            DataTable tbl = SqlHelper.ExecuteDataset(cs, "GetTimeSheetRows", tsID).Tables[0];
+            if (tbl.Rows.Count == 0) return null;
+            foreach (DataRow row in tbl.Rows)
+            {
+                TimeSheetRow tsRow = new TimeSheetRow
+                {
+                    ID = (int)row["IDTimeSheetRow"],
+                    ProjectID = (int)row["ProjectID"],
+                    ProjectName = row["ProjectName"].ToString(),
+                    WorkHours = (int)row["WorkHours"],
+                    OverTimeHours = (int)row["OverTimeHours"]
+                };
+                TSRows.Add(tsRow);
+            }
+            return TSRows;
         }
 
         internal static string GetIDEmployee(string userName)

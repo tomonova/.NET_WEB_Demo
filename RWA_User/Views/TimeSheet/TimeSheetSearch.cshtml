@@ -21,9 +21,13 @@
                 <input type="submit" value="Search" class="btn btn-primary mt-5 ml-5" />
             </div>
         </div>
+
         @if (TempData["CheckTimeSheet"] != null)
         {
-            <b>Vrijednost : @TempData["CheckTimeSheet"].ToString()</b>
+            <div class="alert alert-warning mt-5" role="alert">
+                @TempData["CheckTimeSheet"].ToString()
+            </div>
+
         }
     </div>
 
