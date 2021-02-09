@@ -1,264 +1,264 @@
-﻿;Projekt Mucrosoft Prvi;1;1.1.2010;151;1
-;Projekt Oricle Prvi;2;31.1.2010;81;1
-;Projekt Ubm Prvi;3;2.3.2010;171;1
-;Projekt Sip Prvi;4;1.4.2010;31;1
-;Projekt Symintec Prvi;5;1.5.2010;191;1
-;Projekt Emc Prvi;6;31.5.2010;141;1
-;Projekt Vmwire Prvi;7;30.6.2010;31;1
-;Projekt Silesforcecom Prvi;9;30.7.2010;131;1
-;Projekt Untaut Prvi;10;29.8.2010;111;1
-;Projekt Idobe Prvi;11;28.9.2010;111;1
-;Projekt Sis Prvi;13;28.10.2010;91;1
-;Projekt Cusco Prvi;14;27.11.2010;191;1
-;Projekt Suemens Prvi;16;27.12.2010;51;1
-;Projekt Fajutsa Prvi;17;26.1.2011;161;1
-;Projekt Iatodesk Prvi;18;25.2.2011;21;1
-;Projekt Cutrux Prvi;19;27.3.2011;11;1
-;Projekt Hutichu Prvi;21;26.4.2011;181;1
-;Projekt Ipple Prvi;22;26.5.2011;31;1
-;Projekt Unfor Prvi;23;25.6.2011;191;1
-;Projekt Untel Prvi;25;25.7.2011;71;1
-;Projekt Sige Prvi;27;24.8.2011;111;1
-;Projekt Idp Prvi;28;23.9.2011;101;1
-;Projekt Opentext Prvi;31;23.10.2011;171;1
-;Projekt Sangird Prvi;32;22.11.2011;131;1
-;Projekt Nec Prvi;33;22.12.2011;41;1
-;Projekt Hexigon Prvi;35;21.1.2012;191;1
-;Projekt Teriditi Prvi;37;20.2.2012;121;1
-;Projekt Netipp Prvi;38;21.3.2012;131;1
-;Projekt Mckesson Prvi;42;20.4.2012;41;1
-;Projekt Ptc Prvi;44;20.5.2012;81;1
-;Projekt Ditev Prvi;47;19.6.2012;161;1
-;Projekt Esru Prvi;48;19.7.2012;141;1
-;Projekt Cerner Prvi;49;18.8.2012;51;1
-;Projekt Insys Prvi;50;17.9.2012;21;1
-;Projekt Unformituci Prvi;51;17.10.2012;151;1
-;Projekt Tubco Prvi;52;16.11.2012;21;1
-;Projekt Optam Prvi;54;16.12.2012;11;1
-;Projekt Fuserv Prvi;56;15.1.2013;141;1
-;Projekt Iviyi Prvi;57;14.2.2013;31;1
-;Projekt Kronos Prvi;58;16.3.2013;101;1
-;Projekt Itheniheilth Prvi;64;15.4.2013;181;1
-;Projekt Fuco Prvi;67;15.5.2013;61;1
-;Projekt Fus Prvi;68;14.6.2013;11;1
-;Projekt Musys Prvi;69;14.7.2013;81;1
-;Projekt Swuft Prvi;71;13.8.2013;141;1
-;Projekt Workdiy Prvi;72;12.9.2013;141;1
-;Projekt Totvs Prvi;74;12.10.2013;171;1
-;Projekt Servucenow Prvi;76;11.11.2013;141;1
-;Projekt Commvialt Prvi;77;11.12.2013;141;1
-;Projekt Convergys Prvi;79;10.1.2014;161;1
-;Projekt Neasoft Prvi;80;9.2.2014;161;1
-;Projekt Vusmi Prvi;81;11.3.2014;21;1
-;Projekt Qluk Prvi;82;10.4.2014;31;1
-;Projekt Untersystems Prvi;85;10.5.2014;41;1
-;Projekt Pilintur Prvi;86;9.6.2014;21;1
-;Projekt Anuto Prvi;87;9.7.2014;51;1
-;Projekt Illscrupts Prvi;88;8.8.2014;101;1
-;Projekt Medutech Prvi;89;7.9.2014;51;1
-;Projekt Blickboird Prvi;90;7.10.2014;191;1
-;Projekt Imizoncom Prvi;91;6.11.2014;1;1
-;Projekt Pegisystems Prvi;93;6.12.2014;21;1
-;Projekt Netsaute Prvi;94;5.1.2015;101;1
-;Projekt Mucrostritegy Prvi;95;4.2.2015;91;1
-;Projekt Eset Prvi;96;6.3.2015;41;1
-;Projekt Solirwunds Prvi;98;5.4.2015;161;1
-;Projekt Mucrosoft Drugi;1;5.5.2015;161;1
-;Projekt Oricle Drugi;2;4.6.2015;151;1
-;Projekt Ubm Drugi;3;4.7.2015;31;1
-;Projekt Sip Drugi;4;3.8.2015;11;1
-;Projekt Symintec Drugi;5;2.9.2015;1;1
-;Projekt Emc Drugi;6;2.10.2015;1;1
-;Projekt Vmwire Drugi;7;1.11.2015;51;1
-;Projekt Silesforcecom Drugi;9;1.12.2015;191;1
-;Projekt Untaut Drugi;10;31.12.2015;91;1
-;Projekt Idobe Drugi;11;30.1.2016;81;1
-;Projekt Sis Drugi;13;29.2.2016;51;1
-;Projekt Cusco Drugi;14;30.3.2016;91;1
-;Projekt Suemens Drugi;16;29.4.2016;101;1
-;Projekt Fajutsa Drugi;17;29.5.2016;181;1
-;Projekt Iatodesk Drugi;18;28.6.2016;101;1
-;Projekt Cutrux Drugi;19;28.7.2016;21;1
-;Projekt Hutichu Drugi;21;27.8.2016;181;1
-;Projekt Ipple Drugi;22;26.9.2016;191;1
-;Projekt Unfor Drugi;23;26.10.2016;81;1
-;Projekt Untel Drugi;25;25.11.2016;121;1
-;Projekt Sige Drugi;27;25.12.2016;151;1
-;Projekt Idp Drugi;28;24.1.2017;121;1
-;Projekt Opentext Drugi;31;23.2.2017;21;1
-;Projekt Sangird Drugi;32;25.3.2017;1;1
-;Projekt Nec Drugi;33;24.4.2017;101;1
-;Projekt Hexigon Drugi;35;24.5.2017;111;1
-;Projekt Teriditi Drugi;37;23.6.2017;171;1
-;Projekt Netipp Drugi;38;23.7.2017;151;1
-;Projekt Mckesson Drugi;42;22.8.2017;21;1
-;Projekt Ptc Drugi;44;21.9.2017;91;1
-;Projekt Ditev Drugi;47;21.10.2017;81;1
-;Projekt Esru Drugi;48;20.11.2017;171;1
-;Projekt Cerner Drugi;49;20.12.2017;171;1
-;Projekt Insys Drugi;50;19.1.2018;121;1
-;Projekt Unformituci Drugi;51;18.2.2018;181;1
-;Projekt Tubco Drugi;52;20.3.2018;181;1
-;Projekt Optam Drugi;54;19.4.2018;151;1
-;Projekt Fuserv Drugi;56;19.5.2018;121;1
-;Projekt Iviyi Drugi;57;18.6.2018;131;1
-;Projekt Kronos Drugi;58;18.7.2018;161;1
-;Projekt Itheniheilth Drugi;64;17.8.2018;111;1
-;Projekt Fuco Drugi;67;16.9.2018;21;1
-;Projekt Fus Drugi;68;16.10.2018;151;1
-;Projekt Musys Drugi;69;15.11.2018;151;1
-;Projekt Swuft Drugi;71;15.12.2018;181;1
-;Projekt Workdiy Drugi;72;14.1.2019;151;1
-;Projekt Totvs Drugi;74;13.2.2019;11;1
-;Projekt Servucenow Drugi;76;15.3.2019;61;1
-;Projekt Commvialt Drugi;77;14.4.2019;91;1
-;Projekt Convergys Drugi;79;14.5.2019;181;1
-;Projekt Neasoft Drugi;80;13.6.2019;41;1
-;Projekt Vusmi Drugi;81;13.7.2019;121;1
-;Projekt Qluk Drugi;82;12.8.2019;11;1
-;Projekt Untersystems Drugi;85;11.9.2019;121;1
-;Projekt Pilintur Drugi;86;11.10.2019;11;1
-;Projekt Anuto Drugi;87;10.11.2019;51;1
-;Projekt Illscrupts Drugi;88;10.12.2019;131;1
-;Projekt Medutech Drugi;89;1.1.2010;31;1
-;Projekt Blickboird Drugi;90;31.1.2010;111;1
-;Projekt Imizoncom Drugi;91;2.3.2010;91;1
-;Projekt Pegisystems Drugi;93;1.4.2010;51;1
-;Projekt Netsaute Drugi;94;1.5.2010;91;1
-;Projekt Mucrostritegy Drugi;95;31.5.2010;181;1
-;Projekt Eset Drugi;96;30.6.2010;1;1
-;Projekt Solirwunds Drugi;98;30.7.2010;1;1
-;Projekt Mucrosoft Prvi iza drugog;1;29.8.2010;81;1
-;Projekt Oricle Prvi iza drugog;2;28.9.2010;121;1
-;Projekt Ubm Prvi iza drugog;3;28.10.2010;181;1
-;Projekt Sip Prvi iza drugog;4;27.11.2010;11;1
-;Projekt Symintec Prvi iza drugog;5;27.12.2010;1;1
-;Projekt Emc Prvi iza drugog;6;26.1.2011;121;1
-;Projekt Vmwire Prvi iza drugog;7;25.2.2011;81;1
-;Projekt Silesforcecom Prvi iza drugog;9;27.3.2011;71;1
-;Projekt Untaut Prvi iza drugog;10;26.4.2011;71;1
-;Projekt Idobe Prvi iza drugog;11;26.5.2011;141;1
-;Projekt Sis Prvi iza drugog;13;25.6.2011;11;1
-;Projekt Cusco Prvi iza drugog;14;25.7.2011;131;1
-;Projekt Suemens Prvi iza drugog;16;24.8.2011;171;1
-;Projekt Fajutsa Prvi iza drugog;17;23.9.2011;71;1
-;Projekt Iatodesk Prvi iza drugog;18;23.10.2011;31;1
-;Projekt Cutrux Prvi iza drugog;19;22.11.2011;161;1
-;Projekt Hutichu Prvi iza drugog;21;22.12.2011;101;1
-;Projekt Ipple Prvi iza drugog;22;21.1.2012;101;1
-;Projekt Unfor Prvi iza drugog;23;20.2.2012;71;1
-;Projekt Untel Prvi iza drugog;25;21.3.2012;1;1
-;Projekt Sige Prvi iza drugog;27;20.4.2012;51;1
-;Projekt Idp Prvi iza drugog;28;20.5.2012;61;1
-;Projekt Opentext Prvi iza drugog;31;19.6.2012;171;1
-;Projekt Sangird Prvi iza drugog;32;19.7.2012;171;1
-;Projekt Nec Prvi iza drugog;33;18.8.2012;71;1
-;Projekt Hexigon Prvi iza drugog;35;17.9.2012;101;1
-;Projekt Teriditi Prvi iza drugog;37;17.10.2012;141;1
-;Projekt Netipp Prvi iza drugog;38;16.11.2012;61;1
-;Projekt Mckesson Prvi iza drugog;42;16.12.2012;131;1
-;Projekt Ptc Prvi iza drugog;44;15.1.2013;11;1
-;Projekt Ditev Prvi iza drugog;47;14.2.2013;41;1
-;Projekt Esru Prvi iza drugog;48;16.3.2013;111;1
-;Projekt Cerner Prvi iza drugog;49;15.4.2013;21;1
-;Projekt Insys Prvi iza drugog;50;15.5.2013;41;1
-;Projekt Unformituci Prvi iza drugog;51;14.6.2013;141;1
-;Projekt Tubco Prvi iza drugog;52;14.7.2013;151;1
-;Projekt Optam Prvi iza drugog;54;13.8.2013;101;1
-;Projekt Fuserv Prvi iza drugog;56;12.9.2013;41;1
-;Projekt Iviyi Prvi iza drugog;57;12.10.2013;31;1
-;Projekt Kronos Prvi iza drugog;58;11.11.2013;61;1
-;Projekt Itheniheilth Prvi iza drugog;64;11.12.2013;171;1
-;Projekt Fuco Prvi iza drugog;67;10.1.2014;111;1
-;Projekt Fus Prvi iza drugog;68;9.2.2014;171;1
-;Projekt Musys Prvi iza drugog;69;11.3.2014;61;1
-;Projekt Swuft Prvi iza drugog;71;10.4.2014;81;1
-;Projekt Workdiy Prvi iza drugog;72;10.5.2014;111;1
-;Projekt Totvs Prvi iza drugog;74;9.6.2014;91;1
-;Projekt Servucenow Prvi iza drugog;76;9.7.2014;71;1
-;Projekt Commvialt Prvi iza drugog;77;8.8.2014;61;1
-;Projekt Convergys Prvi iza drugog;79;7.9.2014;191;1
-;Projekt Neasoft Prvi iza drugog;80;7.10.2014;161;1
-;Projekt Vusmi Prvi iza drugog;81;6.11.2014;191;1
-;Projekt Qluk Prvi iza drugog;82;6.12.2014;151;1
-;Projekt Untersystems Prvi iza drugog;85;5.1.2015;41;1
-;Projekt Pilintur Prvi iza drugog;86;4.2.2015;151;1
-;Projekt Anuto Prvi iza drugog;87;6.3.2015;161;1
-;Projekt Illscrupts Prvi iza drugog;88;5.4.2015;1;1
-;Projekt Medutech Prvi iza drugog;89;5.5.2015;41;1
-;Projekt Blickboird Prvi iza drugog;90;4.6.2015;111;1
-;Projekt Imizoncom Prvi iza drugog;91;4.7.2015;61;1
-;Projekt Pegisystems Prvi iza drugog;93;3.8.2015;81;1
-;Projekt Netsaute Prvi iza drugog;94;2.9.2015;71;1
-;Projekt Mucrostritegy Prvi iza drugog;95;2.10.2015;71;1
-;Projekt Eset Prvi iza drugog;96;1.11.2015;161;1
-;Projekt Solirwunds Prvi iza drugog;98;1.12.2015;61;1
-;Projekt Mucrosoft Treći iza prvog;1;31.12.2015;41;1
-;Projekt Oricle Treći iza prvog;2;30.1.2016;31;1
-;Projekt Ubm Treći iza prvog;3;29.2.2016;191;1
-;Projekt Sip Treći iza prvog;4;30.3.2016;91;1
-;Projekt Symintec Treći iza prvog;5;29.4.2016;41;1
-;Projekt Emc Treći iza prvog;6;29.5.2016;131;1
-;Projekt Vmwire Treći iza prvog;7;28.6.2016;131;1
-;Projekt Silesforcecom Treći iza prvog;9;28.7.2016;131;1
-;Projekt Untaut Treći iza prvog;10;27.8.2016;81;1
-;Projekt Idobe Treći iza prvog;11;26.9.2016;51;1
-;Projekt Sis Treći iza prvog;13;26.10.2016;91;1
-;Projekt Cusco Treći iza prvog;14;25.11.2016;131;1
-;Projekt Suemens Treći iza prvog;16;25.12.2016;81;1
-;Projekt Fajutsa Treći iza prvog;17;24.1.2017;121;1
-;Projekt Iatodesk Treći iza prvog;18;23.2.2017;91;1
-;Projekt Cutrux Treći iza prvog;19;25.3.2017;161;1
-;Projekt Hutichu Treći iza prvog;21;24.4.2017;21;1
-;Projekt Ipple Treći iza prvog;22;24.5.2017;71;1
-;Projekt Unfor Treći iza prvog;23;23.6.2017;1;1
-;Projekt Untel Treći iza prvog;25;23.7.2017;131;1
-;Projekt Sige Treći iza prvog;27;22.8.2017;61;1
-;Projekt Idp Treći iza prvog;28;21.9.2017;51;1
-;Projekt Opentext Treći iza prvog;31;21.10.2017;171;1
-;Projekt Sangird Treći iza prvog;32;20.11.2017;181;1
-;Projekt Nec Treći iza prvog;33;20.12.2017;91;1
-;Projekt Hexigon Treći iza prvog;35;19.1.2018;191;1
-;Projekt Teriditi Treći iza prvog;37;18.2.2018;111;1
-;Projekt Netipp Treći iza prvog;38;20.3.2018;191;1
-;Projekt Mckesson Treći iza prvog;42;19.4.2018;181;1
-;Projekt Ptc Treći iza prvog;44;19.5.2018;161;1
-;Projekt Ditev Treći iza prvog;47;18.6.2018;181;1
-;Projekt Esru Treći iza prvog;48;18.7.2018;111;1
-;Projekt Cerner Treći iza prvog;49;17.8.2018;171;1
-;Projekt Insys Treći iza prvog;50;16.9.2018;111;1
-;Projekt Unformituci Treći iza prvog;51;16.10.2018;21;1
-;Projekt Tubco Treći iza prvog;52;15.11.2018;61;1
-;Projekt Optam Treći iza prvog;54;15.12.2018;121;1
-;Projekt Fuserv Treći iza prvog;56;14.1.2019;191;1
-;Projekt Iviyi Treći iza prvog;57;13.2.2019;51;1
-;Projekt Kronos Treći iza prvog;58;15.3.2019;141;1
-;Projekt Itheniheilth Treći iza prvog;64;14.4.2019;81;1
-;Projekt Fuco Treći iza prvog;67;14.5.2019;41;1
-;Projekt Fus Treći iza prvog;68;13.6.2019;121;1
-;Projekt Musys Treći iza prvog;69;13.7.2019;101;1
-;Projekt Swuft Treći iza prvog;71;12.8.2019;141;1
-;Projekt Workdiy Treći iza prvog;72;11.9.2019;31;1
-;Projekt Totvs Treći iza prvog;74;11.10.2019;71;1
-;Projekt Servucenow Treći iza prvog;76;10.11.2019;121;1
-;Projekt Commvialt Treći iza prvog;77;10.12.2019;31;1
-;Projekt Convergys Treći iza prvog;79;1.1.2010;101;1
-;Projekt Neasoft Treći iza prvog;80;31.1.2010;61;1
-;Projekt Vusmi Treći iza prvog;81;2.3.2010;1;1
-;Projekt Qluk Treći iza prvog;82;1.4.2010;61;1
-;Projekt Untersystems Treći iza prvog;85;1.5.2010;31;1
-;Projekt Pilintur Treći iza prvog;86;31.5.2010;11;1
-;Projekt Anuto Treći iza prvog;87;30.6.2010;191;1
-;Projekt Illscrupts Treći iza prvog;88;30.7.2010;71;1
-;Projekt Medutech Treći iza prvog;89;29.8.2010;11;1
-;Projekt Blickboird Treći iza prvog;90;28.9.2010;1;1
-;Projekt Imizoncom Treći iza prvog;91;28.10.2010;51;1
-;Projekt Pegisystems Treći iza prvog;93;27.11.2010;11;1
-;Projekt Netsaute Treći iza prvog;94;27.12.2010;141;1
-;Projekt Mucrostritegy Treći iza prvog;95;26.1.2011;151;1
-;Projekt Eset Treći iza prvog;96;25.2.2011;131;1
-;Projekt Solirwunds Treći iza prvog;98;27.3.2011;71;1
-;Bolovanje;;1.1.2010;200;1
-;Godišnji odmor;;1.1.2010;200;1
-;Putovanje;;1.1.2010;200;1
-;Pauza;;1.1.2010;200;1
+;Projekt Mucrosoft Prvi;1;2010-01-01;151;1
+;Projekt Oricle Prvi;2;2010-01-31;81;1
+;Projekt Ubm Prvi;3;2010-03-02;171;1
+;Projekt Sip Prvi;4;2010-04-01;31;1
+;Projekt Symintec Prvi;5;2010-05-01;191;1
+;Projekt Emc Prvi;6;2010-05-31;141;1
+;Projekt Vmwire Prvi;7;2010-06-30;31;1
+;Projekt Silesforcecom Prvi;9;2010-07-30;131;1
+;Projekt Untaut Prvi;10;2010-08-29;111;1
+;Projekt Idobe Prvi;11;2010-09-28;111;1
+;Projekt Sis Prvi;13;2010-10-28;91;1
+;Projekt Cusco Prvi;14;2010-11-27;191;1
+;Projekt Suemens Prvi;16;2010-12-27;51;1
+;Projekt Fajutsa Prvi;17;2011-01-26;161;1
+;Projekt Iatodesk Prvi;18;2011-02-25;21;1
+;Projekt Cutrux Prvi;19;2011-03-27;11;1
+;Projekt Hutichu Prvi;21;2011-04-26;181;1
+;Projekt Ipple Prvi;22;2011-05-26;31;1
+;Projekt Unfor Prvi;23;2011-06-25;191;1
+;Projekt Untel Prvi;25;2011-07-25;71;1
+;Projekt Sige Prvi;27;2011-08-24;111;1
+;Projekt Idp Prvi;28;2011-09-23;101;1
+;Projekt Opentext Prvi;31;2011-10-23;171;1
+;Projekt Sangird Prvi;32;2011-11-22;131;1
+;Projekt Nec Prvi;33;2011-12-22;41;1
+;Projekt Hexigon Prvi;35;2012-01-21;191;1
+;Projekt Teriditi Prvi;37;2012-02-20;121;1
+;Projekt Netipp Prvi;38;2012-03-21;131;1
+;Projekt Mckesson Prvi;42;2012-04-20;41;1
+;Projekt Ptc Prvi;44;2012-05-20;81;1
+;Projekt Ditev Prvi;47;2012-06-19;161;1
+;Projekt Esru Prvi;48;2012-07-19;141;1
+;Projekt Cerner Prvi;49;2012-08-18;51;1
+;Projekt Insys Prvi;50;2012-09-17;21;1
+;Projekt Unformituci Prvi;51;2012-10-17;151;1
+;Projekt Tubco Prvi;52;2012-11-16;21;1
+;Projekt Optam Prvi;54;2012-12-16;11;1
+;Projekt Fuserv Prvi;56;2013-01-15;141;1
+;Projekt Iviyi Prvi;57;2013-02-14;31;1
+;Projekt Kronos Prvi;58;2013-03-16;101;1
+;Projekt Itheniheilth Prvi;64;2013-04-15;181;1
+;Projekt Fuco Prvi;67;2013-05-15;61;1
+;Projekt Fus Prvi;68;2013-06-14;11;1
+;Projekt Musys Prvi;69;2013-07-14;81;1
+;Projekt Swuft Prvi;71;2013-08-13;141;1
+;Projekt Workdiy Prvi;72;2013-09-12;141;1
+;Projekt Totvs Prvi;74;2013-10-12;171;1
+;Projekt Servucenow Prvi;76;2013-11-11;141;1
+;Projekt Commvialt Prvi;77;2013-12-11;141;1
+;Projekt Convergys Prvi;79;2014-01-10;161;1
+;Projekt Neasoft Prvi;80;2014-02-09;161;1
+;Projekt Vusmi Prvi;81;2014-03-11;21;1
+;Projekt Qluk Prvi;82;2014-04-10;31;1
+;Projekt Untersystems Prvi;85;2014-05-10;41;1
+;Projekt Pilintur Prvi;86;2014-06-09;21;1
+;Projekt Anuto Prvi;87;2014-07-09;51;1
+;Projekt Illscrupts Prvi;88;2014-08-08;101;1
+;Projekt Medutech Prvi;89;2014-09-07;51;1
+;Projekt Blickboird Prvi;90;2014-10-07;191;1
+;Projekt Imizoncom Prvi;91;2014-11-06;1;1
+;Projekt Pegisystems Prvi;93;2014-12-06;21;1
+;Projekt Netsaute Prvi;94;2015-01-05;101;1
+;Projekt Mucrostritegy Prvi;95;2015-02-04;91;1
+;Projekt Eset Prvi;96;2015-03-06;41;1
+;Projekt Solirwunds Prvi;98;2015-04-05;161;1
+;Projekt Mucrosoft Drugi;1;2015-05-05;161;1
+;Projekt Oricle Drugi;2;2015-06-04;151;1
+;Projekt Ubm Drugi;3;2015-07-04;31;1
+;Projekt Sip Drugi;4;2015-08-03;11;1
+;Projekt Symintec Drugi;5;2015-09-02;1;1
+;Projekt Emc Drugi;6;2015-10-02;1;1
+;Projekt Vmwire Drugi;7;2015-11-01;51;1
+;Projekt Silesforcecom Drugi;9;2015-12-01;191;1
+;Projekt Untaut Drugi;10;2015-12-31;91;1
+;Projekt Idobe Drugi;11;2016-01-30;81;1
+;Projekt Sis Drugi;13;2016-02-29;51;1
+;Projekt Cusco Drugi;14;2016-03-30;91;1
+;Projekt Suemens Drugi;16;2016-04-29;101;1
+;Projekt Fajutsa Drugi;17;2016-05-29;181;1
+;Projekt Iatodesk Drugi;18;2016-06-28;101;1
+;Projekt Cutrux Drugi;19;2016-07-28;21;1
+;Projekt Hutichu Drugi;21;2016-08-27;181;1
+;Projekt Ipple Drugi;22;2016-09-26;191;1
+;Projekt Unfor Drugi;23;2016-10-26;81;1
+;Projekt Untel Drugi;25;2016-11-25;121;1
+;Projekt Sige Drugi;27;2016-12-25;151;1
+;Projekt Idp Drugi;28;2017-01-24;121;1
+;Projekt Opentext Drugi;31;2017-02-23;21;1
+;Projekt Sangird Drugi;32;2017-03-25;1;1
+;Projekt Nec Drugi;33;2017-04-24;101;1
+;Projekt Hexigon Drugi;35;2017-05-24;111;1
+;Projekt Teriditi Drugi;37;2017-06-23;171;1
+;Projekt Netipp Drugi;38;2017-07-23;151;1
+;Projekt Mckesson Drugi;42;2017-08-22;21;1
+;Projekt Ptc Drugi;44;2017-09-21;91;1
+;Projekt Ditev Drugi;47;2017-10-21;81;1
+;Projekt Esru Drugi;48;2017-11-20;171;1
+;Projekt Cerner Drugi;49;2017-12-20;171;1
+;Projekt Insys Drugi;50;2018-01-19;121;1
+;Projekt Unformituci Drugi;51;2018-02-18;181;1
+;Projekt Tubco Drugi;52;2018-03-20;181;1
+;Projekt Optam Drugi;54;2018-04-19;151;1
+;Projekt Fuserv Drugi;56;2018-05-19;121;1
+;Projekt Iviyi Drugi;57;2018-06-18;131;1
+;Projekt Kronos Drugi;58;2018-07-18;161;1
+;Projekt Itheniheilth Drugi;64;2018-08-17;111;1
+;Projekt Fuco Drugi;67;2018-09-16;21;1
+;Projekt Fus Drugi;68;2018-10-16;151;1
+;Projekt Musys Drugi;69;2018-11-15;151;1
+;Projekt Swuft Drugi;71;2018-12-15;181;1
+;Projekt Workdiy Drugi;72;2019-01-14;151;1
+;Projekt Totvs Drugi;74;2019-02-13;11;1
+;Projekt Servucenow Drugi;76;2019-03-15;61;1
+;Projekt Commvialt Drugi;77;2019-04-14;91;1
+;Projekt Convergys Drugi;79;2019-05-14;181;1
+;Projekt Neasoft Drugi;80;2019-06-13;41;1
+;Projekt Vusmi Drugi;81;2019-07-13;121;1
+;Projekt Qluk Drugi;82;2019-08-12;11;1
+;Projekt Untersystems Drugi;85;2019-09-11;121;1
+;Projekt Pilintur Drugi;86;2019-10-11;11;1
+;Projekt Anuto Drugi;87;2019-11-10;51;1
+;Projekt Illscrupts Drugi;88;2019-12-10;131;1
+;Projekt Medutech Drugi;89;2010-01-01;31;1
+;Projekt Blickboird Drugi;90;2010-01-31;111;1
+;Projekt Imizoncom Drugi;91;2010-03-02;91;1
+;Projekt Pegisystems Drugi;93;2010-04-01;51;1
+;Projekt Netsaute Drugi;94;2010-05-01;91;1
+;Projekt Mucrostritegy Drugi;95;2010-05-31;181;1
+;Projekt Eset Drugi;96;2010-06-30;1;1
+;Projekt Solirwunds Drugi;98;2010-07-30;1;1
+;Projekt Mucrosoft Prvi iza drugog;1;2010-08-29;81;1
+;Projekt Oricle Prvi iza drugog;2;2010-09-28;121;1
+;Projekt Ubm Prvi iza drugog;3;2010-10-28;181;1
+;Projekt Sip Prvi iza drugog;4;2010-11-27;11;1
+;Projekt Symintec Prvi iza drugog;5;2010-12-27;1;1
+;Projekt Emc Prvi iza drugog;6;2011-01-26;121;1
+;Projekt Vmwire Prvi iza drugog;7;2011-02-25;81;1
+;Projekt Silesforcecom Prvi iza drugog;9;2011-03-27;71;1
+;Projekt Untaut Prvi iza drugog;10;2011-04-26;71;1
+;Projekt Idobe Prvi iza drugog;11;2011-05-26;141;1
+;Projekt Sis Prvi iza drugog;13;2011-06-25;11;1
+;Projekt Cusco Prvi iza drugog;14;2011-07-25;131;1
+;Projekt Suemens Prvi iza drugog;16;2011-08-24;171;1
+;Projekt Fajutsa Prvi iza drugog;17;2011-09-23;71;1
+;Projekt Iatodesk Prvi iza drugog;18;2011-10-23;31;1
+;Projekt Cutrux Prvi iza drugog;19;2011-11-22;161;1
+;Projekt Hutichu Prvi iza drugog;21;2011-12-22;101;1
+;Projekt Ipple Prvi iza drugog;22;2012-01-21;101;1
+;Projekt Unfor Prvi iza drugog;23;2012-02-20;71;1
+;Projekt Untel Prvi iza drugog;25;2012-03-21;1;1
+;Projekt Sige Prvi iza drugog;27;2012-04-20;51;1
+;Projekt Idp Prvi iza drugog;28;2012-05-20;61;1
+;Projekt Opentext Prvi iza drugog;31;2012-06-19;171;1
+;Projekt Sangird Prvi iza drugog;32;2012-07-19;171;1
+;Projekt Nec Prvi iza drugog;33;2012-08-18;71;1
+;Projekt Hexigon Prvi iza drugog;35;2012-09-17;101;1
+;Projekt Teriditi Prvi iza drugog;37;2012-10-17;141;1
+;Projekt Netipp Prvi iza drugog;38;2012-11-16;61;1
+;Projekt Mckesson Prvi iza drugog;42;2012-12-16;131;1
+;Projekt Ptc Prvi iza drugog;44;2013-01-15;11;1
+;Projekt Ditev Prvi iza drugog;47;2013-02-14;41;1
+;Projekt Esru Prvi iza drugog;48;2013-03-16;111;1
+;Projekt Cerner Prvi iza drugog;49;2013-04-15;21;1
+;Projekt Insys Prvi iza drugog;50;2013-05-15;41;1
+;Projekt Unformituci Prvi iza drugog;51;2013-06-14;141;1
+;Projekt Tubco Prvi iza drugog;52;2013-07-14;151;1
+;Projekt Optam Prvi iza drugog;54;2013-08-13;101;1
+;Projekt Fuserv Prvi iza drugog;56;2013-09-12;41;1
+;Projekt Iviyi Prvi iza drugog;57;2013-10-12;31;1
+;Projekt Kronos Prvi iza drugog;58;2013-11-11;61;1
+;Projekt Itheniheilth Prvi iza drugog;64;2013-12-11;171;1
+;Projekt Fuco Prvi iza drugog;67;2014-01-10;111;1
+;Projekt Fus Prvi iza drugog;68;2014-02-09;171;1
+;Projekt Musys Prvi iza drugog;69;2014-03-11;61;1
+;Projekt Swuft Prvi iza drugog;71;2014-04-10;81;1
+;Projekt Workdiy Prvi iza drugog;72;2014-05-10;111;1
+;Projekt Totvs Prvi iza drugog;74;2014-06-09;91;1
+;Projekt Servucenow Prvi iza drugog;76;2014-07-09;71;1
+;Projekt Commvialt Prvi iza drugog;77;2014-08-08;61;1
+;Projekt Convergys Prvi iza drugog;79;2014-09-07;191;1
+;Projekt Neasoft Prvi iza drugog;80;2014-10-07;161;1
+;Projekt Vusmi Prvi iza drugog;81;2014-11-06;191;1
+;Projekt Qluk Prvi iza drugog;82;2014-12-06;151;1
+;Projekt Untersystems Prvi iza drugog;85;2015-01-05;41;1
+;Projekt Pilintur Prvi iza drugog;86;2015-02-04;151;1
+;Projekt Anuto Prvi iza drugog;87;2015-03-06;161;1
+;Projekt Illscrupts Prvi iza drugog;88;2015-04-05;1;1
+;Projekt Medutech Prvi iza drugog;89;2015-05-05;41;1
+;Projekt Blickboird Prvi iza drugog;90;2015-06-04;111;1
+;Projekt Imizoncom Prvi iza drugog;91;2015-07-04;61;1
+;Projekt Pegisystems Prvi iza drugog;93;2015-08-03;81;1
+;Projekt Netsaute Prvi iza drugog;94;2015-09-02;71;1
+;Projekt Mucrostritegy Prvi iza drugog;95;2015-10-02;71;1
+;Projekt Eset Prvi iza drugog;96;2015-11-01;161;1
+;Projekt Solirwunds Prvi iza drugog;98;2015-12-01;61;1
+;Projekt Mucrosoft TreÄ‡i iza prvog;1;2015-12-31;41;1
+;Projekt Oricle TreÄ‡i iza prvog;2;2016-01-30;31;1
+;Projekt Ubm TreÄ‡i iza prvog;3;2016-02-29;191;1
+;Projekt Sip TreÄ‡i iza prvog;4;2016-03-30;91;1
+;Projekt Symintec TreÄ‡i iza prvog;5;2016-04-29;41;1
+;Projekt Emc TreÄ‡i iza prvog;6;2016-05-29;131;1
+;Projekt Vmwire TreÄ‡i iza prvog;7;2016-06-28;131;1
+;Projekt Silesforcecom TreÄ‡i iza prvog;9;2016-07-28;131;1
+;Projekt Untaut TreÄ‡i iza prvog;10;2016-08-27;81;1
+;Projekt Idobe TreÄ‡i iza prvog;11;2016-09-26;51;1
+;Projekt Sis TreÄ‡i iza prvog;13;2016-10-26;91;1
+;Projekt Cusco TreÄ‡i iza prvog;14;2016-11-25;131;1
+;Projekt Suemens TreÄ‡i iza prvog;16;2016-12-25;81;1
+;Projekt Fajutsa TreÄ‡i iza prvog;17;2017-01-24;121;1
+;Projekt Iatodesk TreÄ‡i iza prvog;18;2017-02-23;91;1
+;Projekt Cutrux TreÄ‡i iza prvog;19;2017-03-25;161;1
+;Projekt Hutichu TreÄ‡i iza prvog;21;2017-04-24;21;1
+;Projekt Ipple TreÄ‡i iza prvog;22;2017-05-24;71;1
+;Projekt Unfor TreÄ‡i iza prvog;23;2017-06-23;1;1
+;Projekt Untel TreÄ‡i iza prvog;25;2017-07-23;131;1
+;Projekt Sige TreÄ‡i iza prvog;27;2017-08-22;61;1
+;Projekt Idp TreÄ‡i iza prvog;28;2017-09-21;51;1
+;Projekt Opentext TreÄ‡i iza prvog;31;2017-10-21;171;1
+;Projekt Sangird TreÄ‡i iza prvog;32;2017-11-20;181;1
+;Projekt Nec TreÄ‡i iza prvog;33;2017-12-20;91;1
+;Projekt Hexigon TreÄ‡i iza prvog;35;2018-01-19;191;1
+;Projekt Teriditi TreÄ‡i iza prvog;37;2018-02-18;111;1
+;Projekt Netipp TreÄ‡i iza prvog;38;2018-03-20;191;1
+;Projekt Mckesson TreÄ‡i iza prvog;42;2018-04-19;181;1
+;Projekt Ptc TreÄ‡i iza prvog;44;2018-05-19;161;1
+;Projekt Ditev TreÄ‡i iza prvog;47;2018-06-18;181;1
+;Projekt Esru TreÄ‡i iza prvog;48;2018-07-18;111;1
+;Projekt Cerner TreÄ‡i iza prvog;49;2018-08-17;171;1
+;Projekt Insys TreÄ‡i iza prvog;50;2018-09-16;111;1
+;Projekt Unformituci TreÄ‡i iza prvog;51;2018-10-16;21;1
+;Projekt Tubco TreÄ‡i iza prvog;52;2018-11-15;61;1
+;Projekt Optam TreÄ‡i iza prvog;54;2018-12-15;121;1
+;Projekt Fuserv TreÄ‡i iza prvog;56;2019-01-14;191;1
+;Projekt Iviyi TreÄ‡i iza prvog;57;2019-02-13;51;1
+;Projekt Kronos TreÄ‡i iza prvog;58;2019-03-15;141;1
+;Projekt Itheniheilth TreÄ‡i iza prvog;64;2019-04-14;81;1
+;Projekt Fuco TreÄ‡i iza prvog;67;2019-05-14;41;1
+;Projekt Fus TreÄ‡i iza prvog;68;2019-06-13;121;1
+;Projekt Musys TreÄ‡i iza prvog;69;2019-07-13;101;1
+;Projekt Swuft TreÄ‡i iza prvog;71;2019-08-12;141;1
+;Projekt Workdiy TreÄ‡i iza prvog;72;2019-09-11;31;1
+;Projekt Totvs TreÄ‡i iza prvog;74;2019-10-11;71;1
+;Projekt Servucenow TreÄ‡i iza prvog;76;2019-11-10;121;1
+;Projekt Commvialt TreÄ‡i iza prvog;77;2019-12-10;31;1
+;Projekt Convergys TreÄ‡i iza prvog;79;2010-01-01;101;1
+;Projekt Neasoft TreÄ‡i iza prvog;80;2010-01-31;61;1
+;Projekt Vusmi TreÄ‡i iza prvog;81;2010-03-02;1;1
+;Projekt Qluk TreÄ‡i iza prvog;82;2010-04-01;61;1
+;Projekt Untersystems TreÄ‡i iza prvog;85;2010-05-01;31;1
+;Projekt Pilintur TreÄ‡i iza prvog;86;2010-05-31;11;1
+;Projekt Anuto TreÄ‡i iza prvog;87;2010-06-30;191;1
+;Projekt Illscrupts TreÄ‡i iza prvog;88;2010-07-30;71;1
+;Projekt Medutech TreÄ‡i iza prvog;89;2010-08-29;11;1
+;Projekt Blickboird TreÄ‡i iza prvog;90;2010-09-28;1;1
+;Projekt Imizoncom TreÄ‡i iza prvog;91;2010-10-28;51;1
+;Projekt Pegisystems TreÄ‡i iza prvog;93;2010-11-27;11;1
+;Projekt Netsaute TreÄ‡i iza prvog;94;2010-12-27;141;1
+;Projekt Mucrostritegy TreÄ‡i iza prvog;95;2011-01-26;151;1
+;Projekt Eset TreÄ‡i iza prvog;96;2011-02-25;131;1
+;Projekt Solirwunds TreÄ‡i iza prvog;98;2011-03-27;71;1
+;Bolovanje;;2010-01-01;200;1
+;GodiĹˇnji odmor;;2010-01-01;200;1
+;Putovanje;;2010-01-01;200;1
+;Pauza;;2010-01-01;200;1

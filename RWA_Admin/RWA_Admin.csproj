@@ -205,11 +205,11 @@
     <Content Include="RWA.Master" />
     <Content Include="App_Code\DBDataLoad\client.csv" />
     <Content Include="App_Code\DBDataLoad\djelatnik_bezzpass.csv" />
-    <Content Include="App_Code\DBDataLoad\projekti.csv" />
     <Content Include="App_Code\DBDataLoad\projekt_djelatnik.csv" />
     <Content Include="App_Code\DBDataLoad\TeamLead.csv" />
     <Content Include="App_Code\DBDataLoad\tim.csv" />
     <Content Include="App_Code\DBDataLoad\users.csv" />
+    <Content Include="App_Code\DBDataLoad\projekti.csv" />
     <None Include="Scripts\jquery-3.5.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.5.1.js" />
     <Content Include="Scripts\jquery-3.5.1.min.js" />
