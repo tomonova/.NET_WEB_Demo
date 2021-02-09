@@ -47,13 +47,6 @@
                     <li class="nav-item">
                         <a class="nav-link" href="Clients.aspx" runat="server" id="linkClients" meta:resourcekey="linkClientsRes">Clients</a>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="Reports.aspx" runat="server" id="linkReports" meta:resourcekey="linkProjectsRes">Reports</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="Settings.aspx" runat="server" id="linkSettings" meta:resourcekey="linkSettingsRes">Settings</a>
-                    </li>
-
                 </ul>
             </div>
         </nav>

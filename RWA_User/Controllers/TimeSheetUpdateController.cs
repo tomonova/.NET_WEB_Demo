@@ -49,7 +49,25 @@ namespace RWA_User.Controllers
             }
             switch (employeeType)
             {
-                case EmployeeType.Permanent:
+                case EmployeeType.Director:
+                    {
+                        if (workHours != 8 || overTimeHours > 4)
+                        {
+                            TempData["HoursCheck"] = $"Permanent employee needs to have exactley 8 working hours and not more then 4 overtime hours";
+                            return false;
+                        }
+                        else return true;
+                    }
+                case EmployeeType.TeamLead:
+                    {
+                        if (workHours != 8 || overTimeHours > 4)
+                        {
+                            TempData["HoursCheck"] = $"Permanent employee needs to have exactley 8 working hours and not more then 4 overtime hours";
+                            return false;
+                        }
+                        else return true;
+                    }
+                case EmployeeType.Regular:
                     {
                         if (workHours != 8 || overTimeHours > 4)
                         {

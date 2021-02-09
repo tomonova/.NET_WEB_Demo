@@ -2,7 +2,9 @@
 {
     public enum EmployeeType
     {
-        Permanent =1,
+        Director = 1,
+        TeamLead,
+        Regular,
         Temporary,
         Student
     }

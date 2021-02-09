@@ -1,7 +1,7 @@
 ﻿
---CREATE DATABASE RWA-ERV
+--CREATE DATABASE RWAERV2
 --GO
---USE RWA-ERV
+--USE RWAERV2
 GO
 --####### CREATE TABLES #######
 create table TEAMS
@@ -157,7 +157,8 @@ create table TIMESHEET
 	TimeSheetDate date not null,
 	WorkHours int,
 	OverTimeHours int,
-	TimeSheetStatus int not null default 1
+	TimeSheetStatus int not null default 1,
+	Remark nvarchar(500)
 	constraint UQ_TIMESHEET_EMPLOYEE_DATE UNIQUE (EmployeeID,TimeSheetDate)
 )
 Create table TIMESHEET_ROW
@@ -216,7 +217,7 @@ CREATE OR ALTER PROC GetTeamLeads
 as
 begin
 select IDEmployee, Name, Surname from EMPLOYEES
-where EmployeePosition=2
+where EmployeeType=2
 end
 go
 CREATE OR ALTER PROC GetClients
@@ -283,7 +284,6 @@ as
 	e.Email,
 	e.EmploymentDate,
 	e.EmployeeType,
-	e.EmployeePosition,
 	e.EmployeeStatus, 
 	t.IDTeam as'TeamId' from EMPLOYEES e
 	join TEAMS t on t.idteam=e.teamid
@@ -589,7 +589,7 @@ and((ep.MemberFrom <= @TimeSheedDate and ep.MemberTo > @TimeSheedDate)
 or (ep.MemberFrom <=@TimeSheedDate and ep.MemberTo is null))
 go
 create or alter proc CheckTimeSheet
-	@TimeSheedDate datetime,
+	@TimeSheetDate datetime,
 	@EmployeeID int,
 	@checkOutput int output
 as
@@ -598,8 +598,8 @@ as
 		join PROJECTS p on ep.ProjectID=p.IDProject
 		join EMPLOYEES e on ep.EmployeeID=e.IDEmployee
 		where EmployeeID=@EmployeeID
-		and((ep.MemberFrom <= @TimeSheedDate and ep.MemberTo > @TimeSheedDate)
-		or (ep.MemberFrom <=@TimeSheedDate and ep.MemberTo is null))
+		and((ep.MemberFrom <= @TimeSheetDate and ep.MemberTo > @TimeSheetDate)
+		or (ep.MemberFrom <=@TimeSheetDate and ep.MemberTo is null))
 			)
 		set @checkOutput = '1'
 	else set @checkOutput = '0'
