@@ -694,3 +694,12 @@ BEGIN
 END
 close TimeSheetRowCursor
 deallocate TimeSheetRowCursor
+go
+create or alter proc GetTimeSheets
+	@TimeSheetDateStart datetime,
+	@TimeSheetDateEnd datetime,
+	@EmployeeID int
+as
+select * from TIMESHEET
+where EmployeeID=@EmployeeID
+and TimeSheetDate between @TimeSheetDateStart and @TimeSheetDateEnd 

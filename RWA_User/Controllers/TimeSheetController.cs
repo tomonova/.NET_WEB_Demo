@@ -10,12 +10,13 @@ namespace RWA_User.Controllers
 {
     public class TimeSheetController : BaseController
     {
-        // GET: TimeSheet
+        [Authorize]
         public ActionResult TimeSheetSearch()
         {
             TimeSheet ts = new TimeSheet { TimeSheetDate = DateTime.Now , EmployeeID= int.Parse(Session["IDEmployee"].ToString()) };
             return View(ts);
         }
+        [Authorize]
         [HttpPost]
         public ActionResult TimeSheetSearch(TimeSheet ts)
         {
@@ -63,6 +64,7 @@ namespace RWA_User.Controllers
                 tsrvmLista.Add(tsrvm);
             }
         }
+        [Authorize]
         [HttpPost]
         public ActionResult Edit(List<TimeSheetRowViewModel> model)
         {

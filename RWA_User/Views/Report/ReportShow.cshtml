@@ -1,0 +1,41 @@
+﻿@model List<RWA_User.Models.TimeSheet>
+@section styles{
+
+    <link href="@Url.Content("~/Content/TSReport.css")" rel="stylesheet" type="text/css" />
+}
+@{
+    ViewBag.Title = "ReportShow";
+    Layout = "~/Views/Shared/_ERVLayout.cshtml";
+}
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    <form method="post">
+        <div class="container">
+            <table class="table mt-5">
+                <thead class="thead-dark">
+                    <tr>
+                        <th scope="col">Date</th>
+                        <th scope="col">Work Hours</th>
+                        <th scope="col">Over Time Hours</th>
+                        <th scope="col">Time Sheet Status</th>
+                    </tr>
+                </thead>
+                @for (var i = 0; i < Model.Count; i++)
+                {
+                    @Html.HiddenFor(m => Model[i].ID)
+                    @Html.HiddenFor(m => Model[i].EmployeeID)
+                    <tr>
+                        <td><label>@Model[i].TimeSheetDate.ToString("yyyy-MM-dd")</label></td>
+                        <td>@Html.TextBoxFor(m => Model[i].WorkHoursSum, new { htmlAttributes = new { @class = "TSReportTxtBox" } })</td>
+                        <td>@Html.TextBoxFor(m => Model[i].OverTimeHoursSum, new { htmlAttributes = new {  @class = "TSReportTxtBox" } })</td>
+                        <td>@Html.TextBoxFor(m => Model[i].TimesheetStatus,  new { @class = "TSReportTxtBox",@readonly="true"} )</td>
+                    </tr>
+                }
+            </table>
+        </div>
+    </form>
+}
+
+

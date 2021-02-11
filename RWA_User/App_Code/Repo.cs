@@ -14,6 +14,33 @@ namespace RWA_User.App_Code
     {
         private static string cs = ConfigurationManager.ConnectionStrings["cs"].ConnectionString;
 
+        internal static List<TimeSheet> GetTimeSheetReports(TimeSheetReportViewModel tsrvm)
+        {
+            List<TimeSheet> TSList = new List<TimeSheet>();
+            SqlParameter[] Param = new SqlParameter[3];
+            Param[0] = new SqlParameter("@TimeSheetDateStart", SqlDbType.DateTime);
+            Param[0].Value = tsrvm.StartDate.ToString("yyyy-MM-dd");
+            Param[1] = new SqlParameter("@TimeSheetDateEnd", SqlDbType.DateTime);
+            Param[1].Value = tsrvm.EndDate.ToString("yyyy-MM-dd");
+            Param[2] = new SqlParameter("@EmployeeID", SqlDbType.Int);
+            Param[2].Value = tsrvm.EmployeeID;
+            DataTable dtTS = SqlHelper.ExecuteDataset(cs, "GetTimeSheets",Param).Tables[0];
+            foreach (DataRow row in dtTS.Rows)
+            {
+                TimeSheet timeSheet = new TimeSheet
+                {
+                    ID = (int)row["IDTimeSheet"],
+                    EmployeeID = (int)row["EmployeeID"],
+                    TimeSheetDate = (DateTime)row["TimeSheetDate"],
+                    WorkHoursSum = (int)row["WorkHours"],
+                    OverTimeHoursSum = (int)row["OverTimeHours"],
+                    TimesheetStatus = (TimesheetStatus)((int)row["TimeSheetStatus"])
+                };
+                TSList.Add(timeSheet);
+            }
+            return TSList;
+        }
+
         internal static void UpdateTimeSheetRows(List<TimeSheetRowViewModel> model)
         {
             DataTable tvp = new DataTable();
